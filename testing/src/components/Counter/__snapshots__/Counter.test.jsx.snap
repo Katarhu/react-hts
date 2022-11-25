@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot shallow rendering 1`] = `
+<div>
+  <input
+    aria-label="input"
+    onChange={[Function]}
+    role="input"
+    type="number"
+    value={0}
+  />
+  <CounterButton
+    onClick={[MockFunction]}
+  >
+    +
+  </CounterButton>
+  <CounterButton
+    onClick={[MockFunction]}
+  >
+    -
+  </CounterButton>
+</div>
+`;
