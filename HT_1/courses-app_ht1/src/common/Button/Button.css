@@ -1,0 +1,19 @@
+
+.button-primary {
+    border: 2px solid var(--buttonBorder);
+    background: transparent;
+    padding: .3em .8em;
+}
+
+.button-primary:hover {
+    background: #c5c5c5;
+}
+
+.button-primary_s {
+    font-size: 16px;
+}
+
+.button-primary_m {
+    font-size: 20px;
+    padding: .4em 1.2em;
+}
