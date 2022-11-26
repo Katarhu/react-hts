@@ -3,4 +3,9 @@
     border: 2px solid lightblue;
 
     padding: 1em 1.25em;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 1.25em;
 }

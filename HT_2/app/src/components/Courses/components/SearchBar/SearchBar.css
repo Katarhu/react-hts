@@ -1,0 +1,13 @@
+.search-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-bar-search {
+    display: flex;
+    gap: 25px;
+}
+
+.search-bar-button {
+
+}

@@ -25,10 +25,11 @@
 }
 
 .course-side {
-
+    overflow: hidden;
 }
 
 .course-list {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 0.6em;
@@ -42,4 +43,10 @@
 
 .course-button {
     text-align: center;
+}
+
+.course-list-authors {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
