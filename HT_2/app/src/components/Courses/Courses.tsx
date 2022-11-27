@@ -1,28 +1,45 @@
-import './Courses.css';
-import CourseCard from './components/CourseCard/CourseCard';
+import { useState } from 'react';
 
+import { ICourse } from '../../models/course';
 import { mockedCoursesList } from '../../constants/constants';
-import {ICourse} from '../../models/course';
+
+import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
+import CreateCourse from './components/CreateCourse/CreateCourse';
+
+import './Courses.css';
 
 function Courses() {
+  const [courses, setCourses] = useState<ICourse[]>(mockedCoursesList);
+  const [filter, setFilter] = useState('');
 
-    const getCourses = (courses: ICourse[]) => {
-        if( !courses.length ) return <div>There is no courses yet</div>
+  const commitFilterChanges = (filter: string) => {
+    setFilter(filter.trim().toLowerCase());
+  }
 
-        return courses.map((course) =>
-            <CourseCard key={course.id} {...course}/>
-        )
-    }
+  const getCourses = (courses: ICourse[]) => {
+    if (courses.length === 0) return <div>There is no courses yet</div>
 
-    const courses = getCourses(mockedCoursesList);
+    return courses.map((course) => {
+      const courseTitle = course.title.trim().toLowerCase();
+      const courseId = course.id.trim().toLowerCase();
 
-    return (
+      return courseTitle.includes(filter) || courseId.includes(filter)
+        ? <CourseCard key={course.id} {...course}/>
+        : <></>
+      }
+    )
+  }
+
+  const items = getCourses(courses);
+
+  return (
         <div className='courses'>
-            <SearchBar />
-            {courses}
+            {/*<SearchBar onSearch={commitFilterChanges} />*/}
+            {/*{items}*/}
+          <CreateCourse />
         </div>
-    );
+  );
 }
 
 export default Courses;

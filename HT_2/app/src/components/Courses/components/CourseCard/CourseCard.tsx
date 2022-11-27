@@ -1,37 +1,37 @@
 import Button from '../../../../common/Button/Button';
 
-import {ICourse} from '../../../../models/course';
+import { ICourse } from '../../../../models/course';
 
 import { mockedAuthorsList } from '../../../../constants/constants';
 
+import { formatDate } from '../../../../utils/formatDate';
+import { formatDuration } from '../../../../utils/formatDuration';
+
 import './CourseCard.css'
-import {formatDate} from '../../../../utils/formatDate';
-import {formatDuration} from '../../../../utils/formatDuration';
 
-function CourseCard({id, title, description, creationDate, duration, authors}: ICourse) {
+function CourseCard({ id, title, description, creationDate, duration, authors }: ICourse) {
+  const showCourse = () => {}
 
-    const showCourse = () => {}
-
-    const getCourseAuthors = (authorIds: string[]) => {
-        if ( !authors.length ) {
-            return <div>No authors</div>
-        }
-
-        return authors.map((authorId, index) => {
-            const author = mockedAuthorsList.find((author) => author.id === authorId);
-
-            if( !author ) return '';
-
-            if( index === authorIds.length - 1 ) return author.name;
-            return author.name + ', ';
-        })
+  const getCourseAuthors = (authorIds: string[]) => {
+    if (authors.length === 0) {
+      return <div>No authors</div>
     }
 
-    const courseAuthors = getCourseAuthors(authors);
-    const courseDate = formatDate(creationDate);
-    const courseDuration = formatDuration(duration);
+    return authors.map((authorId, index) => {
+      const author = mockedAuthorsList.find((author) => author.id === authorId);
 
-    return (
+      if (author == null) return '';
+
+      if (index === authorIds.length - 1) return author.name;
+      return author.name + ', ';
+    })
+  }
+
+  const courseAuthors = getCourseAuthors(authors);
+  const courseDate = formatDate(creationDate);
+  const courseDuration = formatDuration(duration);
+
+  return (
         <div className='course'>
             <div className='course-text'>
                 <h3 className='course-title'>{title}</h3>
@@ -52,7 +52,7 @@ function CourseCard({id, title, description, creationDate, duration, authors}: I
                 </div>
             </div>
         </div>
-    );
+  );
 }
 
 export default CourseCard;

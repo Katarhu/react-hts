@@ -1,34 +1,34 @@
 import './Input.css';
-import {ChangeEvent} from 'react';
+import { ChangeEvent } from 'react';
 
 interface InputProps {
-  labelText?: string;
-  placeholderText?: string;
-  onChange?: (event: ChangeEvent) => any;
+  labelText?: string
+  placeholderText?: string
+  onChange?: (event: ChangeEvent) => any,
+    type?: string;
 }
 
-function Input({labelText='', placeholderText='', onChange}: InputProps) {
+function Input({ labelText = '', placeholderText = '', onChange, type='text' }: InputProps) {
+  const getLabel = (labelText?: string) => {
+    if (!labelText) return <></>;
 
-    const getLabel = (labelText?: string) => {
-        if( !labelText ) return <></>;
+    return <label className="label" htmlFor="input">{labelText}</label>
+  }
 
-        return <label className="label" htmlFor="input">{labelText}</label>
-    }
+  const label = getLabel(labelText);
 
-    const label = getLabel(labelText);
-
-    return (
+  return (
         <>
             {label}
             <input
                 className="input"
                 id="input"
-                type="text"
+                type={type}
                 placeholder={placeholderText}
                 onChange={onChange}
             />
         </>
-    )
+  )
 }
 
 export default Input

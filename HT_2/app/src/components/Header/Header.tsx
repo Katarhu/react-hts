@@ -13,7 +13,7 @@ function Header() {
       </div>
       <div className='header-name'>Dave</div>
       <div className='header-button'>
-        <Button onClick={logOut} buttonText={'Logout'} />
+        <Button onClick={logOut} buttonText={'Logout'} small={true} />
       </div>
     </header>
   )

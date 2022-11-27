@@ -1,0 +1,103 @@
+.create-course {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1.25em;
+}
+
+.create-course-head {
+    display: flex;
+    align-items: flex-end;
+    gap: 2.5em;
+}
+
+.create-course-head-input {
+    flex-grow: 1;
+}
+
+.create-course-head-buttons {
+    display: flex;
+    gap: .8em;
+}
+
+.create-course-description {
+
+}
+
+.create-course-description-label {
+    display: block;
+    margin-bottom: .8em;
+}
+
+.create-course-description-input {
+    display: block;
+    width: 100%;
+    border: 1px solid gold;
+
+    padding: .5em 1em;
+}
+
+.create-course-grid {
+    display: grid;
+    grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+    gap: 5em 3em;
+}
+
+.create-course-grid-title {
+    text-align: center;
+    font-weight: bold;
+
+    margin-bottom: 1.25em;
+}
+
+.create-course-add {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.create-course-add-input  {
+
+}
+
+.create-course-add-button {
+    text-align: center;
+}
+
+.create-course-duration {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+.create-course-duration-input {
+
+}
+
+.create-course-duration-time {
+    font-size: 1.25em;
+}
+
+.create-course-duration-hours {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.create-course-authors {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+}
+
+.create-course-author {
+    display: flex;
+    justify-content: space-between;
+}
+
+.create-course-author-name {
+
+}
+
+.create-course-author-button {
+
+}

@@ -1,13 +1,24 @@
 .label {
     display: block;
     font-size: 1em;
+
+    margin-bottom: 0.5em;
 }
 
 .input {
     font-size: 1em;
-    max-width: 100%;
+    width: 100%;
     display: block;
     border: 1px solid gold;
 
     padding: .5em 1em;
+}
+
+input[type=number] {
+    -moz-appearance: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
