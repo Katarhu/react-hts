@@ -21,7 +21,6 @@
 }
 
 .create-course-description {
-
 }
 
 .create-course-description-label {
@@ -35,6 +34,7 @@
     border: 1px solid gold;
 
     padding: .5em 1em;
+    resize: none;
 }
 
 .create-course-grid {

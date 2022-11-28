@@ -4,11 +4,12 @@ import { ChangeEvent } from 'react';
 interface InputProps {
   labelText?: string
   placeholderText?: string
-  onChange?: (event: ChangeEvent) => any,
-    type?: string;
+  onChange?: (event: ChangeEvent) => any;
+  type?: string;
+  value: string | number;
 }
 
-function Input({ labelText = '', placeholderText = '', onChange, type='text' }: InputProps) {
+function Input({ labelText = '', placeholderText = '', onChange, type='text', value }: InputProps) {
   const getLabel = (labelText?: string) => {
     if (!labelText) return <></>;
 
@@ -26,6 +27,7 @@ function Input({ labelText = '', placeholderText = '', onChange, type='text' }: 
                 type={type}
                 placeholder={placeholderText}
                 onChange={onChange}
+                value={value}
             />
         </>
   )

@@ -4,14 +4,18 @@ import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
 
 import {formatDuration} from '../../../../utils/formatDuration';
+import createId from '../../../../utils/createId';
 
 import {IAuthor} from '../../../../models/author';
 import {mockedAuthorsList} from '../../../../constants/constants';
 
 import './CreateCourse.css';
-import createId from '../../../../utils/createId';
 
-function CreateCourse() {
+interface CreateCourseProps {
+    handleClose: () => void;
+}
+
+function CreateCourse({ handleClose }: CreateCourseProps) {
 
     const [authors, setAuthors] = useState<IAuthor[]>(mockedAuthorsList);
     const [selectedAuthors, setSelectedAuthors] = useState<IAuthor[]>([]);
@@ -21,7 +25,7 @@ function CreateCourse() {
     const [newAuthorName, setNewAuthorName] = useState('');
 
     const cancelCreation = () => {
-
+        handleClose();
     }
 
     const createCourse = () => {
@@ -129,6 +133,7 @@ function CreateCourse() {
                         labelText={'Title'}
                         placeholderText={'Enter title'}
                         onChange={handleTitleChange}
+                        value={title}
                     />
                 </div>
                 <div className='create-course-head-buttons'>
@@ -161,7 +166,9 @@ function CreateCourse() {
                         <Input
                             labelText='Author name'
                             placeholderText='Enter author name...'
-                            onChange={changeAuthorInput}/>
+                            onChange={changeAuthorInput}
+                            value={newAuthorName}
+                        />
                     </div>
                     <div className='create-course-add-button'>
                         <Button
@@ -184,6 +191,7 @@ function CreateCourse() {
                             placeholderText='Enter duration in minutes'
                             onChange={changeCourseDuration}
                             type='number'
+                            value={duration}
                         />
                     </div>
                     <p className='create-course-duration-time'>

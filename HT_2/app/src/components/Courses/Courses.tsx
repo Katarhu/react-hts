@@ -10,12 +10,24 @@ import CreateCourse from './components/CreateCourse/CreateCourse';
 import './Courses.css';
 
 function Courses() {
-<<<<<<< HEAD
   const [courses, setCourses] = useState<ICourse[]>(mockedCoursesList);
+  const [isAddCourse, setIsAddCourse] = useState(false);
   const [filter, setFilter] = useState('');
 
   const commitFilterChanges = (filter: string) => {
     setFilter(filter.trim().toLowerCase());
+  }
+
+  const handleAddCourse = (course: ICourse) => {
+
+  }
+
+  const handleShowAddCourse = () => {
+    setIsAddCourse(true);
+  }
+
+  const handleCloseAddCourse = () => {
+    setIsAddCourse(false);
   }
 
   const getCourses = (courses: ICourse[]) => {
@@ -32,15 +44,25 @@ function Courses() {
     )
   }
 
-  const items = getCourses(courses);
+  const getContent = (isAddCourse: boolean) => {
+    if( isAddCourse ) {
+      return <CreateCourse handleClose={handleCloseAddCourse}/>
+    }
 
-=======
->>>>>>> master
+    return (
+        <>
+          <SearchBar onSearch={commitFilterChanges} handleOpen={handleShowAddCourse} />
+          {items}
+        </>
+    )
+  }
+
+  const items = getCourses(courses);
+  const content = getContent(isAddCourse);
+
   return (
         <div className='courses'>
-            {/*<SearchBar onSearch={commitFilterChanges} />*/}
-            {/*{items}*/}
-          <CreateCourse />
+          {content}
         </div>
   );
 }
