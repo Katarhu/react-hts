@@ -10,6 +10,7 @@ import CreateCourse from './components/CreateCourse/CreateCourse';
 import './Courses.css';
 
 function Courses() {
+<<<<<<< HEAD
   const [courses, setCourses] = useState<ICourse[]>(mockedCoursesList);
   const [filter, setFilter] = useState('');
 
@@ -33,6 +34,8 @@ function Courses() {
 
   const items = getCourses(courses);
 
+=======
+>>>>>>> master
   return (
         <div className='courses'>
             {/*<SearchBar onSearch={commitFilterChanges} />*/}

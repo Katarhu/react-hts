@@ -1,5 +1,6 @@
 import Button from '../../../../common/Button/Button';
 
+<<<<<<< HEAD
 import { ICourse } from '../../../../models/course';
 
 import { mockedAuthorsList } from '../../../../constants/constants';
@@ -36,12 +37,44 @@ function CourseCard({ id, title, description, creationDate, duration, authors }:
             <div className='course-text'>
                 <h3 className='course-title'>{title}</h3>
                 <p className='course-content'>{description}</p>
+=======
+import './CourseCard.css'
+import {ICourse} from "../../../../models/course";
+
+function CourseCard() {
+  const showCourse = () => {}
+
+  const course: ICourse = {
+    id: 'dgfdsgdsg',
+    name: 'Java',
+      title: 'title',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet inventore ipsum reiciendis rerum saepe soluta. Facere ipsam ipsum odio quia quidem tempora. Commodi, consequuntur eum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet inventore ipsum reiciendis rerum saepe soluta. Facere ',
+    authors: ['Dave Simmonds', 'Nikolas Le-Mark'],
+    duration: 160,
+    creationDate: '01.02.2018',
+  }
+
+  return (
+        <div className='course'>
+            <div className='course-text'>
+                <h3 className='course-title'>{course.title}</h3>
+                <p className='course-content'>{course.description}</p>
+>>>>>>> master
             </div>
             <div className='course-side'>
                 <div className='course-info'>
                     <ul className='course-list'>
+<<<<<<< HEAD
                         <li className='course-list-item course-list-authors'><strong>Authors: </strong>
                             {courseAuthors}
+=======
+                        <li className='course-list-item'><strong>Authors: </strong>
+                            {(course.authors.length > 0)
+                              ? course.authors.map((author, index) =>
+                                index === (course.authors.length - 1) ? author : author + ', ')
+                              : 'No authors'
+                            }
+>>>>>>> master
                         </li>
                         <li className='course-list-item'><strong>Duration: </strong>{courseDuration} hours</li>
                         <li className='course-list-item'><strong>Created: </strong>{courseDate}</li>

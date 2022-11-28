@@ -6,3 +6,12 @@ export interface ICourse {
   duration: number
   authors: string[]
 }
+<<<<<<< HEAD
+=======
+
+export interface IAuthor {
+  id: string;
+  name: string;
+}
+
+>>>>>>> master
