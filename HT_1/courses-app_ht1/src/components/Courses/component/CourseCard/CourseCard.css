@@ -1,51 +1,52 @@
 .course {
-    font-size: 1em;
-    width: 100%;
-    padding: 1.5em;
-
-    border: 1px solid var(--courseBorder);
-
+    font-size: 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 1em;
+
+    border: 1px solid lightblue;
+
+    padding: 1.25em;
 }
 
 .course-text {
+    flex: 0 0 65%
 }
 
 .course-title {
     font-size: 2em;
     font-weight: bold;
-    margin-bottom: 25px;
+    margin-bottom: .6em;
 }
 
 .course-content {
-    font-size: 0.9em;
-    line-height: 125%;
+    font-size: .9em;
+    line-height: 120%;
 }
 
-.course-info {
-    font-size: .8em;
-    flex: 0 0 33%;
+.course-side {
+    overflow: hidden;
 }
 
 .course-list {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 0.6em;
 
-    margin-bottom: 25px;
+    margin-bottom: 1em;
 }
 
-.course-item {
-    line-height: 150%;
+.course-list-item {
+
 }
 
 .course-button {
     text-align: center;
 }
 
-.text-bold {
-    font-weight: bold;
+.course-list-authors {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

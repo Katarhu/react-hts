@@ -1,35 +1,69 @@
-import './CourseCard.css';
 import Button from '../../../../common/Button/Button';
 
-function CourseCard() {
+import { mockedAuthorsList } from '../../../../constants/constants';
+
+import './CourseCard.css';
+import { formatDate } from '../../../../helpers/formatDate';
+import { formatDuration } from '../../../../helpers/formatDuration';
+
+function CourseCard({
+	id,
+	title,
+	description,
+	creationDate,
+	duration,
+	authors,
+}) {
+	const showCourse = () => {};
+
+	const getCourseAuthors = (authorIds) => {
+		if (!authors.length) {
+			return <div>No authors</div>;
+		}
+
+		return authors.map((authorId, index) => {
+			const author = mockedAuthorsList.find((author) => author.id === authorId);
+
+			if (!author) return '';
+
+			if (index === authorIds.length - 1) return author.name;
+			return author.name + ', ';
+		});
+	};
+
+	const courseAuthors = getCourseAuthors(authors);
+	const courseDate = formatDate(creationDate);
+	const courseDuration = formatDuration(duration);
+
 	return (
 		<div className='course'>
 			<div className='course-text'>
-				<h3 className='course-title'>Title</h3>
-				<p className='course-content'>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto
-					aspernatur ducimus facilis fugiat ipsum itaque mollitia nesciunt, non
-					officia qui quo tenetur ullam unde velit veniam. Aspernatur cumque exe
-					rcitationem natus. Ducimus error ratione rerum similique voluptatibus!
-					Accusamus aliquam consequuntur debitis deleniti dicta dignissimos
-				</p>
+				<h3 className='course-title'>{title}</h3>
+				<p className='course-content'>{description}</p>
 			</div>
-			<div className='course-info'>
-				<ul className='course-list'>
-					<li className='course-item'>
-						<span className='text-bold'>Authors: </span>
-						Dave, Nikolas Dave, Nikolas Dave, Nikolas Dave, Nikolas
-					</li>
-					<li className='course-item'>
-						<span className='text-bold'>Duration:</span> 08:00 hours
-					</li>
-					<li className='course-item'>
-						<span className='text-bold'>Created</span> 01.02.2018
-					</li>
-				</ul>
-
+			<div className='course-side'>
+				<div className='course-info'>
+					<ul className='course-list'>
+						<li className='course-list-item course-list-authors'>
+							<strong>Authors: </strong>
+							{courseAuthors}
+						</li>
+						<li className='course-list-item'>
+							<strong>Duration: </strong>
+							{courseDuration} hours
+						</li>
+						<li className='course-list-item'>
+							<strong>Created: </strong>
+							{courseDate}
+						</li>
+					</ul>
+				</div>
 				<div className='course-button'>
-					<Button buttonText={'Show course'} size={'m'} />
+					<Button
+						onClick={showCourse}
+						buttonText={'Show Course'}
+						medium={true}
+					/>
 				</div>
 			</div>
 		</div>

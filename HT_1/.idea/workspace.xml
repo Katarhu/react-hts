@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="07e3354d-f36c-45f9-be21-00c60007d7c6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/courses-app_ht1/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/courses-app_ht1/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/courses-app_ht1/src/components/Courses/Courses.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/courses-app_ht1/src/components/Courses/Courses.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/courses-app_ht1/src/components/Courses/component/CourseCard/CourseCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/courses-app_ht1/src/components/Courses/components/CourseCard/CourseCard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/courses-app_ht1/src/components/Courses/component/CourseCard/CourseCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/courses-app_ht1/src/components/Courses/components/CourseCard/CourseCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/courses-app_ht1/src/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/courses-app_ht1/src/constants/constants.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2I3IB7Ew213Qxu6uo0BArf8SL4k" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/DESKTOP FILES/Epam/Laba/React/Github/react-hts/HT_2/app",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\DESKTOP FILES\Epam\Laba\React\Github\react-hts\HT_1\courses-app_ht1\src\constants" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="07e3354d-f36c-45f9-be21-00c60007d7c6" name="Changes" comment="" />
+      <created>1669403701607</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1669403701607</updated>
+      <workItem from="1669403703707" duration="2459000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
