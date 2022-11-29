@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import createId from '../../utils/createId';
 
 interface ButtonProps {
   buttonText: string
@@ -20,7 +19,7 @@ function Button({ buttonText, onClick, small = false }: ButtonProps) {
 }
 
 const AppButton = styled.button`
-  font-size: ${(props: AppButtonProps) => (props.small ? '16px' : '20px')};
+  font-size: ${(props: AppButtonProps) => ((props.small ?? false) ? '16px' : '20px')};
   border: 1px solid #676fbb;
   background: transparent;
   padding: 0.4em 1em;

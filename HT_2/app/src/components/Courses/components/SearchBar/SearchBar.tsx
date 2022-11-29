@@ -4,19 +4,19 @@ import Button from '../../../../common/Button/Button';
 import { ChangeEvent, useState } from 'react';
 
 interface SearchBarProps {
-  onSearch: (filter: string) => void;
-  handleOpen: () => void;
+  onSearch: (filter: string) => void
+  handleOpen: () => void
 }
 
 function SearchBar({ onSearch, handleOpen }: SearchBarProps) {
   const [input, setInput] = useState('');
 
   const inputChange = (event: ChangeEvent) => {
-      setInput((event.target as HTMLInputElement).value);
+    setInput((event.target as HTMLInputElement).value);
 
-      if((event.target as HTMLInputElement).value === '') {
-          searchEvent('');
-      }
+    if ((event.target as HTMLInputElement).value === '') {
+      searchEvent('');
+    }
   };
 
   const searchEvent = (filter: string) => {
@@ -24,7 +24,7 @@ function SearchBar({ onSearch, handleOpen }: SearchBarProps) {
   };
 
   const addNewCourse = () => {
-      handleOpen();
+    handleOpen();
   };
 
   return (

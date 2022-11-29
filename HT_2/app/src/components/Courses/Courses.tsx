@@ -41,12 +41,12 @@ function Courses() {
       return courseTitle.includes(filter) || courseId.includes(filter)
         ? <CourseCard key={course.id} {...course}/>
         : <></>
-      }
+    }
     )
   }
 
   const getContent = (isAddCourse: boolean) => {
-    if( isAddCourse ) {
+    if (isAddCourse) {
       return <CreateCourse
           handleClose={handleCloseAddCourse}
           handleCreateCourse={handleAddCourse}

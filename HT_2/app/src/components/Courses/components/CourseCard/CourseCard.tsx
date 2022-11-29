@@ -1,27 +1,26 @@
 import Button from '../../../../common/Button/Button';
 
-import {ICourse} from '../../../../models/course';
+import { ICourse } from '../../../../models/course';
 
 import { mockedAuthorsList } from '../../../../constants/constants';
 
-import {formatDate} from '../../../../utils/formatDate';
-import {formatDuration} from '../../../../utils/formatDuration';
+import { formatDate } from '../../../../utils/formatDate';
+import { formatDuration } from '../../../../utils/formatDuration';
 
 import './CourseCard.css'
 
-function CourseCard({id, title, description, creationDate, duration, authors}: ICourse) {
-
+function CourseCard({ id, title, description, creationDate, duration, authors }: ICourse) {
   const showCourse = () => {}
 
   const getCourseAuthors = (authorIds: string[]) => {
-    if (!authors.length) {
+    if (authors.length === 0) {
       return <div>No authors</div>
     }
 
     return authors.map((authorId, index) => {
       const author = mockedAuthorsList.find((author) => author.id === authorId);
 
-      if (!author) return '';
+      if (author == null) return '';
 
       if (index === authorIds.length - 1) return author.name;
       return author.name + ', ';
@@ -55,7 +54,5 @@ function CourseCard({id, title, description, creationDate, duration, authors}: I
       </div>
   );
 }
-
-
 
 export default CourseCard;

@@ -5,14 +5,19 @@ import { FlexContainer } from './components/Container/Container';
 import './App.css';
 
 function App() {
-  return (
-    <div className='App'>
-      <FlexContainer>
-        <Header />
-        <Courses />
-      </FlexContainer>
-    </div>
-  );
+
+    const isAuth = false;
+
+
+
+    return (
+        <div className='App'>
+            <FlexContainer>
+                <Header />
+                <Courses />
+            </FlexContainer>
+        </div>
+    );
 }
 
 export default App
