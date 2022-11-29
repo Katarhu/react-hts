@@ -1,5 +1,6 @@
 import './Input.css';
 import { ChangeEvent } from 'react';
+import createId from '../../utils/createId';
 
 interface InputProps {
   labelText?: string
@@ -27,7 +28,8 @@ function Input({ labelText = '', placeholderText = '', onChange, type='text', va
                 type={type}
                 placeholder={placeholderText}
                 onChange={onChange}
-                value={value}
+                value={value.toString()}
+                min={0}
             />
         </>
   )

@@ -19,7 +19,8 @@ function Courses() {
   }
 
   const handleAddCourse = (course: ICourse) => {
-
+    mockedCoursesList.push(course);
+    setCourses(() => [...mockedCoursesList]);
   }
 
   const handleShowAddCourse = () => {
@@ -46,7 +47,10 @@ function Courses() {
 
   const getContent = (isAddCourse: boolean) => {
     if( isAddCourse ) {
-      return <CreateCourse handleClose={handleCloseAddCourse}/>
+      return <CreateCourse
+          handleClose={handleCloseAddCourse}
+          handleCreateCourse={handleAddCourse}
+      />
     }
 
     return (

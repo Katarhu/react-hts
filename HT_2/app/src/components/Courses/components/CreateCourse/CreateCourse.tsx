@@ -10,12 +10,14 @@ import {IAuthor} from '../../../../models/author';
 import {mockedAuthorsList} from '../../../../constants/constants';
 
 import './CreateCourse.css';
+import {ICourse} from '../../../../models/course';
 
 interface CreateCourseProps {
     handleClose: () => void;
+    handleCreateCourse: (course: ICourse) => void;
 }
 
-function CreateCourse({ handleClose }: CreateCourseProps) {
+function CreateCourse({ handleClose, handleCreateCourse }: CreateCourseProps) {
 
     const [authors, setAuthors] = useState<IAuthor[]>(mockedAuthorsList);
     const [selectedAuthors, setSelectedAuthors] = useState<IAuthor[]>([]);
@@ -29,7 +31,24 @@ function CreateCourse({ handleClose }: CreateCourseProps) {
     }
 
     const createCourse = () => {
+        const courseDate = new Date().toLocaleDateString();
 
+        const courseAuthors = selectedAuthors.length ?
+            selectedAuthors.map((author) =>
+                author.id
+            ) : []
+
+        const newCourse: ICourse = {
+            id: createId(),
+            title,
+            duration,
+            description,
+            creationDate: courseDate,
+            authors: courseAuthors,
+        }
+
+        handleCreateCourse(newCourse);
+        handleClose();
     }
 
     const handleTitleChange = (event: ChangeEvent) => {
@@ -87,10 +106,11 @@ function CreateCourse({ handleClose }: CreateCourseProps) {
         if (!authors.length) return <div>Authors list is empty</div>
 
         return authors.map((author) =>
-            <div className='create-course-author' key={createId()}>
+            <div className='create-course-author' key={author.id}>
                 <p className='create-course-author-name'>{author.name}</p>
                 <div className='create-course-author-button'>
                     <Button
+                        key={author.id}
                         buttonText={'Remove author'}
                         onClick={() => removeSelectedAuthor(author.id)}
                     />
@@ -108,10 +128,11 @@ function CreateCourse({ handleClose }: CreateCourseProps) {
             if( isSelected ) return  <></>
 
             return (
-                <div className='create-course-author' key={createId()}>
+                <div className='create-course-author'>
                     <p className='create-course-author-name'>{author.name}</p>
                     <div className='create-course-author-button'>
                         <Button
+                            key={author.id}
                             buttonText={'Add author'}
                             onClick={() => addSelectedAuthor(author.id)}
                         />
