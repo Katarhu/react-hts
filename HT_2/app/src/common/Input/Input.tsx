@@ -1,11 +1,11 @@
 import './Input.css';
-import { ChangeEvent } from 'react';
+import {ChangeEvent, HTMLInputTypeAttribute} from 'react';
 
 interface InputProps {
   labelText?: string
   placeholderText?: string
   onChange?: (event: ChangeEvent) => any
-  type?: string
+  type?: HTMLInputTypeAttribute;
   value: string | number
 }
 

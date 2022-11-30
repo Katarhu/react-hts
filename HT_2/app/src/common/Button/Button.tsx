@@ -3,16 +3,17 @@ import styled from 'styled-components'
 interface ButtonProps {
   buttonText: string
   onClick: () => void
-  small?: boolean
+  small?: boolean,
+  type?: 'button' | 'submit' | 'reset';
 }
 
 interface AppButtonProps {
   small?: boolean
 }
 
-function Button({ buttonText, onClick, small = false }: ButtonProps) {
+function Button({ buttonText, onClick, small = false, type='button' }: ButtonProps) {
   return (
-    <AppButton small={small} onClick={onClick}>
+    <AppButton small={small} onClick={onClick} type={type}>
       {buttonText}
     </AppButton>
   )
