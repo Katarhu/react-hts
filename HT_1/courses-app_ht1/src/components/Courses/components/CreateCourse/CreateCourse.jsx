@@ -11,10 +11,10 @@ import { mockedAuthorsList } from '../../../../constants/constants';
 import './CreateCourse.css';
 
 function CreateCourse({ handleClose, handleCreateCourse }) {
-  const [authors, setAuthors] = useState(mockedAuthorsList);
-  const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [authors, setAuthors] = useState(mockedAuthorsList);
+  const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [duration, setDuration] = useState(0);
   const [newAuthorName, setNewAuthorName] = useState('');
 
