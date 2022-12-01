@@ -1,12 +1,9 @@
 export function formatDate(date) {
 	let splitDate;
 
-	if (new Date(date).toString() === 'Invalid Date') return '00.00.00';
-	if (date.match(/[0-9]*\/[0-9]*\/[0-9]*/)) splitDate = date.split('/');
-	else if (date.match(/[0-9]*\.[0-9]*\.[0-9]*/)) splitDate = date.split('.');
-	else {
-		return '00.00.00';
-	}
+	if (date.match(/[0-9]*\/[0-9]*\/[0-9]*/) != null) splitDate = date.split('/');
+	else if (date.match(/[0-9]*\.[0-9]*\.[0-9]*/) != null) return date;
+	else { return '00.00.00' }
 
 	let [day, month, year] = splitDate;
 
