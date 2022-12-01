@@ -38,7 +38,7 @@ function CourseCard({ id, title, description, creationDate, duration, authors }:
           <p className='course-content'>{description}</p>
         </div>
         <div className='course-side'>
-          <div className='course-info'>
+          <div className='course-details'>
             <ul className='course-list'>
               <li className='course-list-item course-list-authors'><strong>Authors: </strong>
                 {courseAuthors}

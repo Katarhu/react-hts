@@ -1,8 +1,11 @@
 .App {
+    height: 100%;
     padding: 1em 1.25em;
 }
 
 .main {
+    flex-grow: 1;
+
     border: 2px solid lightblue;
-    padding: 1em 1.25em;
+    padding: 1.5em 1.75em;
 }

@@ -3,8 +3,9 @@ import Button from '../../common/Button/Button';
 
 import {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 'react';
 
-import './Registration.css';
 import '../../common/styles/form.css'
+import './Registration.css';
+import {Link} from 'react-router-dom';
 
 function Registration() {
 
@@ -15,6 +16,11 @@ function Registration() {
 
     const submitRegistration = (event: FormEvent) => {
         event.preventDefault();
+
+        if( !email || !name || !password ) {
+            alert('Please provide all fields');
+            return;
+        }
 
         console.log({
             name,
@@ -74,7 +80,7 @@ function Registration() {
                     </div>
                 </fieldset>
 
-                <fieldset className='form-registration-button'>
+                <fieldset className='form-button'>
                     <Button
                         buttonText={'Registration'}
                         onClick={() => {}}
@@ -83,7 +89,7 @@ function Registration() {
                 </fieldset>
 
                 <p className='form-info'>
-                    If you have an account you can Login
+                    If you have an account you can <Link to='/login'>Login</Link>
                 </p>
             </form>
         </div>

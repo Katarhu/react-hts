@@ -5,6 +5,7 @@ import {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 'react'
 import './Login.css';
 import '../../common/styles/form.css'
 import Button from '../../common/Button/Button';
+import {Link} from 'react-router-dom';
 
 
 function Login() {
@@ -15,6 +16,11 @@ function Login() {
 
   const submitLogin = (event: FormEvent) => {
     event.preventDefault();
+
+    if( !email || !password ) {
+      alert('Please provide all fields');
+      return;
+    }
 
     console.log({
       email,
@@ -72,7 +78,7 @@ function Login() {
             </fieldset>
 
             <p className='form-info'>
-              If you do not have an account you can Register
+              If you do not have an account you can <Link to='/registration'>Register</Link>
             </p>
 
           </form>
