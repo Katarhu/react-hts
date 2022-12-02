@@ -1,15 +1,12 @@
 import './Input.css';
 
-function Input({ labelText = '', placeholderText = '', onChange }) {
-	const getLabel = (labelText) => {
-		if (!labelText) return <></>;
+function Input({ labelText = '', placeholderText = '', onChange, type = 'text', value }) {
 
-		return (
-			<label className='label' htmlFor='input'>
-				{labelText}
-			</label>
-		);
-	};
+	const getLabel = (labelText) => {
+		if (labelText == null || labelText === '') return <></>;
+
+		return <label className="label" htmlFor="input">{labelText}</label>
+	}
 
 	const label = getLabel(labelText);
 
@@ -17,14 +14,16 @@ function Input({ labelText = '', placeholderText = '', onChange }) {
 		<>
 			{label}
 			<input
-				className='input'
-				id='input'
-				type='text'
+				className="input"
+				id="input"
+				type={type}
 				placeholder={placeholderText}
 				onChange={onChange}
+				value={value.toString()}
+				min={0}
 			/>
 		</>
-	);
+	)
 }
 
-export default Input;
+export default Input

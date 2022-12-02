@@ -1,21 +1,18 @@
-import './Button.css';
-import './../styles/variables.css';
+import styled from 'styled-components'
 
-function Button({
-	buttonText,
-	onClick = () => {},
-	size = 's',
-	type = 'button',
-}) {
+function Button({ buttonText, onClick, small = false, type='button' }) {
 	return (
-		<button
-			className={`button-primary button-primary_${size}`}
-			onClick={onClick}
-			type={type}
-		>
+		<AppButton small={small} onClick={onClick} type={type}>
 			{buttonText}
-		</button>
-	);
+		</AppButton>
+	)
 }
 
-export default Button;
+const AppButton = styled.button`
+  font-size: ${(props) => ((props?.small ?? false) ? '16px' : '20px')};
+  border: 1px solid #676fbb;
+  background: transparent;
+  padding: 0.4em 1em;
+`
+
+export default Button
