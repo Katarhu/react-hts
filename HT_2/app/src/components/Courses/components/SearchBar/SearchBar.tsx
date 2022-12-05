@@ -2,14 +2,15 @@ import './SearchBar.css';
 import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
 import { ChangeEvent, useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 
 interface SearchBarProps {
   onSearch: (filter: string) => void
-  handleOpen: () => void
 }
 
-function SearchBar({ onSearch, handleOpen }: SearchBarProps) {
+function SearchBar({ onSearch }: SearchBarProps) {
   const [input, setInput] = useState('');
+  const navigate = useNavigate();
 
   const inputChange = (event: ChangeEvent) => {
     setInput((event.target as HTMLInputElement).value);
@@ -24,7 +25,7 @@ function SearchBar({ onSearch, handleOpen }: SearchBarProps) {
   };
 
   const addNewCourse = () => {
-    handleOpen();
+    navigate('/courses/add');
   };
 
   return (

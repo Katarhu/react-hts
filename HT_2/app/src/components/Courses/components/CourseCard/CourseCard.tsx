@@ -1,7 +1,8 @@
+import {useNavigate} from 'react-router-dom';
+
 import Button from '../../../../common/Button/Button';
 
 import { ICourse } from '../../../../models/course';
-
 import { mockedAuthorsList } from '../../../../constants/constants';
 
 import { formatDate } from '../../../../utils/formatDate';
@@ -10,7 +11,12 @@ import { formatDuration } from '../../../../utils/formatDuration';
 import './CourseCard.css'
 
 function CourseCard({ id, title, description, creationDate, duration, authors }: ICourse) {
-  const showCourse = () => {}
+
+  const navigate = useNavigate();
+
+  const showCourse = () => {
+    navigate(`/courses/${id}`);
+  }
 
   const getCourseAuthors = (authorIds: string[]) => {
     if (authors.length === 0) {

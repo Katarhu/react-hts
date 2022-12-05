@@ -6,17 +6,21 @@ import Header from './components/Header/Header';
 import Courses from './components/Courses/Courses';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
+import CourseInfo from './components/CourseInfo/CourseInfo';
+import CreateCourse from './components/Courses/components/CreateCourse/CreateCourse';
 
 import './App.css';
-import CourseInfo from './components/CourseInfo/CourseInfo';
+import {useAuth} from './context/AuthContext';
 
 function App() {
-  const [isAuth, setIsAuth] = useState(true);
+  const { isAuth } = useAuth();
 
   const getRoutes = (isAuth: boolean) => {
       if( isAuth ) {
           return <>
-              <Route path='/courses' element={<CourseInfo />}/>
+              <Route path='/courses' element={<Courses />}/>
+              <Route path='/courses/:id' element={<CourseInfo />}/>
+              <Route path='/courses/add' element={<CreateCourse />}/>
               <Route path={'*'} element={<Navigate to={'/courses'}/>}/>
           </>
       }

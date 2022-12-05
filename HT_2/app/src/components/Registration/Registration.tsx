@@ -6,6 +6,7 @@ import {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 'react'
 import '../../common/styles/form.css'
 import './Registration.css';
 import {Link} from 'react-router-dom';
+import {IRegisterCredentials} from '../../models/auth';
 
 function Registration() {
 
@@ -22,11 +23,11 @@ function Registration() {
             return;
         }
 
-        console.log({
+        const credentialsToRegister: IRegisterCredentials = {
             name,
             email,
             password
-        })
+        }
     }
 
     const handleInputChange = (event: ChangeEvent, setFunction: Dispatch<SetStateAction<string>>) => {

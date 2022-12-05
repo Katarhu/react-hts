@@ -11,22 +11,20 @@ import { mockedAuthorsList } from '../../../../constants/constants';
 
 import './CreateCourse.css';
 import { ICourse } from '../../../../models/course';
+import {useNavigate} from 'react-router-dom';
 
-interface CreateCourseProps {
-  handleClose: () => void
-  handleCreateCourse: (course: ICourse) => void
-}
 
-function CreateCourse({ handleClose, handleCreateCourse }: CreateCourseProps) {
+function CreateCourse() {
   const [authors, setAuthors] = useState<IAuthor[]>(mockedAuthorsList);
   const [selectedAuthors, setSelectedAuthors] = useState<IAuthor[]>([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState(0);
   const [newAuthorName, setNewAuthorName] = useState('');
+  const navigate = useNavigate();
 
   const cancelCreation = () => {
-    handleClose();
+    navigate('/courses');
   }
 
   const createCourse = () => {
@@ -47,8 +45,8 @@ function CreateCourse({ handleClose, handleCreateCourse }: CreateCourseProps) {
       authors: courseAuthors
     }
 
-    handleCreateCourse(newCourse);
-    handleClose();
+    // handleCreateCourse(newCourse);
+    // handleClose();
   }
 
   const handleTitleChange = (event: ChangeEvent) => {

@@ -2,24 +2,37 @@ import Button from '../../common/Button/Button'
 import Logo from './components/Logo/Logo'
 
 import './Header.css'
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import {useAuth} from '../../context/AuthContext';
 
 function Header() {
-  //  TODO: Logout functional
-  const logOut = () => {}
 
-  return (
-    <header className='header'>
-      <div className='header-logo'>
-        <Link to='/'>
-            <Logo />
-        </Link>
-      </div>
-      <div className='header-name'>Dave</div>
-      <div className='header-button'>
-        <Button onClick={logOut} buttonText={'Logout'} small={true} />
-      </div>
-    </header>
+    const {isAuth, logOut} = useAuth();
+
+    const getContent = (isAuth: boolean) => {
+        if( !isAuth ) return <></>
+
+        return (
+            <>
+                <div className='header-name'>Dave</div>
+                <div className='header-button'>
+                    <Button onClick={logOut} buttonText={'Logout'} small={true} />
+                </div>
+            </>
+        )
+    }
+
+    const content = getContent(isAuth);
+
+    return (
+        <header className='header'>
+            <div className='header-logo'>
+                <Link to='/'>
+                    <Logo />
+                </Link>
+            </div>
+            {content}
+        </header>
   )
 }
 

@@ -6,6 +6,8 @@ import './Login.css';
 import '../../common/styles/form.css'
 import Button from '../../common/Button/Button';
 import {Link} from 'react-router-dom';
+import {useAuth} from '../../context/AuthContext';
+import {ILoginCredentials} from '../../models/auth';
 
 
 function Login() {
@@ -13,19 +15,22 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const {signIn} = useAuth();
 
   const submitLogin = (event: FormEvent) => {
     event.preventDefault();
+
+    signIn();
 
     if( !email || !password ) {
       alert('Please provide all fields');
       return;
     }
 
-    console.log({
+    const loginCredentials: ILoginCredentials = {
       email,
       password
-    })
+    }
   }
 
   const handleInputChange = (event: ChangeEvent, setFunction: Dispatch<SetStateAction<string>>) => {
