@@ -1,40 +1,42 @@
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {useState} from 'react';
 
-import { FlexContainer } from './components/Container/Container';
-import Header from './components/Header/Header';
-import Courses from './components/Courses/Courses';
-import Login from './components/Login/Login';
-import Registration from './components/Registration/Registration';
-import CourseInfo from './components/CourseInfo/CourseInfo';
 import CreateCourse from './components/Courses/components/CreateCourse/CreateCourse';
+import Registration from './components/Registration/Registration';
+import { FlexContainer } from './components/Container/Container';
+import CourseInfo from './components/CourseInfo/CourseInfo';
+import Courses from './components/Courses/Courses';
+import Header from './components/Header/Header';
+import Login from './components/Login/Login';
 
-import './App.css';
 import {useAuth} from './context/AuthContext';
 
+import './App.css';
+
 function App() {
-  const { isAuth } = useAuth();
+  // const { isAuth } = useAuth();
 
-  const getRoutes = (isAuth: boolean) => {
-      if( isAuth ) {
-          return <>
-              <Route path='/courses' element={<Courses />}/>
-              <Route path='/courses/:id' element={<CourseInfo />}/>
-              <Route path='/courses/add' element={<CreateCourse />}/>
-              <Route path={'*'} element={<Navigate to={'/courses'}/>}/>
-          </>
-      }
+    const isAuth = true
 
-      return <>
-          <Route path={'/login'} element={<Login />}/>
-          <Route path={'/registration'} element={<Registration />}/>
-          <Route path={'*'} element={<Navigate to={'/login'}/>}/>
-      </>
-  }
+    const getRoutes = (isAuth: boolean) => {
+        if( isAuth ) {
+            return <>
+                <Route path='/courses' element={<Courses />}/>
+                <Route path='/courses/:id' element={<CourseInfo />}/>
+                <Route path='/courses/add' element={<CreateCourse />}/>
+                <Route path={'*'} element={<Navigate to={'/courses'}/>}/>
+            </>
+        }
 
-  const routes = getRoutes(isAuth);
+        return <>
+            <Route path={'/login'} element={<Login />}/>
+            <Route path={'/registration'} element={<Registration />}/>
+            <Route path={'*'} element={<Navigate to={'/login'}/>}/>
+        </>
+    }
 
-  return (
+    const routes = getRoutes(isAuth);
+
+    return (
         <div className='App'>
             <FlexContainer>
                 <Header />

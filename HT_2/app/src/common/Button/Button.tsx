@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 interface ButtonProps {
   buttonText: string
-  onClick: () => void
+  onClick?: () => void
   small?: boolean,
   type?: 'button' | 'submit' | 'reset';
 }
@@ -24,6 +24,10 @@ const AppButton = styled.button`
   border: 1px solid #676fbb;
   background: transparent;
   padding: 0.4em 1em;
+  
+  &:focus {
+    box-shadow: 0 0 5px rgba(0,0,0, .54);
+  }
 `
 
 export default Button

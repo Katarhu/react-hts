@@ -1,6 +1,6 @@
 import {useCallback, useState} from 'react';
 import {HttpTypes} from '../common/types/http.types';
-import {environment} from '../../environment';
+import {environment} from '../environment';
 
 export function useHttp() {
     const [error, setError] = useState<null | string>('');

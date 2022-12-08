@@ -1,13 +1,14 @@
+import {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 'react';
+import {Link} from 'react-router-dom';
+
+import {ILoginCredentials} from '../../models/auth';
+import {useAuth} from '../../context/AuthContext';
+
+import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 
-import {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 'react';
-
-import './Login.css';
 import '../../common/styles/form.css'
-import Button from '../../common/Button/Button';
-import {Link} from 'react-router-dom';
-import {useAuth} from '../../context/AuthContext';
-import {ILoginCredentials} from '../../models/auth';
+import './Login.css';
 
 
 function Login() {
@@ -20,7 +21,7 @@ function Login() {
   const submitLogin = (event: FormEvent) => {
     event.preventDefault();
 
-    signIn();
+    // signIn();
 
     if( !email || !password ) {
       alert('Please provide all fields');

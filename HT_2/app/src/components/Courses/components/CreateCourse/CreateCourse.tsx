@@ -1,4 +1,4 @@
-import { ChangeEvent, useMemo, useState } from 'react';
+import {ChangeEvent, Dispatch, FormEvent, useMemo, useState} from 'react';
 
 import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
@@ -27,13 +27,12 @@ function CreateCourse() {
     navigate('/courses');
   }
 
-  const createCourse = () => {
+  const createCourse = (event: FormEvent) => {
+    event.preventDefault();
     const courseDate = new Date().toLocaleDateString();
 
-    const courseAuthors = (selectedAuthors.length > 0)
-      ? selectedAuthors.map((author) =>
-        author.id
-      )
+    const courseAuthors = (selectedAuthors.length > 0) ?
+        selectedAuthors.map((author) => author.id)
       : []
 
     const newCourse: ICourse = {
@@ -49,17 +48,7 @@ function CreateCourse() {
     // handleClose();
   }
 
-  const handleTitleChange = (event: ChangeEvent) => {
-    setTitle((event.target as HTMLInputElement).value);
-  }
 
-  const handleDescriptionChange = (event: ChangeEvent) => {
-    setDescription((event.target as HTMLInputElement).value);
-  }
-
-  const changeAuthorInput = (event: ChangeEvent) => {
-    setNewAuthorName((event.target as HTMLInputElement).value);
-  }
 
   const commitAddingAuthor = () => {
     if (newAuthorName === '') return;
@@ -74,6 +63,11 @@ function CreateCourse() {
     setAuthors((prev) => [...mockedAuthorsList]);
     setNewAuthorName('');
   }
+
+    const handleInputChange = (event: ChangeEvent, setState: Dispatch<string>) => {
+        const inputValue = (event.target as HTMLInputElement).value;
+        setState(inputValue);
+    }
 
   const changeCourseDuration = (event: ChangeEvent) => {
     const newDuration = +(event.target as HTMLInputElement).value;
@@ -100,130 +94,98 @@ function CreateCourse() {
     )
   }
 
-  const getSelectedAuthors = (authors: IAuthor[]) => {
-    if (authors.length === 0) return <div>Authors list is empty</div>
-
-    return authors.map((author) =>
-            <div className='create-course-author' key={author.id}>
-                <p className='create-course-author-name'>{author.name}</p>
-                <div className='create-course-author-button'>
-                    <Button
-                        key={author.id}
-                        buttonText={'Remove author'}
-                        onClick={() => removeSelectedAuthor(author.id)}
-                    />
-                </div>
-            </div>
-    )
-  }
-
-  const getAuthorsToSelect = (authors: IAuthor[]) => {
-    if (authors.length === 0) return <div>No authors to select</div>
-
-    return authors.map((author) => {
-      const isSelected = selectedAuthors.find((selected) => author.id === selected.id);
-
-      if (isSelected != null) return <></>
-
-      return (
-                <div className='create-course-author' key={author.id}>
-                    <p className='create-course-author-name'>{author.name}</p>
-                    <div className='create-course-author-button'>
-                        <Button
-                            key={author.id}
-                            buttonText={'Add author'}
-                            onClick={() => addSelectedAuthor(author.id)}
-                        />
-                    </div>
-                </div>
-      )
-    })
-  }
 
   const inputDuration = formatDuration(duration);
-  const authorsToSelectItems = useMemo(() => getAuthorsToSelect(authors), [authors, selectedAuthors]);
-  const selectedAuthorsItems = useMemo(() => getSelectedAuthors(selectedAuthors), [selectedAuthors])
 
   return (
         <div className='create-course'>
-            <div className='create-course-head'>
-                <div className="create-course-head-input">
-                    <Input
-                        labelText={'Title'}
-                        placeholderText={'Enter title'}
-                        onChange={handleTitleChange}
-                        value={title}
-                    />
+            <form
+                className='course-form'
+                onSubmit={createCourse}
+            >
+              <fieldset className="course-form-head">
+                <div className="course-form-head-input">
+                  <Input
+                      labelText='Title'
+                      placeholderText='Enter title'
+                      value={title}
+                      onChange={(event) => handleInputChange(event, setTitle)}
+                  />
                 </div>
-                <div className='create-course-head-buttons'>
-                    <Button buttonText={'Go back'} onClick={cancelCreation}/>
-                    <Button buttonText={'Create course'} onClick={createCourse}/>
+                <div className='course-form-head-buttons'>
+                  <Button
+                      buttonText='Go back'
+                      onClick={cancelCreation}
+                  />
+                  <Button
+                      buttonText='Create course'
+                      type='submit'
+                  />
                 </div>
-            </div>
+              </fieldset>
 
-            <div className='create-course-description'>
-                <label
-                    className='create-course-description-label'
-                    htmlFor="textarea"
-                >
+              <fieldset className='course-form-description'>
+                  <label
+                      className='course-form-description-label'
+                      htmlFor="course-form-description-input"
+                  >
                     Description
-                </label>
-                <textarea
-                    className='create-course-description-input'
-                    onChange={handleDescriptionChange}
-                    id="textarea"
-                    placeholder='Enter description'
-                    cols={30}
-                    rows={10}
-                ></textarea>
-            </div>
+                  </label>
+                  <textarea
+                      id="course-form-description-input"
+                      className='course-form-description-input'
+                      cols={30}
+                      rows={10}
+                      placeholder='Enter description'
+                      value={description}
+                      onChange={(event) => handleInputChange(event, setDescription)}
+                  >
+                  </textarea>
+              </fieldset>
 
-            <div className='create-course-grid'>
-                <div className='create-course-add'>
-                    <h3 className='create-course-grid-title'>Add author</h3>
-                    <div className='create-course-add-input'>
-                        <Input
-                            labelText='Author name'
-                            placeholderText='Enter author name...'
-                            onChange={changeAuthorInput}
-                            value={newAuthorName}
-                        />
+              <div className='course-form-grid'>
+
+                <fieldset className='course-form-create'>
+                  <h2 className='course-form-title'>Add author</h2>
+                  <div className='course-form-create-input'>
+                    <Input
+                        labelText='Author name'
+                        placeholderText='Enter author name...'
+                        value={newAuthorName}
+                        onChange={(event) => handleInputChange(event, setNewAuthorName)}
+                    />
+                  </div>
+                  <div className='course-form-create-button'>
+                    <Button
+                      buttonText='Create author'
+                      onClick={commitAddingAuthor}
+                    />
+                  </div>
+                </fieldset>
+
+                <fieldset className='course-form-authors'>
+                  <h2 className='course-form-title'>Authors</h2>
+                  <div className='course-form-author'>
+                    <p className='course-form-author-name'>Vasiliy Dobkin</p>
+                    <div className='course-form-author-button'>
+                      <Button
+                        buttonText='Add author'
+                        onClick={() => addSelectedAuthor('1')}
+                      />
                     </div>
-                    <div className='create-course-add-button'>
-                        <Button
-                            buttonText='Create author'
-                            onClick={commitAddingAuthor}
-                        />
-                    </div>
-                </div>
-                <div className='create-course-select'>
-                    <h3 className='create-course-grid-title'>Authors</h3>
-                    <div className='create-course-authors'>
-                        {authorsToSelectItems}
-                    </div>
-                </div>
-                <div className='create-course-duration'>
-                    <h3 className='create-course-grid-title'>Duration</h3>
-                    <div className='create-course-duration-input'>
-                        <Input
-                            labelText='Duration'
-                            placeholderText='Enter duration in minutes'
-                            onChange={changeCourseDuration}
-                            type='number'
-                            value={duration}
-                        />
-                    </div>
-                    <p className='create-course-duration-time'>
-                        Duration: <span className='create-course-duration-hours'>{inputDuration}</span> hours
-                    </p>
-                </div>
-                <div className='create-course-selected'>
-                    <h3 className='create-course-grid-title'>Course authors</h3>
-                    <div className='create-course-authors'>
-                        {selectedAuthorsItems}
-                    </div>
-                </div>
-            </div>
+                  </div>
+                </fieldset>
+
+                <fieldset className='course-list-authors'>
+
+                </fieldset>
+
+                <fieldset>
+
+                </fieldset>
+              </div>
+
+            </form>
         </div>
   );
 }

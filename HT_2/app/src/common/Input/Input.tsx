@@ -1,5 +1,5 @@
 import './Input.css';
-import {ChangeEvent, HTMLInputTypeAttribute} from 'react';
+import {ChangeEvent, HTMLInputTypeAttribute, useId} from 'react';
 
 interface InputProps {
   labelText?: string
@@ -10,20 +10,22 @@ interface InputProps {
 }
 
 function Input({ labelText = '', placeholderText = '', onChange, type = 'text', value }: InputProps) {
-  const getLabel = (labelText?: string) => {
-    if (labelText == null || labelText === '') return <></>;
+    const id = useId();
 
-    return <label className="label" htmlFor="input">{labelText}</label>
-  }
+    const getLabel = (labelText?: string) => {
+        if (labelText == null || labelText === '') return <></>;
 
-  const label = getLabel(labelText);
+        return <label className="label" htmlFor={id}>{labelText}</label>
+    }
 
-  return (
+    const label = getLabel(labelText);
+
+    return (
         <>
             {label}
             <input
                 className="input"
-                id="input"
+                id={id}
                 type={type}
                 placeholder={placeholderText}
                 onChange={onChange}
@@ -31,7 +33,7 @@ function Input({ labelText = '', placeholderText = '', onChange, type = 'text', 
                 min={0}
             />
         </>
-  )
+    )
 }
 
 export default Input
