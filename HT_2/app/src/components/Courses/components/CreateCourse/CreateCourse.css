@@ -61,7 +61,7 @@
     padding: 1.5em 1em;
 
     display: grid;
-    grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1em 3em;
 }
 
@@ -78,6 +78,9 @@
 }
 
 .course-form-authors {
+}
+
+.course-form-authors-items {
     display: flex;
     flex-direction: column;
     gap: .75em;
@@ -96,4 +99,23 @@
 
 .course-form-author-button {
 
+}
+
+.course-form-duration {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.course-form-duration-input {
+
+}
+
+.course-form-duration-value {
+    font-size: 1.1em;
+}
+
+.course-form-duration-bold {
+    font-size: 1.3em;
+    font-weight: bold;
 }

@@ -25,7 +25,7 @@ function Courses() {
 
       return (courseTitle.includes(filter) || courseId.includes(filter))
         ? <CourseCard key={course.id} {...course}/>
-        : <></>
+        : null
     }
     )
   }

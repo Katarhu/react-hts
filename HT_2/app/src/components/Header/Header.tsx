@@ -4,13 +4,18 @@ import Logo from './components/Logo/Logo'
 import './Header.css'
 import {Link, useNavigate} from 'react-router-dom';
 import {useAuth} from '../../context/AuthContext';
+import {memo} from "react";
 
 function Header() {
 
     const {isAuth, logOut} = useAuth();
 
     const getContent = (isAuth: boolean) => {
-        if( !isAuth ) return <></>
+        if( !isAuth ) return (
+            <>
+
+            </>
+        )
 
         return (
             <>
@@ -36,4 +41,4 @@ function Header() {
   )
 }
 
-export default Header
+export default memo(Header);

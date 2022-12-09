@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import {BrowserRouter as Router} from 'react-router-dom';
 
 import AuthProvider from './context/AuthContext';
+import AlertProvider from "./context/AlertContext";
 
 import App from './App'
 
@@ -13,9 +14,11 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <AuthProvider>
-        <Router>
-            <App />
-        </Router>
+        <AlertProvider>
+            <Router>
+                <App />
+            </Router>
+        </AlertProvider>
     </AuthProvider>
   </React.StrictMode>
 )

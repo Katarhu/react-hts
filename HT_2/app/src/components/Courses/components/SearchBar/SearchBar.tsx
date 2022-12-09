@@ -1,7 +1,7 @@
 import './SearchBar.css';
 import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
-import { ChangeEvent, useState } from 'react';
+import {ChangeEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 interface SearchBarProps {

@@ -7,9 +7,11 @@ import '../../common/styles/form.css'
 import './Registration.css';
 import {Link} from 'react-router-dom';
 import {IRegisterCredentials} from '../../models/auth';
+import {useAlert} from "../../context/AlertContext";
 
 function Registration() {
 
+    const {addAlert} = useAlert();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,10 +20,7 @@ function Registration() {
     const submitRegistration = (event: FormEvent) => {
         event.preventDefault();
 
-        if( !email || !name || !password ) {
-            alert('Please provide all fields');
-            return;
-        }
+        if( !email || !name || !password ) return addAlert('Please provide all fields');
 
         const credentialsToRegister: IRegisterCredentials = {
             name,

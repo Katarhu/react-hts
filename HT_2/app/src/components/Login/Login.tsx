@@ -9,10 +9,12 @@ import Input from '../../common/Input/Input';
 
 import '../../common/styles/form.css'
 import './Login.css';
+import {useAlert} from "../../context/AlertContext";
 
 
 function Login() {
 
+  const {addAlert} = useAlert();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -21,12 +23,7 @@ function Login() {
   const submitLogin = (event: FormEvent) => {
     event.preventDefault();
 
-    // signIn();
-
-    if( !email || !password ) {
-      alert('Please provide all fields');
-      return;
-    }
+    if( !email || !password ) return addAlert('Please provide all fields');
 
     const loginCredentials: ILoginCredentials = {
       email,
