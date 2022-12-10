@@ -8,7 +8,7 @@ import {memo} from "react";
 
 function Header() {
 
-    const {isAuth, logOut} = useAuth();
+    const {isAuth, handleLogOut, user} = useAuth();
 
     const getContent = (isAuth: boolean) => {
         if( !isAuth ) return (
@@ -19,9 +19,9 @@ function Header() {
 
         return (
             <>
-                <div className='header-name'>Dave</div>
+                <div className='header-name'>{user?.name}</div>
                 <div className='header-button'>
-                    <Button onClick={logOut} buttonText={'Logout'} small={true} />
+                    <Button onClick={handleLogOut} buttonText={'Logout'} small={true} />
                 </div>
             </>
         )

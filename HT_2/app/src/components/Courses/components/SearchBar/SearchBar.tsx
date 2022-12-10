@@ -1,7 +1,7 @@
 import './SearchBar.css';
 import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 interface SearchBarProps {
@@ -16,12 +16,13 @@ function SearchBar({ onSearch }: SearchBarProps) {
     setInput((event.target as HTMLInputElement).value);
 
     if ((event.target as HTMLInputElement).value === '') {
-      searchEvent('');
+      onSearch('');
     }
   };
 
-  const searchEvent = (filter: string) => {
-    onSearch(filter);
+  const searchEvent = (event: FormEvent) => {
+      event.preventDefault();
+      onSearch(input);
   };
 
   const addNewCourse = () => {
@@ -29,15 +30,18 @@ function SearchBar({ onSearch }: SearchBarProps) {
   };
 
   return (
-        <div className="search-bar">
+        <form
+            className="search-bar"
+            onSubmit={searchEvent}
+        >
             <div className="search-bar-search">
                 <Input placeholderText={'Enter course name or id...'} onChange={inputChange} value={input}/>
-                <Button buttonText={'Search'} onClick={() => searchEvent(input)}/>
+                <Button buttonText={'Search'} type='submit'/>
             </div>
             <div className="search-bar-button">
                 <Button buttonText={'Add new course'} onClick={addNewCourse}/>
             </div>
-        </div>
+        </form>
   );
 }
 

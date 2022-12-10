@@ -1,21 +1,28 @@
+import {ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+
+import {useAlert} from "../../context/AlertContext";
+import {useAuth} from '../../context/AuthContext';
+
+import {IRegisterCredentials} from '../../models/auth/register';
+
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
-import {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 'react';
-
 import '../../common/styles/form.css'
 import './Registration.css';
-import {Link} from 'react-router-dom';
-import {IRegisterCredentials} from '../../models/auth';
-import {useAlert} from "../../context/AlertContext";
 
 function Registration() {
 
-    const {addAlert} = useAlert();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isShowPassword, setIsShowPassword] = useState(false);
+    const {handleSignUp, error, clearError} = useAuth();
+    const navigate = useNavigate();
+    const {addAlert} = useAlert();
+
+    useEffect(() => { return () => clearError() }, []);
 
     const submitRegistration = (event: FormEvent) => {
         event.preventDefault();
@@ -27,15 +34,39 @@ function Registration() {
             email,
             password
         }
+
+        handleSignUp(credentialsToRegister)
+            .then((response) => {
+                if( response.successful ) {
+                    addAlert('Registration is successful, please log in');
+                    navigate('/login');
+                }
+            })
     }
 
     const handleInputChange = (event: ChangeEvent, setFunction: Dispatch<SetStateAction<string>>) => {
+        clearError();
         setFunction((event.target as HTMLInputElement).value);
     }
 
     const togglePasswordType = () => {
         setIsShowPassword((prev) => !prev);
     }
+
+    const getErrors = (errors: string[] | null ) => {
+        if (errors == null || !errors.length ) return;
+
+        return (
+            <ul className='form-errors'>
+                {errors.map((error) => (
+                    <li key={error} className='form-error'>{error}</li>
+                ))
+                }
+            </ul>
+        )
+    }
+
+    const formErrors = getErrors(error);
 
     return (
         <div className='registration'>
@@ -79,6 +110,8 @@ function Registration() {
                         &#128064;
                     </div>
                 </fieldset>
+
+                {formErrors}
 
                 <fieldset className='form-button'>
                     <Button

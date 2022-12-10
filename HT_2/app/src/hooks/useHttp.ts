@@ -1,20 +1,47 @@
 import {useCallback, useState} from 'react';
 import {HttpTypes} from '../common/types/http.types';
 import {environment} from '../environment';
+import {IAuthError} from '../models/auth/auth';
 
 export function useHttp() {
-    const [error, setError] = useState<null | string>('');
+    const [error, setError] = useState<null | string[]>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const request = useCallback(
-        async (url: string, method= HttpTypes.GET, body=null, headers={'Content-type': 'application/json'}) => {
+        async (
+            url: string,
+            method= HttpTypes.GET,
+            body: any | null = null,
+            headers?: any
+        ) => {
             setIsLoading(true);
 
             try {
-                const response = await fetch(`${environment.baseUrl}/${url}`, {method, body, headers});
+                headers = {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json',
+                    ...headers
+                }
+
+                if( body != null ) {
+                    body = JSON.stringify(body ?? {});
+                }
+
+                const response: any = await fetch(`${environment.baseUrl}/${url}`, {method, body, headers});
 
                 if( !response.ok) {
-                    throw new Error(`Could not fetch url, status ${response.status}`);
+                    const errorBody: IAuthError = await response.json();
+
+                    if( Array.isArray(errorBody.errors) ) {
+                        setError([...errorBody.errors]);
+                    } else {
+                        if( errorBody.result ) {
+                            setError([errorBody.result]);
+                        }
+                    }
+
+                    setIsLoading(false);
+                    return errorBody;
                 }
 
                 const data = await response.json();
@@ -22,11 +49,7 @@ export function useHttp() {
                 setIsLoading(false);
                 return data;
 
-            } catch (e: any) {
-                setIsLoading(false);
-                setError(e.message);
-                throw e;
-            }
+            } catch (e: any) {}
         },[])
 
     const clearError = useCallback(() => setError(null), []);

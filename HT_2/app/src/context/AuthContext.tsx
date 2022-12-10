@@ -1,57 +1,99 @@
-import {createContext, ReactNode, useContext, useState} from 'react';
+import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 
-import {IAuthState, ILoginCredentials, IRegisterCredentials} from '../models/auth';
-
+import {useAuthService} from '../services/authService';
 import useToken from '../hooks/useToken';
-import {useHttp} from '../hooks/useHttp';
+
+import { IRegisterFailure, IRegisterSuccess, IRegisterCredentials } from '../models/auth/register'
+import { ILoginCredentials } from '../models/auth/login';
+import {IAuthState} from '../models/auth/auth';
+import {IUser} from '../models/user';
+import {useAlert} from './AlertContext';
+
 
 
 interface IAuthContextProviderProps {
     children: ReactNode;
 }
 
-interface AuthContext {
+interface IAuthContext {
     isAuth: boolean;
-    logOut: () => void;
-    signIn: (credentials: ILoginCredentials) => void;
-    signUp: (credentials: IRegisterCredentials) => void;
+    isLoading: boolean;
+    user: IUser | null;
+    userState: IAuthState;
+    error: string[] | null;
+    clearError: () => void;
+    handleLogOut: () => void;
+    handleSignIn: (credentials: ILoginCredentials) => void;
+    handleSignUp: (credentials: IRegisterCredentials) => Promise<IRegisterSuccess | IRegisterFailure>;
 }
 
 const initialState: IAuthState = {
     user: null,
     isLoading: false,
-    error: ''
+    error: null
 }
 
-const AuthContext = createContext({} as AuthContext);
+const AuthContext = createContext({} as IAuthContext);
 
 export function useAuth() {
     return useContext(AuthContext);
 }
 
 export default function AuthProvider({ children }: IAuthContextProviderProps) {
-    const {token, deleteToken, setToken} = useToken();
-    const {request, isLoading, error} = useHttp();
+    const {signIn, signUp, getUser, isLoading, error, clearError} = useAuthService();
     const [userState, setUserState] = useState<IAuthState>(initialState);
+    const {token, deleteToken, setToken} = useToken();
+    const {addAlert} = useAlert();
 
-    const logOut = () => {
+    useEffect(() => {
+        if( token ) {
+            handleGetUser(token);
+        }
+    }, [])
+
+    const handleLogOut = () => {
         deleteToken();
     }
 
-    const signIn = (credentials: ILoginCredentials) => {
-        setToken('something')
+    const handleSignIn = async (credentials: ILoginCredentials) => {
+        const response = await signIn(credentials);
+
+        if( response.successful ) {
+            const [,token] = response.result.split(' ');
+            setToken(token);
+            setUserState((userState) => ({...userState, user: response.user}));
+        }
     }
 
-    const signUp = (credentials: IRegisterCredentials) => {
+    const handleSignUp = async (credentials: IRegisterCredentials) => {
+        const response = await signUp(credentials);
 
+        return response;
+    }
+
+    const handleGetUser = async (token: string): Promise<void> => {
+        const response = await getUser(token);
+
+        if( !response.successful ) {
+            addAlert('Token either expired or invalid');
+            clearError();
+            deleteToken()
+        } else {
+            setUserState((userState) => ({ ...userState, user: response.result }));
+        }
     }
 
     return (
         <AuthContext.Provider value={{
             isAuth: !!token,
-            signIn,
-            logOut,
-            signUp,
+            user: userState.user,
+            userState,
+            isLoading,
+            error,
+            clearError,
+            handleSignIn,
+            handleSignUp,
+            handleLogOut
         }}>
             {children}
         </AuthContext.Provider>

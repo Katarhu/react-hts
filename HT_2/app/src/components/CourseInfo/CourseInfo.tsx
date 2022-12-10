@@ -17,7 +17,7 @@ function CourseInfo() {
 
             if( !author ) return <div>Unknown</div>
 
-            return <div className='course-info-author'>{author.name}</div>
+            return <div key={author.id} className='course-info-author'>{author.name}</div>
         })
     }
 

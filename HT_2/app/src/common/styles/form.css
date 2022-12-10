@@ -36,3 +36,21 @@
 
     cursor: pointer;
 }
+
+.form-errors {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+.form-error {
+    font-size: .65em;
+    color: red;
+}
+
+.form-error:before {
+    content: '*';
+    color: red;
+    display: inline-block;
+    margin-right: .5em;
+}

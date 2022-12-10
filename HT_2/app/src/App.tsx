@@ -16,7 +16,7 @@ import {Alert} from "./components/Alert/Alert";
 import {useAlert} from "./context/AlertContext";
 
 function App() {
-    const isAuth = false
+    const { isAuth } = useAuth();
     const {getAlerts, removeAlert} = useAlert();
     const alerts = getAlerts();
 

@@ -1,15 +1,16 @@
-import {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 'react';
+import {ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
-import {ILoginCredentials} from '../../models/auth';
 import {useAuth} from '../../context/AuthContext';
+import {useAlert} from "../../context/AlertContext";
+
+import {ILoginCredentials} from '../../models/auth/login';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 
 import '../../common/styles/form.css'
 import './Login.css';
-import {useAlert} from "../../context/AlertContext";
 
 
 function Login() {
@@ -18,7 +19,9 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const {signIn} = useAuth();
+  const {handleSignIn, error, clearError} = useAuth();
+
+  useEffect(() => { return () => clearError() }, []);
 
   const submitLogin = (event: FormEvent) => {
     event.preventDefault();
@@ -29,15 +32,33 @@ function Login() {
       email,
       password
     }
+
+    handleSignIn(loginCredentials);
   }
 
   const handleInputChange = (event: ChangeEvent, setFunction: Dispatch<SetStateAction<string>>) => {
+    clearError();
     setFunction((event.target as HTMLInputElement).value);
   }
 
   const togglePasswordType = () => {
     setIsShowPassword((prev) => !prev);
   }
+
+  const getErrors = (errors: string[] | null ) => {
+    if (errors == null || !errors.length ) return;
+
+    return (
+        <ul className='form-errors'>
+          {errors.map((error) => (
+              <li key={error} className='form-error'>{error}</li>
+            ))
+          }
+        </ul>
+    )
+  }
+
+  const formErrors = getErrors(error);
 
   return (
         <div className='login'>
@@ -71,6 +92,8 @@ function Login() {
                 &#128064;
               </div>
             </fieldset>
+
+            {formErrors}
 
             <fieldset className='form-button'>
               <Button
