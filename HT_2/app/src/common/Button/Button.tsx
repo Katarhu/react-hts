@@ -5,15 +5,16 @@ interface ButtonProps {
   onClick?: () => void
   small?: boolean,
   type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
 }
 
 interface AppButtonProps {
   small?: boolean
 }
 
-function Button({ buttonText, onClick, small = false, type='button' }: ButtonProps) {
+function Button({ buttonText, onClick, small = false, type='button', disabled }: ButtonProps) {
   return (
-    <AppButton small={small} onClick={onClick} type={type}>
+    <AppButton small={small} onClick={onClick} type={type} disabled={disabled}>
       {buttonText}
     </AppButton>
   )

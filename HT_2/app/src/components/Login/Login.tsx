@@ -11,12 +11,14 @@ import Input from '../../common/Input/Input';
 
 import '../../common/styles/form.css'
 import './Login.css';
+import {useInput} from '../../hooks/useInput';
 
 
 function Login() {
 
   const {addAlert} = useAlert();
   const [email, setEmail] = useState('');
+  // const email = useInput('', { minLength: 5, maxLength: 12, required: true, email: true });
   const [password, setPassword] = useState('');
   const [isShowPassword, setIsShowPassword] = useState(false);
   const {handleSignIn, error, clearError} = useAuth();

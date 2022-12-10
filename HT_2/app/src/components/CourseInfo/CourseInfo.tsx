@@ -1,13 +1,23 @@
 import './CourseInfo.css';
 
 import {mockedCoursesList, mockedAuthorsList} from '../../constants/constants';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {formatDuration} from '../../utils/formatDuration';
 import {formatDate} from '../../utils/formatDate';
+import {ICourse} from '../../models/course';
 
 function CourseInfo() {
 
-    const course = mockedCoursesList[1];
+    const params = useParams();
+    console.log(mockedCoursesList);
+    const course = mockedCoursesList.find((course) => {
+        console.log(course.id);
+        console.log(params.id);
+        console.log(course.id === params.id);
+        return course.id === params.id;
+    });
+
+    console.log(params);
 
     const getCourseAuthors = (authors: string[]) => {
         if( !authors.length ) return <div>There is no authors</div>
@@ -19,6 +29,15 @@ function CourseInfo() {
 
             return <div key={author.id} className='course-info-author'>{author.name}</div>
         })
+    }
+
+    if ( !course ) {
+        return (
+            <>
+                <Link to={'/courses'}>&#x2190; Back to courses</Link>
+                <div className='course-info-error'>Course not found</div>
+            </>
+        )
     }
 
     const courseDuration = formatDuration(course.duration);
@@ -46,13 +65,13 @@ function CourseInfo() {
                             <strong>ID:</strong> {course.id}
                         </li>
                         <li className='course-info-list-item'>
-                            <strong>Duration</strong> {courseDuration}
+                            <strong>Duration:</strong> {courseDuration}
                         </li>
                         <li className='course-info-list-item'>
-                            <strong>Created</strong> {courseDate}
+                            <strong>Created:</strong> {courseDate}
                         </li>
                         <li className='course-info-list-item'>
-                            <strong>Authors</strong>
+                            <strong>Authors:</strong>
                             <div className='course-info-authors'>
                                 {courseAuthors}
                             </div>

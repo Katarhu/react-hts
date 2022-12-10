@@ -8,6 +8,8 @@ import AlertProvider from "./context/AlertContext";
 import App from './App'
 
 import './index.css'
+import CoursesProvider from './context/CoursesContext';
+import AuthorsProvider from './context/AuthorsContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
@@ -15,9 +17,13 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
         <AlertProvider>
-            <Router>
-                <App />
-            </Router>
+            <CoursesProvider>
+                <AuthorsProvider>
+                    <Router>
+                        <App />
+                    </Router>
+                </AuthorsProvider>
+            </CoursesProvider>
         </AlertProvider>
     </AuthProvider>
   </React.StrictMode>

@@ -2,14 +2,15 @@ import './Input.css';
 import {ChangeEvent, HTMLInputTypeAttribute, useId} from 'react';
 
 interface InputProps {
-  labelText?: string
-  placeholderText?: string
-  onChange?: (event: ChangeEvent) => any
+  labelText?: string;
+  placeholderText?: string;
+  onChange?: (event: ChangeEvent) => any;
+    onBlur?: (event: FocusEvent) => any;
   type?: HTMLInputTypeAttribute;
-  value: string | number
+  value: string | number;
 }
 
-function Input({ labelText = '', placeholderText = '', onChange, type = 'text', value }: InputProps) {
+function Input({ labelText = '', placeholderText = '', onChange, type = 'text', value, onBlur }: InputProps) {
     const id = useId();
 
     const getLabel = (labelText?: string) => {
@@ -29,6 +30,8 @@ function Input({ labelText = '', placeholderText = '', onChange, type = 'text', 
                 type={type}
                 placeholder={placeholderText}
                 onChange={onChange}
+                // @ts-ignore
+                onBlur={onBlur}
                 value={value.toString()}
                 min={0}
             />

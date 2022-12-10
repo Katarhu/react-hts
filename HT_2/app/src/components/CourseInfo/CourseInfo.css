@@ -57,3 +57,9 @@
 .course-info-author {
     
 }
+
+.course-info-error {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
