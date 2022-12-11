@@ -1,23 +1,20 @@
-import './CourseInfo.css';
-
-import {mockedCoursesList, mockedAuthorsList} from '../../constants/constants';
 import {Link, useParams} from 'react-router-dom';
+
 import {formatDuration} from '../../utils/formatDuration';
 import {formatDate} from '../../utils/formatDate';
-import {ICourse} from '../../models/course';
+
+import {mockedCoursesList, mockedAuthorsList} from '../../constants/constants';
+
+import './CourseInfo.css';
+
 
 function CourseInfo() {
 
     const params = useParams();
-    console.log(mockedCoursesList);
+
     const course = mockedCoursesList.find((course) => {
-        console.log(course.id);
-        console.log(params.id);
-        console.log(course.id === params.id);
         return course.id === params.id;
     });
-
-    console.log(params);
 
     const getCourseAuthors = (authors: string[]) => {
         if( !authors.length ) return <div>There is no authors</div>

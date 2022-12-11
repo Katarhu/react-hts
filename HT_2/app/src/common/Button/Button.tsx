@@ -29,6 +29,10 @@ const AppButton = styled.button`
   &:focus {
     box-shadow: 0 0 5px rgba(0,0,0, .54);
   }
+  
+  &[disabled] {
+    opacity: .8;
+  }
 `
 
 export default Button

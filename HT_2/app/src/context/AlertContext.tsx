@@ -28,7 +28,7 @@ export default function AlertProvider({children}: AlertContextProviderProps) {
         setAlerts((prevState) =>
             [...prevState,
                 {
-                    id: (new Date()).getTime(),
+                    id: new Date().getTime() + Math.random() * 1000,
                     message
                 }
             ]);

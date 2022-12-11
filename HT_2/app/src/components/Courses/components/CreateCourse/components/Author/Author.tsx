@@ -4,11 +4,13 @@ import Button from "../../../../../../common/Button/Button";
 
 import {IAuthor} from "../../../../../../models/author";
 
+
 interface AuthorProps {
     author: IAuthor;
     onClick: (id: string) => void;
     buttonText: string;
 }
+
 
 function Author({ author, onClick, buttonText }: AuthorProps) {
     return (

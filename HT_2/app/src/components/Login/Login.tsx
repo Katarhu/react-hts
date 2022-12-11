@@ -1,29 +1,36 @@
-import {ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState} from 'react';
+import { FormEvent, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import {useAuth} from '../../context/AuthContext';
 import {useAlert} from "../../context/AlertContext";
+import {useInput} from '../../hooks/useInput';
 
-import {ILoginCredentials} from '../../models/auth/login';
+import getErrorsPopup from '../../utils/generateErrorPopup';
+import getIsFormValid from '../../utils/getIsFormCorrect';
+import getFormErrors from '../../utils/getFormErrors';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 
+import {ILoginCredentials} from '../../models/auth/login';
+
+import '../../common/styles/inputError.css'
 import '../../common/styles/form.css'
 import './Login.css';
-import {useInput} from '../../hooks/useInput';
 
 
 function Login() {
 
   const {addAlert} = useAlert();
-  const [email, setEmail] = useState('');
-  // const email = useInput('', { minLength: 5, maxLength: 12, required: true, email: true });
-  const [password, setPassword] = useState('');
+  const email = useInput('', { minLength: 5, maxLength: 25, required: true, email: true });
+  const password = useInput('', { minLength:5, maxLength: 25, required: true });
   const [isShowPassword, setIsShowPassword] = useState(false);
   const {handleSignIn, error, clearError} = useAuth();
 
-  useEffect(() => { return () => clearError() }, []);
+  useEffect(() => {
+    clearError();
+    return () => clearError()
+  }, [email.value, password.value]);
 
   const submitLogin = (event: FormEvent) => {
     event.preventDefault();
@@ -31,36 +38,22 @@ function Login() {
     if( !email || !password ) return addAlert('Please provide all fields');
 
     const loginCredentials: ILoginCredentials = {
-      email,
-      password
+      email: email.value.toString(),
+      password: password.value.toString()
     }
 
     handleSignIn(loginCredentials);
-  }
-
-  const handleInputChange = (event: ChangeEvent, setFunction: Dispatch<SetStateAction<string>>) => {
-    clearError();
-    setFunction((event.target as HTMLInputElement).value);
   }
 
   const togglePasswordType = () => {
     setIsShowPassword((prev) => !prev);
   }
 
-  const getErrors = (errors: string[] | null ) => {
-    if (errors == null || !errors.length ) return;
+  const isFormValid = getIsFormValid(email.isValid, password.isValid);
+  const formErrors = getFormErrors(error);
 
-    return (
-        <ul className='form-errors'>
-          {errors.map((error) => (
-              <li key={error} className='form-error'>{error}</li>
-            ))
-          }
-        </ul>
-    )
-  }
-
-  const formErrors = getErrors(error);
+  const emailErrors = getErrorsPopup(email.errors, email.touched);
+  const passwordErrors = getErrorsPopup(password.errors, password.touched);
 
   return (
         <div className='login'>
@@ -71,27 +64,43 @@ function Login() {
             <h2 className='form-title'>Login</h2>
 
             <fieldset className='form-input'>
-              <Input
-                labelText={'Email'}
-                onChange={(event) => handleInputChange(event, setEmail)}
-                placeholderText={'Enter email'}
-                value={email}
-              />
+              <div className='form-fieldset-errored'>
+                <div className='form-fieldset-errored-input'>
+                  <Input
+                      labelText={'Email'}
+                      onChange={email.onChange}
+                      onBlur={email.onBlur}
+                      isTouched={email.touched}
+                      errors={email.errors}
+                      placeholderText={'Enter email'}
+                      value={email.value}
+                  />
+                </div>
+                {emailErrors}
+              </div>
             </fieldset>
 
             <fieldset className='form-input'>
-              <Input
-                labelText={'Password'}
-                onChange={(event) => handleInputChange(event, setPassword)}
-                placeholderText={'Enter password'}
-                value={password}
-                type={isShowPassword ? 'text' : 'password'}
-              />
-              <div
-                  className='form-password-toggle'
-                  onClick={togglePasswordType}
-              >
-                &#128064;
+              <div className='form-fieldset-errored'>
+                <div className='form-fieldset-errored-input'>
+                  <Input
+                      labelText={'Password'}
+                      onChange={password.onChange}
+                      placeholderText={'Enter password'}
+                      value={password.value}
+                      onBlur={password.onBlur}
+                      isTouched={password.touched}
+                      errors={password.errors}
+                      type={isShowPassword ? 'text' : 'password'}
+                  />
+                  <div
+                      className='form-password-toggle'
+                      onClick={togglePasswordType}
+                  >
+                    &#128064;
+                  </div>
+                </div>
+                {passwordErrors}
               </div>
             </fieldset>
 
@@ -100,8 +109,8 @@ function Login() {
             <fieldset className='form-button'>
               <Button
                 buttonText={'Login'}
-                onClick={() => {}}
                 type={'submit'}
+                disabled={!isFormValid}
               />
             </fieldset>
 

@@ -1,7 +1,7 @@
-import React from 'react'
 import styled from 'styled-components'
+import React from 'react'
 
-import logoImage from '../../../../images/logo.png'
+import logoImage from '../../../../assets/logo.png'
 
 const Logo = (): JSX.Element => <LogoImage src={logoImage} alt='Courses Logo' />
 

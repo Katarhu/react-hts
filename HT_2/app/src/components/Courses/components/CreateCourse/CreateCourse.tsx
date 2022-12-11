@@ -1,4 +1,7 @@
 import {ChangeEvent, Dispatch, FormEvent, useMemo, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+
+import {useAlert} from "../../../../context/AlertContext";
 
 import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
@@ -9,11 +12,10 @@ import createId from '../../../../utils/createId';
 import { IAuthor } from '../../../../models/author';
 import {mockedAuthorsList, mockedCoursesList} from '../../../../constants/constants';
 
-import './CreateCourse.css';
 import { ICourse } from '../../../../models/course';
-import {useNavigate} from 'react-router-dom';
 import Author from "./components/Author/Author";
-import {useAlert} from "../../../../context/AlertContext";
+
+import './CreateCourse.css';
 
 
 function CreateCourse() {

@@ -8,6 +8,7 @@ import SearchBar from './components/SearchBar/SearchBar';
 
 import './Courses.css';
 
+
 function Courses() {
   const [courses, setCourses] = useState<ICourse[]>(mockedCoursesList);
   const [filter, setFilter] = useState('');

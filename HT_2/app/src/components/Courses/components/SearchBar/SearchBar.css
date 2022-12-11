@@ -10,6 +10,13 @@
     gap: 1.25em;
 }
 
+.search-bar-search-input {
+    flex-grow: 1;
+}
+
+.search-bar-search-button {
+}
+
 .search-bar-button {
 
 }

@@ -1,5 +1,8 @@
 import {Navigate, Route, Routes} from 'react-router-dom';
 
+import {useAlert} from "./context/AlertContext";
+import {useAuth} from './context/AuthContext';
+
 import CreateCourse from './components/Courses/components/CreateCourse/CreateCourse';
 import Registration from './components/Registration/Registration';
 import { FlexContainer } from './components/Container/Container';
@@ -7,13 +10,12 @@ import CourseInfo from './components/CourseInfo/CourseInfo';
 import Courses from './components/Courses/Courses';
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
+import {Alert} from "./components/Alert/Alert";
 
-import {useAuth} from './context/AuthContext';
+import {IAlert} from "./models/alert";
 
 import './App.css';
-import {IAlert} from "./models/alert";
-import {Alert} from "./components/Alert/Alert";
-import {useAlert} from "./context/AlertContext";
+
 
 function App() {
     const { isAuth } = useAuth();

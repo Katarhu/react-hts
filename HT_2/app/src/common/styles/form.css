@@ -32,9 +32,20 @@
     position: absolute;
     top: 50%;
     transform: translateY(50%);
-    right: .5em;
+    right: 1.25em;
 
     cursor: pointer;
+}
+
+.form-fieldset-errored {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.form-fieldset-errored-input {
+    position: relative;
+    flex-grow: 1;
 }
 
 .form-errors {

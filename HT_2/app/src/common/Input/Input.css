@@ -6,12 +6,14 @@
 }
 
 .input {
+    flex: 0 1 calc(100% - 35px);
     font-size: 1em;
     width: 100%;
     display: block;
     border: 1px solid gold;
 
     padding: .5em 1em;
+    padding-right: 2em;
 }
 
 .input:focus {
@@ -26,3 +28,4 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
+

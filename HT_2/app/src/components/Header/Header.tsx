@@ -1,10 +1,12 @@
+import {Link} from 'react-router-dom';
+import {memo} from "react";
+
+import {useAuth} from '../../context/AuthContext';
+
 import Button from '../../common/Button/Button'
 import Logo from './components/Logo/Logo'
 
-import './Header.css'
-import {Link, useNavigate} from 'react-router-dom';
-import {useAuth} from '../../context/AuthContext';
-import {memo} from "react";
+import './Header.css';
 
 function Header() {
 

@@ -1,13 +1,15 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 
-import {useAuthService} from '../services/authService';
 import useToken from '../hooks/useToken';
+
+import {useAlert} from './AlertContext';
+
+import {useAuthService} from '../services/authService';
 
 import { IRegisterFailure, IRegisterSuccess, IRegisterCredentials } from '../models/auth/register'
 import { ILoginCredentials } from '../models/auth/login';
 import {IAuthState} from '../models/auth/auth';
 import {IUser} from '../models/user';
-import {useAlert} from './AlertContext';
 
 
 
