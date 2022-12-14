@@ -1,0 +1,22 @@
+.search-bar {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.search-bar-search {
+    display: flex;
+    gap: 1.25em;
+}
+
+.search-bar-search-input {
+    flex-grow: 1;
+}
+
+.search-bar-search-button {
+}
+
+.search-bar-button {
+
+}
