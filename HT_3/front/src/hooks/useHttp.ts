@@ -27,7 +27,7 @@ export function useHttp() {
                     body = JSON.stringify(body ?? {});
                 }
 
-                const response: any = await fetch(`${environment.baseUrl}/${url}`, {method, body, headers});
+                const response: any = await fetch(`${environment.baseApiURL}/${url}`, {method, body, headers});
 
                 if( !response.ok) {
                     const errorBody: IAuthError = await response.json();

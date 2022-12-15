@@ -5,11 +5,6 @@ export interface ILoginCredentials {
     password: string;
 }
 
-export interface ILoginFailure {
-    successful: false;
-    result: string;
-}
-
 export interface ILoginSuccess {
     successful: true;
     result: string;

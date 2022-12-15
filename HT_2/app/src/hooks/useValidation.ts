@@ -69,11 +69,9 @@ export function useValidation(value: string | number, validators: IValidatorKeys
 
         setErrors(errors);
 
-        if( maxLengthError || minLengthError || emailError || requiredError ) {
-            setIsValid(false);
-        } else {
-            setIsValid(true);
-        }
+        const isValid = !( maxLengthError || minLengthError || emailError || requiredError );
+
+        setIsValid(isValid);
 
     }, [maxLengthError, minLengthError, emailError, requiredError]);
 

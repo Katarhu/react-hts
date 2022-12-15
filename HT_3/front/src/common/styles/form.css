@@ -59,6 +59,10 @@
     color: red;
 }
 
+.form-error:first-letter {
+    text-transform: capitalize;
+}
+
 .form-error:before {
     content: '*';
     color: red;

@@ -6,7 +6,7 @@ import {useAlert} from "../../../../context/AlertContext";
 import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
 
-import { formatDuration } from '../../../../utils/formatDuration';
+import { formatDuration } from '../../../../utils/format/formatDuration';
 import createId from '../../../../utils/createId';
 
 import { IAuthor } from '../../../../models/author';

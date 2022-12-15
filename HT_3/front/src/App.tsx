@@ -1,7 +1,6 @@
 import {Navigate, Route, Routes} from 'react-router-dom';
 
 import {useAlert} from "./context/AlertContext";
-import {useAuth} from './context/AuthContext';
 
 import CreateCourse from './components/Courses/components/CreateCourse/CreateCourse';
 import Registration from './components/Registration/Registration';
@@ -16,11 +15,16 @@ import {IAlert} from "./models/alert";
 
 import './App.css';
 
+import {useDispatch} from "react-redux";
+import {useAppSelector} from "./hooks/redux";
+import {selectIsAuth} from "./store/user/user.selectors";
+
 
 function App() {
-    const { isAuth } = useAuth();
     const {getAlerts, removeAlert} = useAlert();
     const alerts = getAlerts();
+    const isAuth = useAppSelector(selectIsAuth);
+    const dispatch = useDispatch();
 
     const getRoutes = (isAuth: boolean) => {
         if( isAuth ) {

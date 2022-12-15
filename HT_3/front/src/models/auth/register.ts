@@ -6,10 +6,10 @@ export interface IRegisterCredentials {
 
 export interface IRegisterFailure {
     errors: string[];
-    successful: boolean;
+    successful: false;
 }
 
 export interface IRegisterSuccess {
     result: string;
-    successful: boolean;
+    successful: true;
 }

@@ -2,12 +2,11 @@ import {FormEvent, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
 import {useAlert} from "../../context/AlertContext";
-import {useAuth} from '../../context/AuthContext';
 import {useInput} from '../../hooks/useInput';
 
-import getErrorsPopup from '../../utils/generateErrorPopup';
-import getIsFormValid from '../../utils/getIsFormCorrect';
-import getFormErrors from '../../utils/getFormErrors';
+import getErrorsPopup from '../../utils/errors/generateErrorPopup';
+import getIsFormValid from '../../utils/errors/getIsFormCorrect';
+import getFormError from '../../utils/errors/getFormError';
 
 
 import Button from '../../common/Button/Button';
@@ -18,6 +17,10 @@ import {IRegisterCredentials} from '../../models/auth/register';
 import '../../common/styles/inputError.css';
 import '../../common/styles/form.css'
 import './Registration.css';
+import {useDispatch} from "react-redux";
+import {clearUserError, registerUser} from "../../store/user/user.action.creators";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {selectAuthError, selectIsAuth} from "../../store/user/user.selectors";
 
 
 function Registration() {
@@ -25,21 +28,25 @@ function Registration() {
     const name = useInput('', { required: true });
     const email = useInput('', { required: true, email: true });
     const password = useInput('', { required: true });
-
     const [isShowPassword, setIsShowPassword] = useState(false);
-    const {handleSignUp, error, clearError} = useAuth();
-    const navigate = useNavigate();
+    const error = useAppSelector(selectAuthError);
     const {addAlert} = useAlert();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        clearError();
-        return () => clearError()
+        if ( error ) dispatch(clearUserError());
+
+        return () => {
+            if ( error ) dispatch(clearUserError());
+        }
     }, [name.value, email.value, password.value]);
+
 
     const submitRegistration = (event: FormEvent) => {
         event.preventDefault();
 
-        if( !email || !name || !password ) return addAlert('Please provide all fields');
+        if( !email.value || !name.value || !password.value ) return addAlert('Please provide all fields');
 
         const credentialsToRegister: IRegisterCredentials = {
             name: name.value.toString(),
@@ -47,20 +54,14 @@ function Registration() {
             password: password.value.toString()
         }
 
-        handleSignUp(credentialsToRegister)
-            .then((response) => {
-                if( response.successful ) {
-                    addAlert('Registration is successful, please log in');
-                    navigate('/login');
-                }
-            })
+        dispatch(registerUser(credentialsToRegister));
     }
 
     const togglePasswordType = () => {
         setIsShowPassword((prev) => !prev);
     }
 
-    const formErrors = getFormErrors(error);
+    const formError = getFormError(error);
     const isFormValid = getIsFormValid(name.isValid, email.isValid, password.isValid);
 
     const nameErrors = getErrorsPopup(name.errors, name.touched);
@@ -71,7 +72,6 @@ function Registration() {
         <div className='registration'>
             <form
                 className='form'
-                action="#"
                 onSubmit={submitRegistration}
             >
                 <h2 className='form-title'>Register</h2>
@@ -134,7 +134,7 @@ function Registration() {
                     </div>
                 </fieldset>
 
-                {formErrors}
+                {formError}
 
                 <fieldset className='form-button'>
                     <Button

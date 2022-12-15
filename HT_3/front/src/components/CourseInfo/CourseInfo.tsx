@@ -1,7 +1,7 @@
 import {Link, useParams} from 'react-router-dom';
 
-import {formatDuration} from '../../utils/formatDuration';
-import {formatDate} from '../../utils/formatDate';
+import {formatDuration} from '../../utils/format/formatDuration';
+import {formatDate} from '../../utils/format/formatDate';
 
 import {mockedCoursesList, mockedAuthorsList} from '../../constants/constants';
 

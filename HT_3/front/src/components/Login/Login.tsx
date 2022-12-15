@@ -1,13 +1,14 @@
-import { FormEvent, useEffect, useState} from 'react';
+import {FormEvent, useCallback, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import {useAuth} from '../../context/AuthContext';
 import {useAlert} from "../../context/AlertContext";
 import {useInput} from '../../hooks/useInput';
+import {useDispatch, useSelector} from "react-redux";
 
-import getErrorsPopup from '../../utils/generateErrorPopup';
-import getIsFormValid from '../../utils/getIsFormCorrect';
-import getFormErrors from '../../utils/getFormErrors';
+import getErrorsPopup from '../../utils/errors/generateErrorPopup';
+import getIsFormValid from '../../utils/errors/getIsFormCorrect';
+import getFormError from '../../utils/errors/getFormError';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
@@ -17,6 +18,9 @@ import {ILoginCredentials} from '../../models/auth/login';
 import '../../common/styles/inputError.css'
 import '../../common/styles/form.css'
 import './Login.css';
+import {clearUserError, loginUser} from "../../store/user/user.action.creators";
+import {selectAuthError} from "../../store/user/user.selectors";
+import {useAppSelector} from "../../hooks/redux";
 
 
 function Login() {
@@ -25,32 +29,43 @@ function Login() {
   const email = useInput('', { minLength: 5, maxLength: 25, required: true, email: true });
   const password = useInput('', { minLength:5, maxLength: 25, required: true });
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const {handleSignIn, error, clearError} = useAuth();
+  const error = useAppSelector(selectAuthError);
+  const dispatch = useDispatch();
+
+  console.log(error)
 
   useEffect(() => {
-    clearError();
-    return () => clearError()
+
+    if ( error ) dispatch(clearUserError());
+
+    return () => {
+      if ( error ) dispatch(clearUserError());
+    }
+
   }, [email.value, password.value]);
+
 
   const submitLogin = (event: FormEvent) => {
     event.preventDefault();
 
-    if( !email || !password ) return addAlert('Please provide all fields');
+    if( !email.value || !password.value ) return addAlert('Please provide all fields');
 
     const loginCredentials: ILoginCredentials = {
       email: email.value.toString(),
       password: password.value.toString()
     }
 
-    handleSignIn(loginCredentials);
+    dispatch(loginUser(loginCredentials));
   }
 
   const togglePasswordType = () => {
     setIsShowPassword((prev) => !prev);
   }
 
+
+
   const isFormValid = getIsFormValid(email.isValid, password.isValid);
-  const formErrors = getFormErrors(error);
+  const formError = getFormError(error);
 
   const emailErrors = getErrorsPopup(email.errors, email.touched);
   const passwordErrors = getErrorsPopup(password.errors, password.touched);
@@ -104,7 +119,7 @@ function Login() {
               </div>
             </fieldset>
 
-            {formErrors}
+            {formError}
 
             <fieldset className='form-button'>
               <Button

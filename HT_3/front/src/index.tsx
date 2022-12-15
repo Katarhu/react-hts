@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import React from 'react'
 
 import AlertProvider from "./context/AlertContext";
-import AuthProvider from './context/AuthContext';
 
 import {Provider} from 'react-redux';
 import store from './store';
@@ -17,13 +16,11 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
       <Provider store={store}>
-          <AuthProvider>
-              <AlertProvider>
-                  <Router>
-                      <App />
-                  </Router>
-              </AlertProvider>
-          </AuthProvider>
+          <AlertProvider>
+              <Router>
+                  <App />
+              </Router>
+          </AlertProvider>
       </Provider>
   </React.StrictMode>
 )

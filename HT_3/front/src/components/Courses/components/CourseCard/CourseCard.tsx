@@ -5,8 +5,8 @@ import Button from '../../../../common/Button/Button';
 import { ICourse } from '../../../../models/course';
 import { mockedAuthorsList } from '../../../../constants/constants';
 
-import { formatDate } from '../../../../utils/formatDate';
-import { formatDuration } from '../../../../utils/formatDuration';
+import { formatDate } from '../../../../utils/format/formatDate';
+import { formatDuration } from '../../../../utils/format/formatDuration';
 
 import './CourseCard.css'
 
