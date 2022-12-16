@@ -1,11 +1,14 @@
 import {IUser} from "../../models/user";
-import {ILoginCredentials, ILoginSuccess} from "../../models/auth/login";
+import {ILoginCredentials, ILoginResponse, ILoginSuccess} from '../../models/auth/login';
 import {IRegisterCredentials, IRegisterSuccess} from "../../models/auth/register";
+import {IGetUserResponse} from '../../models/auth/getUser';
 
 export interface IUserInitialState {
     user: IUser | null;
+    token: string;
     loading: boolean;
     error: string;
+    success: boolean;
 }
 
 export enum UserActions {
@@ -40,7 +43,7 @@ export interface LOGIN_USER {
 
 export interface LOGIN_USER_SUCCESS {
     type: AuthActions.LOGIN_USER_SUCCESS,
-    payload: ILoginSuccess
+    payload: ILoginResponse
 }
 
 export interface LOGIN_USER_FAILURE {
@@ -75,12 +78,11 @@ export interface GET_USER {
 
 export interface GET_USER_FAILURE {
     type: UserActions.GET_USER_FAILURE,
-    payload: string
 }
 
 export interface GET_USER_SUCCESS {
     type: UserActions.GET_USER_SUCCESS,
-    payload: IUser
+    payload: IGetUserResponse
 }
 
 // **********************

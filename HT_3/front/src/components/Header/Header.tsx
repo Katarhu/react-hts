@@ -1,20 +1,23 @@
 import {Link} from 'react-router-dom';
 import {memo} from "react";
 
-import {useAuth} from '../../context/AuthContext';
-
 import Button from '../../common/Button/Button'
 import Logo from './components/Logo/Logo'
+import Loader from '../../common/Loader/Loader';
 
-import './Header.css';
 import {useAppSelector} from "../../hooks/redux";
-import {selectIsAuth, selectUser} from "../../store/user/user.selectors";
+import {selectAuthIsLoading, selectIsAuth, selectUser} from '../../store/user/user.selectors';
+
 import {useDispatch} from "react-redux";
 import {logOut} from "../../store/user/user.action.creators";
+
+import './Header.css';
+import getLoader from '../../utils/getLoader';
 
 function Header() {
 
     const dispatch = useDispatch();
+    const isLoading = useAppSelector(selectAuthIsLoading);
     const isAuth = useAppSelector(selectIsAuth);
     const user = useAppSelector(selectUser);
 
@@ -35,10 +38,12 @@ function Header() {
         )
     }
 
+    const loader = getLoader(isLoading);
     const content = getContent(isAuth);
 
     return (
         <header className='header'>
+            {loader}
             <div className='header-logo'>
                 <Link to='/'>
                     <Logo />

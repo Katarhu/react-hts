@@ -10,3 +10,8 @@ export interface ILoginSuccess {
     result: string;
     user: IUser;
 }
+
+export interface ILoginResponse {
+    token: string;
+    user: IUser;
+}

@@ -3,8 +3,10 @@ import {AuthActions, IUserInitialState, UserAction, UserActions} from './user.ty
 
 const initialState: IUserInitialState = {
     user: null,
+    token: '',
     loading: false,
     error: '',
+    success: false
 }
 
 export const userReducer = (state: IUserInitialState = initialState, action: UserAction) => {
@@ -17,14 +19,15 @@ export const userReducer = (state: IUserInitialState = initialState, action: Use
         case AuthActions.LOGIN_USER_SUCCESS:
             return {
                 ...state,
-                loading: true,
+                loading: false,
                 error: '',
-                user: action.payload.user
+                user: action.payload.user,
+                token: action.payload.token
             }
         case AuthActions.LOGIN_USER_FAILURE:
             return {
                 ...state,
-                loading: true,
+                loading: false,
                 error: action.payload,
             }
         case AuthActions.REGISTER_USER:
@@ -33,18 +36,22 @@ export const userReducer = (state: IUserInitialState = initialState, action: Use
                 loading: true,
                 error: ''
             }
+
         case AuthActions.REGISTER_USER_FAILURE:
             return  {
                 ...state,
                 loading: false,
                 error: action.payload
             }
+
         case AuthActions.REGISTER_USER_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                error: ''
+                error: '',
+                success: true
             }
+
         case UserActions.GET_USER:
             return {
                 ...state,
@@ -55,14 +62,14 @@ export const userReducer = (state: IUserInitialState = initialState, action: Use
             return {
                 ...state,
                 loading: false,
-                user: action.payload
+                user: action.payload.user,
+                token: action.payload.token
             }
 
         case UserActions.GET_USER_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: action.payload
             }
 
         case AuthActions.LOGOUT:

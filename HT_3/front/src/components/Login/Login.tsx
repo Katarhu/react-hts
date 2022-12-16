@@ -1,10 +1,14 @@
 import {FormEvent, useCallback, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
-import {useAuth} from '../../context/AuthContext';
 import {useAlert} from "../../context/AlertContext";
 import {useInput} from '../../hooks/useInput';
-import {useDispatch, useSelector} from "react-redux";
+
+import {useDispatch} from "react-redux";
+import {clearUserError, loginUser} from "../../store/user/user.action.creators";
+
+import {useAppSelector} from "../../hooks/redux";
+import {selectAuthError} from "../../store/user/user.selectors";
 
 import getErrorsPopup from '../../utils/errors/generateErrorPopup';
 import getIsFormValid from '../../utils/errors/getIsFormCorrect';
@@ -18,9 +22,6 @@ import {ILoginCredentials} from '../../models/auth/login';
 import '../../common/styles/inputError.css'
 import '../../common/styles/form.css'
 import './Login.css';
-import {clearUserError, loginUser} from "../../store/user/user.action.creators";
-import {selectAuthError} from "../../store/user/user.selectors";
-import {useAppSelector} from "../../hooks/redux";
 
 
 function Login() {
@@ -31,8 +32,6 @@ function Login() {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const error = useAppSelector(selectAuthError);
   const dispatch = useDispatch();
-
-  console.log(error)
 
   useEffect(() => {
 

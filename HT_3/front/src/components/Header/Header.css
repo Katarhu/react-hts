@@ -7,6 +7,8 @@
 
     border: 2px solid red;
     padding: 1em 2em;
+
+    position: relative;
 }
 
 .header-logo {

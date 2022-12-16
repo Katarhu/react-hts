@@ -8,6 +8,11 @@ import getErrorsPopup from '../../utils/errors/generateErrorPopup';
 import getIsFormValid from '../../utils/errors/getIsFormCorrect';
 import getFormError from '../../utils/errors/getFormError';
 
+import {useDispatch} from "react-redux";
+import {clearUserError, clearUserState, registerUser} from '../../store/user/user.action.creators';
+
+import {selectAuthError, selectIsAuth, selectIsRegisterSuccess} from '../../store/user/user.selectors';
+import {useAppSelector} from "../../hooks/redux";
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
@@ -17,10 +22,6 @@ import {IRegisterCredentials} from '../../models/auth/register';
 import '../../common/styles/inputError.css';
 import '../../common/styles/form.css'
 import './Registration.css';
-import {useDispatch} from "react-redux";
-import {clearUserError, registerUser} from "../../store/user/user.action.creators";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {selectAuthError, selectIsAuth} from "../../store/user/user.selectors";
 
 
 function Registration() {
@@ -29,10 +30,12 @@ function Registration() {
     const email = useInput('', { required: true, email: true });
     const password = useInput('', { required: true });
     const [isShowPassword, setIsShowPassword] = useState(false);
-    const error = useAppSelector(selectAuthError);
     const {addAlert} = useAlert();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const registerSuccess = useAppSelector(selectIsRegisterSuccess);
+    const error = useAppSelector(selectAuthError);
 
     useEffect(() => {
         if ( error ) dispatch(clearUserError());
@@ -42,6 +45,13 @@ function Registration() {
         }
     }, [name.value, email.value, password.value]);
 
+    useEffect(() => {
+        if ( registerSuccess) {
+            addAlert('You account was created, please log in');
+            dispatch(clearUserState());
+            navigate('/login');
+        }
+    }, [registerSuccess]);
 
     const submitRegistration = (event: FormEvent) => {
         event.preventDefault();

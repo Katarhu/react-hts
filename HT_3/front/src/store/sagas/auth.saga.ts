@@ -3,10 +3,10 @@ import {call, put, takeEvery} from "redux-saga/effects";
 import {loginUser, logOut, registerUser} from "../../services/auth.service";
 import {
     loginUserFailure,
-    loginUserSuccess,
+    loginUserSuccess, logOutDone,
     registerUserFailure,
     registerUserSuccess
-} from "../user/user.action.creators";
+} from '../user/user.action.creators';
 
 import {
     AuthActions,
@@ -14,18 +14,17 @@ import {
     REGISTER_USER,
 } from "../user/user.types";
 
-import {IUser} from "../../models/user";
+import {ILoginResponse} from '../../models/auth/login';
 
 function* loginWorker(action: LOGIN_USER) {
     try {
 
-        const user: IUser = yield call(loginUser, action.payload);
+        const response: ILoginResponse = yield call(loginUser, action.payload);
 
-        yield put(loginUserSuccess(user));
+        yield put(loginUserSuccess(response));
 
     } catch (error: any) {
-
-        yield put(loginUserFailure(error));
+        yield put(loginUserFailure(error as string));
     }
 }
 
@@ -42,6 +41,7 @@ function* registerWorker(action: REGISTER_USER) {
 
 function* logOutWorker() {
     yield call(logOut);
+    yield put(logOutDone());
 }
 
 export function* authWatcher() {
