@@ -6,3 +6,9 @@ export interface ICourse {
   duration: number
   authors: string[]
 }
+
+
+export interface IGetCoursesSuccess {
+  successful: true;
+  result: ICourse[];
+}

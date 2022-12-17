@@ -1,6 +1,7 @@
 import {call, put, takeEvery} from "redux-saga/effects";
 
 import {loginUser, logOut, registerUser} from "../../services/auth.service";
+
 import {
     loginUserFailure,
     loginUserSuccess, logOutDone,
@@ -8,11 +9,7 @@ import {
     registerUserSuccess
 } from '../user/user.action.creators';
 
-import {
-    AuthActions,
-    LOGIN_USER,
-    REGISTER_USER,
-} from "../user/user.types";
+import { AuthActions, LOGIN_USER, REGISTER_USER } from "../user/user.types";
 
 import {ILoginResponse} from '../../models/auth/login';
 

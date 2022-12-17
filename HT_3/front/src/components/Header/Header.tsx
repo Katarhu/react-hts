@@ -3,21 +3,24 @@ import {memo} from "react";
 
 import Button from '../../common/Button/Button'
 import Logo from './components/Logo/Logo'
-import Loader from '../../common/Loader/Loader';
-
-import {useAppSelector} from "../../hooks/redux";
-import {selectAuthIsLoading, selectIsAuth, selectUser} from '../../store/user/user.selectors';
 
 import {useDispatch} from "react-redux";
 import {logOut} from "../../store/user/user.action.creators";
 
+import {useAppSelector} from "../../hooks/redux";
+import {selectAuthLoading, selectIsAuth, selectUser} from '../../store/user/user.selectors';
+import {UserLoadingType} from '../../store/user/user.types';
+
+
+import getLoader from '../../common/Loader/getLoader';
+
 import './Header.css';
-import getLoader from '../../utils/getLoader';
 
 function Header() {
 
     const dispatch = useDispatch();
-    const isLoading = useAppSelector(selectAuthIsLoading);
+
+    const authLoading = useAppSelector(selectAuthLoading);
     const isAuth = useAppSelector(selectIsAuth);
     const user = useAppSelector(selectUser);
 
@@ -38,7 +41,7 @@ function Header() {
         )
     }
 
-    const loader = getLoader(isLoading);
+    const loader = getLoader(authLoading, UserLoadingType.LOADING_USER);
     const content = getContent(isAuth);
 
     return (

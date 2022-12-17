@@ -6,9 +6,15 @@ import {IGetUserResponse} from '../../models/auth/getUser';
 export interface IUserInitialState {
     user: IUser | null;
     token: string;
-    loading: boolean;
+    loading: UserLoadingType;
     error: string;
     success: boolean;
+}
+
+export enum UserLoadingType {
+    NONE="NONE",
+    LOADING_USER="LOADING_USER",
+    LOADING_AUTH="LOADING_AUTH",
 }
 
 export enum UserActions {

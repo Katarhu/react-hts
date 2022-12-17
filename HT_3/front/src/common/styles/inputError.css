@@ -64,9 +64,3 @@
     border-radius: 25px;
     margin-right: 10px;
 }
-
-@media screen and (max-width: 552px) {
-    .input-errors {
-        font-size: .75em;
-    }
-}

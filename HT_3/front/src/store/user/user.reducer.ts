@@ -1,10 +1,10 @@
-import {AuthActions, IUserInitialState, UserAction, UserActions} from './user.types';
+import {AuthActions, IUserInitialState, UserAction, UserActions, UserLoadingType} from './user.types';
 
 
 const initialState: IUserInitialState = {
     user: null,
     token: '',
-    loading: false,
+    loading: UserLoadingType.NONE,
     error: '',
     success: false
 }
@@ -14,12 +14,12 @@ export const userReducer = (state: IUserInitialState = initialState, action: Use
         case AuthActions.LOGIN_USER:
             return {
                 ...state,
-                loading: true
+                loading: UserLoadingType.LOADING_AUTH
             }
         case AuthActions.LOGIN_USER_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                loading: UserLoadingType.NONE,
                 error: '',
                 user: action.payload.user,
                 token: action.payload.token
@@ -27,27 +27,27 @@ export const userReducer = (state: IUserInitialState = initialState, action: Use
         case AuthActions.LOGIN_USER_FAILURE:
             return {
                 ...state,
-                loading: false,
+                loading: UserLoadingType.NONE,
                 error: action.payload,
             }
         case AuthActions.REGISTER_USER:
             return {
                 ...state,
-                loading: true,
+                loading: UserLoadingType.LOADING_AUTH,
                 error: ''
             }
 
         case AuthActions.REGISTER_USER_FAILURE:
             return  {
                 ...state,
-                loading: false,
+                loading: UserLoadingType.NONE,
                 error: action.payload
             }
 
         case AuthActions.REGISTER_USER_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                loading: UserLoadingType.NONE,
                 error: '',
                 success: true
             }
@@ -55,13 +55,13 @@ export const userReducer = (state: IUserInitialState = initialState, action: Use
         case UserActions.GET_USER:
             return {
                 ...state,
-                loading: true,
+                loading: UserLoadingType.LOADING_USER,
             }
 
         case UserActions.GET_USER_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                loading: UserLoadingType.NONE,
                 user: action.payload.user,
                 token: action.payload.token
             }
@@ -69,13 +69,13 @@ export const userReducer = (state: IUserInitialState = initialState, action: Use
         case UserActions.GET_USER_FAILURE:
             return {
                 ...state,
-                loading: false,
+                loading: UserLoadingType.NONE,
             }
 
         case AuthActions.LOGOUT:
             return {
                 ...state,
-                loading: true
+                loading: UserLoadingType.LOADING_AUTH
             }
 
         case AuthActions.LOGOUT_DONE:

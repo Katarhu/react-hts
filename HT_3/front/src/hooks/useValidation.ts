@@ -8,19 +8,19 @@ export interface IValidatorKeys {
 }
 
 export function useValidation(value: string | number, validators: IValidatorKeys) {
-    const [maxLengthError, setMaxlengthError] = useState(false);
-    const [minLengthError, setMinlengthError] = useState(false);
-    const [emailError, setEmailError] = useState(false);
-    const [requiredError, setRequiredError] = useState(false);
     const [errors, setErrors] = useState<string[]>([]);
     const [isValid, setIsValid] = useState(true);
 
     useEffect(() => {
+        const errors: string[] = [];
+
         for (let key in validators) {
             switch (key) {
                 case 'maxLength':
                     const maxLength = validators[key] ?? Number.MAX_SAFE_INTEGER;
-                    value.toString().length >= maxLength ? setMaxlengthError(true) : setMaxlengthError(false)
+                    if(value.toString().length >= maxLength)
+                        errors.push(`Length should be less than: ${maxLength}`)
+
                     break
 
                 case 'minLength':
@@ -34,48 +34,31 @@ export function useValidation(value: string | number, validators: IValidatorKeys
                         minLength = <number>validators['minLength'];
                     }
 
-                    value.toString().length <= minLength ? setMinlengthError(true) : setMinlengthError(false)
+                    if (value.toString().length <= minLength)
+                        errors.push(`Length should be more than: ${minLength}`)
+
                     break;
 
                 case 'email':
                     const regexp = /^\S+@\S+\.\S+$/;
-                    regexp.test(value.toString()) ? setEmailError(false) : setEmailError(true);
+                    if (!regexp.test(value.toString()))
+                        errors.push('It should be valid email');
+
                     break;
 
                 case 'required':
-                    value.toString().length ? setRequiredError(false) : setRequiredError(true);
+                    if ( !value.toString().length)
+                        errors.push('This field is required');
+
                     break;
             }
         }
-    }, [value])
-
-    useEffect(() => {
-
-        const errors: string[] = [];
-
-        if (requiredError) {
-            errors.push('This field is required')
-        }
-
-        if (maxLengthError) {
-            errors.push(`Length should be less than: ${validators['maxLength']}`)
-        }
-        if( minLengthError ) {
-            errors.push(`Length should be more than: ${validators['minLength']}`)
-        }
-        if (emailError) {
-            errors.push('It should be valid email');
-        }
 
         setErrors(errors);
+        setIsValid(!!!errors.length);
 
-        if( maxLengthError || minLengthError || emailError || requiredError ) {
-            setIsValid(false);
-        } else {
-            setIsValid(true);
-        }
+    }, [value]);
 
-    }, [maxLengthError, minLengthError, emailError, requiredError]);
 
     return {
         errors,

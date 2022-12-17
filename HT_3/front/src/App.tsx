@@ -1,11 +1,16 @@
+import {useEffect} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 
 import {useAlert} from "./context/AlertContext";
 
 import {useDispatch} from "react-redux";
+import {getAuthors} from './store/authors/authors.action.creators';
+import {getCourses} from './store/courses/courses.action.creators';
+import {getUser} from './store/user/user.action.creators';
 
-import {useAppSelector} from "./hooks/redux";
-import {selectAuthIsLoading, selectIsAuth} from './store/user/user.selectors';
+import { useAppSelector } from "./hooks/redux";
+import { selectAuthLoading, selectIsAuth } from './store/user/user.selectors';
+import {UserLoadingType} from './store/user/user.types';
 
 import CreateCourse from './components/Courses/components/CreateCourse/CreateCourse';
 import Registration from './components/Registration/Registration';
@@ -14,14 +19,11 @@ import CourseInfo from './components/CourseInfo/CourseInfo';
 import Courses from './components/Courses/Courses';
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
-import {Alert} from "./components/Alert/Alert";
 
-import {IAlert} from "./models/alert";
+import getAlertItems from './components/Alert/utils/getAlerts';
+import getLoader from './common/Loader/getLoader';
 
 import './App.css';
-import {useEffect} from 'react';
-import {getUser} from './store/user/user.action.creators';
-import getLoader from './utils/getLoader';
 
 
 
@@ -32,10 +34,12 @@ function App() {
     const alerts = getAlerts();
 
     const isAuth = useAppSelector(selectIsAuth);
-    const isLoading = useAppSelector(selectAuthIsLoading);
+    const authLoading = useAppSelector(selectAuthLoading);
 
     useEffect(() => {
         dispatch(getUser());
+        dispatch(getCourses());
+        dispatch(getAuthors());
     }, []);
 
     const getRoutes = (isAuth: boolean) => {
@@ -55,26 +59,10 @@ function App() {
         </>
     }
 
-    const getAlertItems = (alerts: IAlert[]) => {
-        if( !alerts.length ) return null;
 
-        return (
-            <div className='alerts'>
-                {alerts.map((alert) => (
-                    <Alert
-                        key={alert.id}
-                        onAnimationEnd={() => removeAlert(alert.id)}
-                    >
-                        {alert.message}
-                    </Alert>
-                ))}
-            </div>
-        )
-    }
-
-    const loader = getLoader(isLoading);
+    const loader = getLoader(authLoading, UserLoadingType.LOADING_USER );
     const routes = getRoutes(isAuth);
-    const alertItems = getAlertItems(alerts);
+    const alertItems = getAlertItems(alerts, removeAlert);
 
     return (
         <div className='App'>
@@ -92,4 +80,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

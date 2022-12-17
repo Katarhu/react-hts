@@ -11,7 +11,7 @@ import getFormError from '../../utils/errors/getFormError';
 import {useDispatch} from "react-redux";
 import {clearUserError, clearUserState, registerUser} from '../../store/user/user.action.creators';
 
-import {selectAuthError, selectIsAuth, selectIsRegisterSuccess} from '../../store/user/user.selectors';
+import {selectAuthError, selectIsRegisterSuccess} from '../../store/user/user.selectors';
 import {useAppSelector} from "../../hooks/redux";
 
 import Button from '../../common/Button/Button';
@@ -52,6 +52,7 @@ function Registration() {
             navigate('/login');
         }
     }, [registerSuccess]);
+
 
     const submitRegistration = (event: FormEvent) => {
         event.preventDefault();

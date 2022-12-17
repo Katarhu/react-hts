@@ -3,24 +3,27 @@ import {Link, useParams} from 'react-router-dom';
 import {formatDuration} from '../../utils/format/formatDuration';
 import {formatDate} from '../../utils/format/formatDate';
 
-import {mockedCoursesList, mockedAuthorsList} from '../../constants/constants';
+import {mockedAuthorsList} from '../../constants/constants';
 
 import './CourseInfo.css';
+import {useAppSelector} from '../../hooks/redux';
+import {selectCourseById} from '../../store/courses/courses.selectors';
+import {selectAuthors} from '../../store/authors/authors.selectors';
+import {IAuthor} from '../../models/author';
 
 
 function CourseInfo() {
 
     const params = useParams();
 
-    const course = mockedCoursesList.find((course) => {
-        return course.id === params.id;
-    });
+    const course = useAppSelector(selectCourseById(params?.id));
+    const authors = useAppSelector(selectAuthors);
 
-    const getCourseAuthors = (authors: string[]) => {
-        if( !authors.length ) return <div>There is no authors</div>
+    const getCourseAuthors = (authors: IAuthor[], courseAuthors: string[]) => {
+        if( !authors.length || !courseAuthors.length ) return <div>There is no authors</div>
 
-        return authors.map((authorId) => {
-            const author = mockedAuthorsList.find((author) => author.id === authorId);
+        return courseAuthors.map((authorId) => {
+            const author = authors.find((author) => author.id === authorId);
 
             if( !author ) return <div>Unknown</div>
 
@@ -39,7 +42,7 @@ function CourseInfo() {
 
     const courseDuration = formatDuration(course.duration);
     const courseDate = formatDate(course.creationDate);
-    const courseAuthors = getCourseAuthors(course.authors);
+    const courseAuthors = getCourseAuthors(authors, course.authors);
 
     return (
         <div className='course-info'>
