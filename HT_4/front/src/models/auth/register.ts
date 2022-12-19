@@ -1,0 +1,15 @@
+export interface IRegisterCredentials {
+    name: string;
+    email: string;
+    password: string;
+}
+
+export interface IRegisterFailure {
+    errors: string[];
+    successful: false;
+}
+
+export interface IRegisterSuccess {
+    result: string;
+    successful: true;
+}
