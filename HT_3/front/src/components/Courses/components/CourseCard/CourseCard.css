@@ -37,11 +37,12 @@
 }
 
 .course-list-item {
-
 }
 
-.course-button {
-    text-align: center;
+.course-buttons {
+    /*text-align: center;*/
+    display: flex;
+    gap: .25em;
 }
 
 .course-list-authors {

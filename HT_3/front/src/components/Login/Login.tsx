@@ -1,14 +1,14 @@
-import {FormEvent, useCallback, useEffect, useState} from 'react';
+import {FormEvent, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import {useAlert} from "../../context/AlertContext";
 import {useInput} from '../../hooks/useInput';
 
-import {useDispatch} from "react-redux";
-import {clearUserError, loginUser} from "../../store/user/user.action.creators";
 
 import {useAppSelector} from "../../hooks/redux";
 import {selectAuthError} from "../../store/user/user.selectors";
+
+import {useActions} from '../../hooks/useAction';
 
 import getErrorsPopup from '../../utils/errors/generateErrorPopup';
 import getIsFormValid from '../../utils/errors/getIsFormCorrect';
@@ -26,21 +26,21 @@ import './Login.css';
 
 function Login() {
 
-  const {addAlert} = useAlert();
   const email = useInput('', { minLength: 5, maxLength: 25, required: true, email: true });
   const password = useInput('', { minLength:5, maxLength: 25, required: true });
   const [isShowPassword, setIsShowPassword] = useState(false);
+
+  const { clearUserError, loginUser } = useActions();
+  const {addAlert} = useAlert();
+
   const error = useAppSelector(selectAuthError);
-  const dispatch = useDispatch();
 
   useEffect(() => {
-
-    if ( error ) dispatch(clearUserError());
+    if ( error ) clearUserError();
 
     return () => {
-      if ( error ) dispatch(clearUserError());
+      if ( error ) clearUserError();
     }
-
   }, [email.value, password.value]);
 
 
@@ -54,7 +54,7 @@ function Login() {
       password: password.value.toString()
     }
 
-    dispatch(loginUser(loginCredentials));
+    loginUser(loginCredentials);
   }
 
   const togglePasswordType = () => {

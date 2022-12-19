@@ -1,54 +1,69 @@
 import {useEffect, useState} from 'react';
 
-import { ICourse } from '../../models/course';
-import { mockedCoursesList } from '../../constants/constants';
+import {useAlert} from '../../context/AlertContext';
+
 
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 
-import './Courses.css';
 
-import {useDispatch} from 'react-redux';
-import {getCourses} from '../../store/courses/courses.action.creators';
+import {useActions} from '../../hooks/useAction';
+
 import {useAppSelector} from '../../hooks/redux';
-import {selectCourses} from '../../store/courses/courses.selectors';
+import {
+  selectCourses,
+  selectCoursesError,
+  selectCoursesLoading,
+  selectFilteredCourses
+} from '../../store/courses/courses.selectors';
+
+import { ICourse } from '../../models/course';
+
+import getLoader from '../../common/Loader/utils/getLoader';
+import {CoursesLoadingType} from '../../store/courses/courses.types';
+
+import './Courses.css';
 
 
 function Courses() {
-  const [filter, setFilter] = useState('');
-  const dispatch = useDispatch();
-  const courses = useAppSelector(selectCourses);
+  const {getCourses, clearCoursesError} = useActions();
+  const {addAlert} = useAlert();
+
+  const courses = useAppSelector(selectFilteredCourses);
+  const loading = useAppSelector(selectCoursesLoading);
+  const error = useAppSelector(selectCoursesError);
 
   useEffect(() => {
     if( !courses.length ) {
-      dispatch(getCourses());
+      getCourses();
     }
   }, []);
 
-  const commitFilterChanges = (filter: string) => {
-    setFilter(filter.trim().toLowerCase());
-  }
-
-  const getCourseItems = (courses: ICourse[]) => {
-    if (courses.length === 0) return <div>There is no courses yet</div>
-
-    return courses.map((course) => {
-      const courseTitle = course.title.trim().toLowerCase();
-      const courseId = course.id.trim().toLowerCase();
-
-      return (courseTitle.includes(filter) || courseId.includes(filter))
-        ? <CourseCard key={course.id} {...course}/>
-        : null
+  useEffect(() => {
+    if( error ) {
+      addAlert(error);
+      clearCoursesError();
     }
-    )
+  }, [error]);
+
+  const getFilteredCourseItems = (courses: ICourse[]) => {
+    if (courses.length === 0) return <div>There is no courses</div>
+
+    return courses.map((course) =>
+        <CourseCard key={course.id} {...course}/>
+    );
   }
 
-  const courseItems = getCourseItems(courses);
+  const loader = getLoader(loading, CoursesLoadingType.LOADING_COURSES);
+  const courseItems = getFilteredCourseItems(courses);
 
   return (
         <div className='courses'>
-          <SearchBar onSearch={commitFilterChanges} />
-          {courseItems}
+          <SearchBar />
+          <div className='courses-items'>
+            {loader}
+            {courseItems}
+          </div>
         </div>
   );
 }

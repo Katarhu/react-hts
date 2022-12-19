@@ -21,7 +21,7 @@ import Header from './components/Header/Header';
 import Login from './components/Login/Login';
 
 import getAlertItems from './components/Alert/utils/getAlerts';
-import getLoader from './common/Loader/getLoader';
+import getLoader from './common/Loader/utils/getLoader';
 
 import './App.css';
 

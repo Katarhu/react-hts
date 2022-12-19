@@ -29,6 +29,26 @@ export const authorsReducer = (state = initialState, action: AuthorsAction) => {
                 error: action.payload
             }
 
+        case AuthorsActions.CREATE_AUTHOR:
+            return {
+                ...state,
+                loading: AuthorsLoadingType.AUTHORS_ACTION
+            }
+
+        case AuthorsActions.CREATE_AUTHOR_SUCCESS:
+            return {
+                ...state,
+                loading: AuthorsLoadingType.NONE,
+                authors: [...state.authors, action.payload]
+            }
+
+        case AuthorsActions.CREATE_AUTHOR_FAILURE:
+            return {
+                ...state,
+                loading: AuthorsLoadingType.NONE,
+                error: action.payload
+            }
+
         case AuthorsActions.CLEAR_STATE:
             return initialState;
 

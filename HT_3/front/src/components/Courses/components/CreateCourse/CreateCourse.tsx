@@ -1,4 +1,4 @@
-import {ChangeEvent, Dispatch, FormEvent, useMemo, useState} from 'react';
+import {ChangeEvent, Dispatch, FormEvent, useCallback, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import {useAlert} from "../../../../context/AlertContext";
@@ -9,10 +9,14 @@ import Button from '../../../../common/Button/Button';
 import { formatDuration } from '../../../../utils/format/formatDuration';
 import createId from '../../../../utils/createId';
 
-import { IAuthor } from '../../../../models/author';
-import {mockedAuthorsList, mockedCoursesList} from '../../../../constants/constants';
+import {useAppSelector} from '../../../../hooks/redux';
+import {selectAuthors} from '../../../../store/authors/authors.selectors';
 
+import {useActions} from '../../../../hooks/useAction';
+
+import { IAuthor } from '../../../../models/author';
 import { ICourse } from '../../../../models/course';
+
 import Author from "./components/Author/Author";
 
 import './CreateCourse.css';
@@ -20,7 +24,6 @@ import './CreateCourse.css';
 
 function CreateCourse() {
   const { addAlert } = useAlert();
-  const [authors, setAuthors] = useState<IAuthor[]>(mockedAuthorsList);
   const [selectedAuthors, setSelectedAuthors] = useState<IAuthor[]>([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -28,7 +31,10 @@ function CreateCourse() {
   const [newAuthorName, setNewAuthorName] = useState('');
   const navigate = useNavigate();
 
-  const cancelCreation = () => {
+  const {addAuthor, addCourse} = useActions();
+  const authors = useAppSelector(selectAuthors);
+
+  const goBack = () => {
     navigate('/courses');
   }
 
@@ -54,27 +60,23 @@ function CreateCourse() {
       authors: courseAuthors
     }
 
-    handleCreateCourse(newCourse);
+    addCourse(newCourse);
+    addAlert('Course was created successfully');
+    goBack();
   }
-
-  const handleCreateCourse = (course: ICourse) => {
-    mockedCoursesList.push(course);
-    cancelCreation();
-  }
-
 
 
   const commitAddingAuthor = () => {
     if (newAuthorName === '') return addAlert('Author name should not be empty');
 
     const authorId = createId();
+
     const newAuthor: IAuthor = {
       id: authorId,
       name: newAuthorName
     }
 
-    mockedAuthorsList.push(newAuthor);
-    setAuthors(() => [...mockedAuthorsList]);
+    addAuthor(newAuthor);
     setNewAuthorName('');
   }
 
@@ -108,7 +110,7 @@ function CreateCourse() {
     )
   }
 
-  const getAuthorsToSelect = (authors: IAuthor[]) => {
+  const getAuthorsToSelect = useCallback((authors: IAuthor[]) => {
 
     if( !authors.length ) return <div>There is no authors to select</div>
 
@@ -117,20 +119,20 @@ function CreateCourse() {
       if( isAuthorSelected ) return;
       return <Author key={author.id} author={author} onClick={addSelectedAuthor} buttonText='Add author'/>
     })
-  }
+  }, [selectedAuthors, authors])
 
-  const getSelectedAuthors = (authors: IAuthor[]) => {
+  const getSelectedAuthors = useCallback((authors: IAuthor[]) => {
     if( !authors.length ) return <div>There is no authors to select</div>
 
     return authors.map((author) => (
         <Author key={author.id} author={author} onClick={removeSelectedAuthor} buttonText='Remove author'/>
     ))
-  }
+  }, [selectedAuthors])
 
 
   const courseDuration = formatDuration(duration);
-  const toSelectItems = useMemo(() => getAuthorsToSelect(authors), [selectedAuthors, authors]);
-  const selectedItems = useMemo(() => getSelectedAuthors(selectedAuthors), [selectedAuthors]);
+  const toSelectItems = getAuthorsToSelect(authors);
+  const selectedItems = getSelectedAuthors(selectedAuthors);
 
   return (
         <div className='create-course'>
@@ -150,7 +152,7 @@ function CreateCourse() {
                 <div className='course-form-head-buttons'>
                   <Button
                       buttonText='Go back'
-                      onClick={cancelCreation}
+                      onClick={goBack}
                   />
                   <Button
                       buttonText='Create course'

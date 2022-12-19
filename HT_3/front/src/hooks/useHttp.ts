@@ -1,6 +1,8 @@
 import {useCallback, useState} from 'react';
-import {HttpTypes} from '../common/types/http.types';
+
 import {environment} from '../environment';
+
+import {HttpTypes} from '../common/types/http.types';
 import {IAuthError} from '../models/auth/auth';
 
 export function useHttp() {

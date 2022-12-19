@@ -18,6 +18,10 @@ export enum AuthorsActions {
     GET_AUTHORS_SUCCESS="GET_AUTHORS_SUCCESS",
     GET_AUTHORS_FAILURE="GET_AUTHORS_FAILURE",
 
+    CREATE_AUTHOR="CREATE_AUTHOR",
+    CREATE_AUTHOR_SUCCESS="CREATE_AUTHOR_SUCCESS",
+    CREATE_AUTHOR_FAILURE="CREATE_AUTHOR_FAILURE",
+
     CLEAR_STATE="CLEAR_STATE",
 }
 
@@ -41,6 +45,24 @@ export interface GET_AUTHORS_FAILURE {
 // **********************
 // **********************
 
+export interface CREATE_AUTHOR {
+    type: AuthorsActions.CREATE_AUTHOR;
+    payload: IAuthor;
+}
+
+export interface CREATE_AUTHOR_SUCCESS {
+    type: AuthorsActions.CREATE_AUTHOR_SUCCESS
+    payload: IAuthor;
+}
+
+export interface CREATE_AUTHOR_FAILURE {
+    type: AuthorsActions.CREATE_AUTHOR_FAILURE
+    payload: string;
+}
+
+// **********************
+// **********************
+
 export interface CLEAR_STATE {
     type: AuthorsActions.CLEAR_STATE;
 }
@@ -51,4 +73,7 @@ export interface CLEAR_STATE {
 export type AuthorsAction = GET_AUTHORS
                         | GET_AUTHORS_SUCCESS
                         | GET_AUTHORS_FAILURE
+                        | CREATE_AUTHOR
+                        | CREATE_AUTHOR_SUCCESS
+                        | CREATE_AUTHOR_FAILURE
                         | CLEAR_STATE

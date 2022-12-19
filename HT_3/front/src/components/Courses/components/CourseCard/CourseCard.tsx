@@ -2,8 +2,13 @@ import {useNavigate} from 'react-router-dom';
 
 import Button from '../../../../common/Button/Button';
 
+import {useAppSelector} from '../../../../hooks/redux';
+import {selectAuthors} from '../../../../store/authors/authors.selectors';
+
+import {useActions} from '../../../../hooks/useAction';
+
 import { ICourse } from '../../../../models/course';
-import { mockedAuthorsList } from '../../../../constants/constants';
+import {IAuthor} from '../../../../models/author';
 
 import { formatDate } from '../../../../utils/format/formatDate';
 import { formatDuration } from '../../../../utils/format/formatDuration';
@@ -12,28 +17,37 @@ import './CourseCard.css'
 
 function CourseCard({ id, title, description, creationDate, duration, authors }: ICourse) {
 
+  const availableAuthors = useAppSelector(selectAuthors);
   const navigate = useNavigate();
+  const {deleteCourse} = useActions();
 
   const showCourse = () => {
     navigate(`/courses/${id}`);
   }
 
-  const getCourseAuthors = (authorIds: string[]) => {
-    if (authors.length === 0) {
+  const handleRemoveCourse = () => {
+    deleteCourse(id);
+  }
+
+  const handleUpdateCourse = () => {
+  }
+
+  const getCourseAuthors = (authors: IAuthor[], courseAuthors: string[]) => {
+    if ( !authors.length || !courseAuthors.length ) {
       return <div>No authors</div>
     }
 
-    return authors.map((authorId, index) => {
-      const author = mockedAuthorsList.find((author) => author.id === authorId);
+    return courseAuthors.map((courseAuthorId, index) => {
+      const author = authors.find((author) => author.id === courseAuthorId);
 
       if (author == null) return '';
 
-      if (index === authorIds.length - 1) return author.name;
+      if (index === courseAuthors.length - 1) return author.name;
       return author.name + ', ';
     })
   }
 
-  const courseAuthors = getCourseAuthors(authors);
+  const courseAuthors = getCourseAuthors(availableAuthors, authors);
   const courseDate = formatDate(creationDate);
   const courseDuration = formatDuration(duration);
 
@@ -53,8 +67,10 @@ function CourseCard({ id, title, description, creationDate, duration, authors }:
               <li className='course-list-item'><strong>Created: </strong>{courseDate}</li>
             </ul>
           </div>
-          <div className='course-button'>
+          <div className='course-buttons'>
             <Button onClick={showCourse} buttonText={'Show Course'}/>
+            <Button onClick={handleUpdateCourse}>&#9998;</Button>
+            <Button onClick={handleRemoveCourse}>&#128465;</Button>
           </div>
         </div>
       </div>

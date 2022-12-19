@@ -3,13 +3,13 @@ import {Link, useParams} from 'react-router-dom';
 import {formatDuration} from '../../utils/format/formatDuration';
 import {formatDate} from '../../utils/format/formatDate';
 
-import {mockedAuthorsList} from '../../constants/constants';
-
-import './CourseInfo.css';
 import {useAppSelector} from '../../hooks/redux';
 import {selectCourseById} from '../../store/courses/courses.selectors';
 import {selectAuthors} from '../../store/authors/authors.selectors';
+
 import {IAuthor} from '../../models/author';
+
+import './CourseInfo.css';
 
 
 function CourseInfo() {

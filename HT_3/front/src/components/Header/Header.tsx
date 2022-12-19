@@ -4,28 +4,26 @@ import {memo} from "react";
 import Button from '../../common/Button/Button'
 import Logo from './components/Logo/Logo'
 
-import {useDispatch} from "react-redux";
-import {logOut} from "../../store/user/user.action.creators";
+import {useActions} from '../../hooks/useAction';
 
 import {useAppSelector} from "../../hooks/redux";
 import {selectAuthLoading, selectIsAuth, selectUser} from '../../store/user/user.selectors';
+
+import getLoader from '../../common/Loader/utils/getLoader';
 import {UserLoadingType} from '../../store/user/user.types';
-
-
-import getLoader from '../../common/Loader/getLoader';
 
 import './Header.css';
 
 function Header() {
 
-    const dispatch = useDispatch();
+    const {logOut} = useActions();
 
     const authLoading = useAppSelector(selectAuthLoading);
     const isAuth = useAppSelector(selectIsAuth);
     const user = useAppSelector(selectUser);
 
     const handleLogOut = () => {
-        dispatch(logOut());
+        logOut();
     }
 
     const getContent = (isAuth: boolean) => {

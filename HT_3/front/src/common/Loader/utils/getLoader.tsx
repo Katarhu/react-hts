@@ -1,4 +1,4 @@
-import Loader from './utils/Loader';
+import Loader from '../Loader';
 
 const getLoader = (loadingType: string, preferredLoadingType: string, size = 1) => {
 

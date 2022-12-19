@@ -4,28 +4,34 @@ import {useNavigate} from 'react-router-dom';
 import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
 
+import {useActions} from '../../../../hooks/useAction';
+
+import {useAppSelector} from '../../../../hooks/redux';
+import {selectCoursesFilter} from '../../../../store/courses/courses.selectors';
+
 import './SearchBar.css';
 
 
-interface SearchBarProps {
-  onSearch: (filter: string) => void
-}
 
-function SearchBar({ onSearch }: SearchBarProps) {
-  const [input, setInput] = useState('');
+function SearchBar() {
+  const filter = useAppSelector(selectCoursesFilter);
+
+  const [input, setInput] = useState(filter);
+
+  const {changeCourseFilter} = useActions();
   const navigate = useNavigate();
 
   const inputChange = (event: ChangeEvent) => {
     setInput((event.target as HTMLInputElement).value);
 
     if ((event.target as HTMLInputElement).value === '') {
-      onSearch('');
+      changeCourseFilter('');
     }
   };
 
-  const searchEvent = (event: FormEvent) => {
+  const onSubmit = (event: FormEvent) => {
       event.preventDefault();
-      onSearch(input);
+      changeCourseFilter(input);
   };
 
   const addNewCourse = () => {
@@ -35,7 +41,7 @@ function SearchBar({ onSearch }: SearchBarProps) {
   return (
         <form
             className="search-bar"
-            onSubmit={searchEvent}
+            onSubmit={onSubmit}
         >
             <div className="search-bar-search">
                 <div className='search-bar-search-input'>

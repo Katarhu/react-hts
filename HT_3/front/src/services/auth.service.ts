@@ -1,6 +1,8 @@
-import {IRegisterCredentials, IRegisterSuccess} from "../models/auth/register";
-import {ILoginCredentials, ILoginSuccess} from "../models/auth/login";
 import axios from "../utils/axios";
+
+import {IRegisterCredentials, IRegisterSuccess} from "../models/auth/register";
+
+import {ILoginCredentials, ILoginSuccess} from "../models/auth/login";
 
 export const loginUser = async (credentials: ILoginCredentials) => {
 

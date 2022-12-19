@@ -1,4 +1,3 @@
-import {IAuthState} from "../../models/auth/auth";
 import {RootState} from "../index";
 
 

@@ -1,4 +1,5 @@
 import axios from '../utils/axios';
+
 import {IGetUserResponse, IGetUserSuccess} from '../models/auth/getUser';
 
 export const getUser = async () => {
@@ -15,7 +16,7 @@ export const getUser = async () => {
 
         return response;
 
-    } catch (err) {
-        throw err;
+    } catch (error: any) {
+        throw error.repsonse.data.result ?? 'Cannot get user';
     }
 }

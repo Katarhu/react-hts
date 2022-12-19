@@ -8,8 +8,7 @@ import getErrorsPopup from '../../utils/errors/generateErrorPopup';
 import getIsFormValid from '../../utils/errors/getIsFormCorrect';
 import getFormError from '../../utils/errors/getFormError';
 
-import {useDispatch} from "react-redux";
-import {clearUserError, clearUserState, registerUser} from '../../store/user/user.action.creators';
+import {useActions} from '../../hooks/useAction';
 
 import {selectAuthError, selectIsRegisterSuccess} from '../../store/user/user.selectors';
 import {useAppSelector} from "../../hooks/redux";
@@ -30,25 +29,26 @@ function Registration() {
     const email = useInput('', { required: true, email: true });
     const password = useInput('', { required: true });
     const [isShowPassword, setIsShowPassword] = useState(false);
+
     const {addAlert} = useAlert();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const {clearUserState, clearUserError, registerUser} = useActions();
 
     const registerSuccess = useAppSelector(selectIsRegisterSuccess);
     const error = useAppSelector(selectAuthError);
 
     useEffect(() => {
-        if ( error ) dispatch(clearUserError());
+        if ( error ) clearUserError();
 
         return () => {
-            if ( error ) dispatch(clearUserError());
+            if ( error ) clearUserError();
         }
     }, [name.value, email.value, password.value]);
 
     useEffect(() => {
         if ( registerSuccess) {
             addAlert('You account was created, please log in');
-            dispatch(clearUserState());
+            clearUserState();
             navigate('/login');
         }
     }, [registerSuccess]);
@@ -65,7 +65,7 @@ function Registration() {
             password: password.value.toString()
         }
 
-        dispatch(registerUser(credentialsToRegister));
+        registerUser(credentialsToRegister);
     }
 
     const togglePasswordType = () => {

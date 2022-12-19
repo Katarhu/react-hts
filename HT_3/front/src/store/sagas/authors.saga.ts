@@ -1,10 +1,15 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 
-import {AuthorsActions} from '../authors/authors.types';
+import {AuthorsActions, CREATE_AUTHOR} from '../authors/authors.types';
 
-import {getAuthorsFailure, getAuthorsSuccess} from '../authors/authors.action.creators';
+import {
+    addAuthorFailure,
+    addAuthorSuccess,
+    getAuthorsFailure,
+    getAuthorsSuccess
+} from '../authors/authors.action.creators';
 
-import {getAuthors} from '../../services/authors.service';
+import {addAuthor, getAuthors} from '../../services/authors.service';
 
 import {IAuthor} from '../../models/author';
 
@@ -20,6 +25,17 @@ function* getAuthorsWorker() {
     }
 }
 
+function* addAuthorWorker(action: CREATE_AUTHOR) {
+    try {
+        const author: IAuthor = yield call(addAuthor, action.payload);
+
+        yield put(addAuthorSuccess(author));
+    } catch(error: any) {
+        yield put(addAuthorFailure(error as string));
+    }
+}
+
 export function* authorsWatcher() {
     yield takeEvery(AuthorsActions.GET_AUTHORS, getAuthorsWorker);
+    yield takeEvery(AuthorsActions.CREATE_AUTHOR, addAuthorWorker);
 }
