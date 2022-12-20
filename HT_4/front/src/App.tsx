@@ -33,14 +33,13 @@ function App() {
     const authLoading = useAppSelector(selectAuthLoading);
     const userRole = useAppSelector(selectUserRole);
 
-    console.log(userRole);
-
     useEffect(() => {
         getUserThunkAction();
     }, []);
 
     useEffect(() => {
         if( isAuth ) {
+            getUserThunkAction();
             getCoursesThunkAction();
             getAuthorsThunkAction();
         }
