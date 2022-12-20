@@ -44,7 +44,6 @@ export enum AuthActions {
 
 export interface LoginUser {
     type: AuthActions.LOGIN_USER,
-    payload: ILoginCredentials
 }
 
 export interface LoginUserSuccess {
@@ -62,12 +61,10 @@ export interface LoginUserFailure {
 
 export interface RegisterUser {
     type: AuthActions.REGISTER_USER,
-    payload: IRegisterCredentials
 }
 
 export interface RegisterUserSuccess {
     type: AuthActions.REGISTER_USER_SUCCESS,
-    payload: IRegisterSuccess
 }
 
 export interface RegisterUserFailure {
@@ -94,11 +91,11 @@ export interface GetUserSuccess {
 // **********************
 // **********************
 
-interface UserLogout {
+export interface UserLogout {
     type: AuthActions.LOGOUT
 }
 
-interface UserLogoutDone {
+export interface UserLogoutDone {
     type: AuthActions.LOGOUT_DONE
 }
 

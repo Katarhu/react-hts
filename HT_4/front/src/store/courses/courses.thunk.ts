@@ -1,3 +1,5 @@
+import {Dispatch} from "redux";
+
 import {
     addCourseAction,
     addCourseFailureAction,
@@ -9,11 +11,16 @@ import {
     getCoursesFailureAction,
     getCoursesSuccessAction
 } from './courses.action.creators';
+
 import {addCourse, deleteCourse, getCourses} from '../../services/courses.service';
+
 import {ICourse} from '../../models/course';
 
-export const getCoursesThunkAction = (): any => {
-    return async (dispatch: any) => {
+import {AppThunk} from "../index";
+
+
+export const getCoursesThunkAction = (): AppThunk<void> => {
+    return async (dispatch: Dispatch) => {
         dispatch(getCoursesAction());
 
         try {
@@ -26,8 +33,8 @@ export const getCoursesThunkAction = (): any => {
     }
 }
 
-export const addCourseThunkAction = (course: ICourse): any => {
-    return async (dispatch: any) => {
+export const addCourseThunkAction = (course: ICourse): AppThunk<void> => {
+    return async (dispatch: Dispatch) => {
         dispatch(addCourseAction());
 
         try {
@@ -41,8 +48,8 @@ export const addCourseThunkAction = (course: ICourse): any => {
     }
 }
 
-export const deleteCourseThunkAction = (id: string): any => {
-    return async (dispatch: any) => {
+export const deleteCourseThunkAction = (id: string): AppThunk<void> => {
+    return async (dispatch: Dispatch) => {
         dispatch(deleteCourseAction());
 
         try {

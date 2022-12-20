@@ -2,6 +2,8 @@ import {useNavigate} from 'react-router-dom';
 
 import Button from '../../../../common/Button/Button';
 
+import {useActions} from "../../../../hooks/useAction";
+
 import {useAppSelector} from '../../../../hooks/redux';
 import {selectAuthors} from '../../../../store/authors/authors.selectors';
 
@@ -11,22 +13,21 @@ import {IAuthor} from '../../../../models/author';
 import { formatDate } from '../../../../utils/format/formatDate';
 import { formatDuration } from '../../../../utils/format/formatDuration';
 
-import './CourseCard.css'
-import {useDispatch} from 'react-redux';
-import {deleteCourseThunkAction} from '../../../../store/courses/courses.thunk';
+import './CourseCard.css';
+
 
 function CourseCard({ id, title, description, creationDate, duration, authors }: ICourse) {
 
   const availableAuthors = useAppSelector(selectAuthors);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { deleteCourseThunkAction } = useActions();
 
   const showCourse = () => {
     navigate(`/courses/${id}`);
   }
 
   const handleRemoveCourse = () => {
-    dispatch(deleteCourseThunkAction(id));
+    deleteCourseThunkAction(id);
   }
 
   const handleUpdateCourse = () => {

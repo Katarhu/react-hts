@@ -3,15 +3,15 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 
 import {useAlert} from "./context/AlertContext";
 
-import {useDispatch} from "react-redux";
-
-import {useAppDispatch, useAppSelector} from './hooks/redux';
-import { selectAuthLoading, selectIsAuth } from './store/user/user.selectors';
+import {useAppSelector} from './hooks/redux';
+import {selectAuthLoading, selectIsAuth, selectUserRole} from './store/user/user.selectors';
 import {UserLoadingType} from './store/user/user.types';
+
+import {useActions} from "./hooks/useAction";
 
 import CreateCourse from './components/Courses/components/CreateCourse/CreateCourse';
 import Registration from './components/Registration/Registration';
-import { FlexContainer } from './components/Container/Container';
+import {FlexContainer} from './components/Container/Container';
 import CourseInfo from './components/CourseInfo/CourseInfo';
 import Courses from './components/Courses/Courses';
 import Header from './components/Header/Header';
@@ -22,34 +22,29 @@ import getLoader from './common/Loader/utils/getLoader';
 
 import './App.css';
 
-import {getUserThunkAction} from './store/user/user.thunk';
-import {AppDispatch} from './store';
-import {getUser} from './services/user.service';
-import {getUserAction} from './store/user/user.action.creators';
-import {getCoursesThunkAction} from './store/courses/courses.thunk';
-import {getAuthorsThunkAction} from './store/authors/authors.thunk';
-
-
 
 function App() {
 
     const {getAlerts, removeAlert} = useAlert();
-    const dispatch = useAppDispatch();
+    const {getUserThunkAction, getCoursesThunkAction, getAuthorsThunkAction} = useActions();
     const alerts = getAlerts();
 
     const isAuth = useAppSelector(selectIsAuth);
     const authLoading = useAppSelector(selectAuthLoading);
+    const userRole = useAppSelector(selectUserRole);
+
+    console.log(userRole);
 
     useEffect(() => {
-        dispatch(getUserThunkAction());
+        getUserThunkAction();
     }, []);
 
     useEffect(() => {
         if( isAuth ) {
-            dispatch(getCoursesThunkAction());
-            dispatch(getAuthorsThunkAction());
+            getCoursesThunkAction();
+            getAuthorsThunkAction();
         }
-    }, [isAuth])
+    }, [isAuth]);
 
     const getRoutes = (isAuth: boolean) => {
         if( isAuth ) {

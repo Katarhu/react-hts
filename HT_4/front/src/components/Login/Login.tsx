@@ -22,8 +22,6 @@ import {ILoginCredentials} from '../../models/auth/login';
 import '../../common/styles/inputError.css'
 import '../../common/styles/form.css'
 import './Login.css';
-import {useDispatch} from 'react-redux';
-import {loginUserThunkAction} from '../../store/user/user.thunk';
 
 
 function Login() {
@@ -32,8 +30,7 @@ function Login() {
   const password = useInput('', { minLength:5, maxLength: 25, required: true });
   const [isShowPassword, setIsShowPassword] = useState(false);
 
-  const {clearUserErrorAction} = useActions();
-  const dispatch = useDispatch();
+  const {clearUserErrorAction, loginUserThunkAction} = useActions();
   const {addAlert} = useAlert();
 
   const error = useAppSelector(selectAuthError);
@@ -57,7 +54,7 @@ function Login() {
       password: password.value.toString()
     }
 
-    dispatch(loginUserThunkAction(loginCredentials));
+    loginUserThunkAction(loginCredentials);
   }
 
   const togglePasswordType = () => {

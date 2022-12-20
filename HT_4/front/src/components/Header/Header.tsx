@@ -4,8 +4,7 @@ import {memo} from "react";
 import Button from '../../common/Button/Button'
 import Logo from './components/Logo/Logo'
 
-import {useDispatch} from 'react-redux';
-import {logoutThunkAction} from '../../store/user/user.thunk';
+import {useActions} from "../../hooks/useAction";
 
 import {useAppSelector} from "../../hooks/redux";
 import {selectAuthLoading, selectIsAuth, selectUser} from '../../store/user/user.selectors';
@@ -17,14 +16,14 @@ import './Header.css';
 
 function Header() {
 
-    const dispatch = useDispatch();
+    const {logoutThunkAction} = useActions();
 
     const authLoading = useAppSelector(selectAuthLoading);
     const isAuth = useAppSelector(selectIsAuth);
     const user = useAppSelector(selectUser);
 
     const handleLogOut = () => {
-        dispatch(logoutThunkAction());
+        logoutThunkAction();
     }
 
     const getContent = (isAuth: boolean) => {

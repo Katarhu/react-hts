@@ -47,7 +47,6 @@ export interface GetAuthorsFailure {
 
 export interface CreateAuthor {
     type: AuthorsActions.CREATE_AUTHOR;
-    payload: IAuthor;
 }
 
 export interface CreateAuthorSuccess {

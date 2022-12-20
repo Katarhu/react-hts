@@ -21,8 +21,6 @@ import {IRegisterCredentials} from '../../models/auth/register';
 import '../../common/styles/inputError.css';
 import '../../common/styles/form.css'
 import './Registration.css';
-import {useDispatch} from 'react-redux';
-import {registerUserThunkAction} from '../../store/user/user.thunk';
 
 
 function Registration() {
@@ -32,10 +30,9 @@ function Registration() {
     const password = useInput('', { required: true });
     const [isShowPassword, setIsShowPassword] = useState(false);
 
+    const {clearUserStateAction, clearUserErrorAction, registerUserThunkAction} = useActions();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const {addAlert} = useAlert();
-    const {clearUserStateAction, clearUserErrorAction} = useActions();
 
     const registerSuccess = useAppSelector(selectIsRegisterSuccess);
     const error = useAppSelector(selectAuthError);
@@ -68,7 +65,7 @@ function Registration() {
             password: password.value.toString()
         }
 
-        dispatch(registerUserThunkAction(credentialsToRegister));
+        registerUserThunkAction(credentialsToRegister);
     }
 
     const togglePasswordType = () => {

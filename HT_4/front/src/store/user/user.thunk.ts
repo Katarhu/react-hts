@@ -1,4 +1,5 @@
-import {getUser} from '../../services/user.service';
+import {AnyAction, Dispatch} from "redux";
+
 import {
     getUserAction,
     getUserSuccessAction,
@@ -18,11 +19,15 @@ import {ILoginCredentials, ILoginResponse} from '../../models/auth/login';
 import {IRegisterCredentials} from '../../models/auth/register';
 
 import {loginUser, logOut, registerUser} from '../../services/auth.service';
+import {getUser} from '../../services/user.service';
+
+import {AppDispatch, AppThunk} from "../index";
 
 
-export const getUserThunkAction: any = () => {
-    return async (dispatch: any) => {
+export const getUserThunkAction = (): AppThunk<void> => {
+    return async (dispatch: Dispatch) => {
         dispatch(getUserAction());
+
 
         try {
             const response: IGetUserResponse = await getUser();
@@ -35,9 +40,10 @@ export const getUserThunkAction: any = () => {
     }
 }
 
-export const loginUserThunkAction = (credentials: ILoginCredentials): any => {
-    return async (dispatch: any) => {
+export const loginUserThunkAction = (credentials: ILoginCredentials): AppThunk<void> => {
+    return async (dispatch: Dispatch) => {
         dispatch(loginUserAction());
+
         try {
             const response: ILoginResponse = await loginUser(credentials);
 
@@ -48,8 +54,8 @@ export const loginUserThunkAction = (credentials: ILoginCredentials): any => {
     }
 }
 
-export const registerUserThunkAction = (credentials: IRegisterCredentials): any => {
-    return async (dispatch: any) => {
+export const registerUserThunkAction = (credentials: IRegisterCredentials): AppThunk<void> => {
+    return async (dispatch: Dispatch) => {
         dispatch(registerUserAction());
 
         try {
@@ -62,8 +68,8 @@ export const registerUserThunkAction = (credentials: IRegisterCredentials): any 
     }
 }
 
-export const logoutThunkAction = (): any => {
-    return async (dispatch: any) => {
+export const logoutThunkAction = (): AppThunk<void> => {
+    return async (dispatch: Dispatch) => {
         dispatch(logOutAction());
         try {
             await logOut();

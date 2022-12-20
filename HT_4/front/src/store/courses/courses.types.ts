@@ -56,7 +56,6 @@ export interface GetCoursesSuccess {
 
 export interface DeleteCourse {
     type: CourseActions.DELETE_COURSE,
-    payload: string;
 }
 
 export interface DeleteCourseSuccess {
@@ -74,7 +73,6 @@ export interface DeleteCourseFailure {
 
 export interface CreateCourse {
     type: CourseActions.CREATE_COURSE,
-    payload: ICourse;
 }
 
 export interface CreateCourseSuccess {
@@ -98,11 +96,11 @@ export interface CoursesFilterChange {
 // **********************
 // **********************
 
-export interface ClearError {
+export interface ClearCoursesError {
     type: CourseActions.CLEAR_ERROR;
 }
 
-export interface ClearState {
+export interface ClearCoursesState {
     type: CourseActions.CLEAR_STATE;
 }
 
@@ -119,6 +117,6 @@ export type CourseAction = GetCourses
                         | DeleteCourse
                         | DeleteCourseSuccess
                         | DeleteCourseFailure
-                        | ClearError
-                        | ClearState
+                        | ClearCoursesError
+                        | ClearCoursesState
                         | CoursesFilterChange

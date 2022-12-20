@@ -9,12 +9,10 @@ import Button from '../../../../common/Button/Button';
 import { formatDuration } from '../../../../utils/format/formatDuration';
 import createId from '../../../../utils/createId';
 
+import {useActions} from "../../../../hooks/useAction";
+
 import {useAppSelector} from '../../../../hooks/redux';
 import {selectAuthors} from '../../../../store/authors/authors.selectors';
-
-import {useDispatch} from 'react-redux';
-import {addCourseThunkAction} from '../../../../store/courses/courses.thunk';
-import {addAuthorThunkAction} from '../../../../store/authors/authors.thunk';
 
 import { IAuthor } from '../../../../models/author';
 import { ICourse } from '../../../../models/course';
@@ -31,8 +29,8 @@ function CreateCourse() {
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState(0);
   const [newAuthorName, setNewAuthorName] = useState('');
+  const {addCourseThunkAction, addAuthorThunkAction} = useActions();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const authors = useAppSelector(selectAuthors);
 
@@ -62,7 +60,7 @@ function CreateCourse() {
       authors: courseAuthors
     }
 
-    dispatch(addCourseThunkAction(newCourse));
+    addCourseThunkAction(newCourse);
     addAlert('Course was created successfully');
     goBack();
   }
@@ -78,7 +76,7 @@ function CreateCourse() {
       name: newAuthorName
     }
 
-    dispatch(addAuthorThunkAction(newAuthor));
+    addAuthorThunkAction(newAuthor);
     setNewAuthorName('');
   }
 

@@ -1,8 +1,8 @@
-import {Action, applyMiddleware, combineReducers, createStore} from 'redux';
+import {Action, AnyAction, applyMiddleware, combineReducers, createStore} from 'redux';
 
 import {composeWithDevTools} from "redux-devtools-extension";
 
-import thunk, {ThunkMiddleware} from 'redux-thunk';
+import thunk, {ThunkAction, ThunkMiddleware} from 'redux-thunk';
 
 import {userReducer} from './user/user.reducer';
 import {coursesReducer} from './courses/courses.reducer';
@@ -18,12 +18,13 @@ const rootReducer = combineReducers({
 const store = createStore(
     rootReducer,
     composeWithDevTools(
-        applyMiddleware(thunk)
+        applyMiddleware(thunk as ThunkMiddleware<RootState, any>)
     )
 );
 
 export type RootState = ReturnType <typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
+export type AppThunk<R> = ThunkAction<R, RootState, unknown, AnyAction>
 
 export default store;
 

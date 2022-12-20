@@ -1,14 +1,23 @@
+import {Dispatch} from "redux";
+
 import {
-    addAuthorAction, addAuthorFailureAction, addAuthorSuccessAction,
+    addAuthorAction,
+    addAuthorFailureAction,
+    addAuthorSuccessAction,
     getAuthorsAction,
     getAuthorsFailureAction,
     getAuthorsSuccessAction
 } from './authors.action.creators';
+
 import {addAuthor, getAuthors} from '../../services/authors.service';
+
 import {IAuthor} from '../../models/author';
 
-export const getAuthorsThunkAction = (): any => {
-    return async (dispatch: any) => {
+import {AppThunk} from "../index";
+
+
+export const getAuthorsThunkAction = (): AppThunk<void> => {
+    return async (dispatch: Dispatch) => {
         dispatch(getAuthorsAction());
 
         try {
@@ -22,8 +31,8 @@ export const getAuthorsThunkAction = (): any => {
     }
 }
 
-export const addAuthorThunkAction = (author: IAuthor): any => {
-    return async (dispatch: any) => {
+export const addAuthorThunkAction = (author: IAuthor): AppThunk<void> => {
+    return async (dispatch: Dispatch) => {
         dispatch(addAuthorAction());
 
         try {

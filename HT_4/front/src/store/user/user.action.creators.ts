@@ -1,22 +1,22 @@
 import { UserActions, AuthActions} from './user.types';
-import {ILoginCredentials, ILoginResponse} from '../../models/auth/login';
-import {IRegisterCredentials} from "../../models/auth/register";
+import * as ActionTypes from './user.types';
+import {ILoginResponse} from '../../models/auth/login';
 import {IGetUserResponse} from '../../models/auth/getUser';
 
-export const getUserAction = () => ({ type: UserActions.GET_USER });
-export const getUserSuccessAction = (payload: IGetUserResponse) => ({ type: UserActions.GET_USER_SUCCESS, payload });
-export const getUserFailureAction = () => ({ type: UserActions.GET_USER_FAILURE });
+export const getUserAction = (): ActionTypes.GetUser => ({ type: UserActions.GET_USER });
+export const getUserSuccessAction = (payload: IGetUserResponse): ActionTypes.GetUserSuccess => ({ type: UserActions.GET_USER_SUCCESS, payload });
+export const getUserFailureAction = (): ActionTypes.GetUserFailure => ({ type: UserActions.GET_USER_FAILURE });
 
-export const loginUserAction = () => ({ type: AuthActions.LOGIN_USER });
-export const loginUserSuccessAction = (payload: ILoginResponse) => ({ type: AuthActions.LOGIN_USER_SUCCESS, payload });
-export const loginUserFailureAction = (payload: string) => ({ type: AuthActions.LOGIN_USER_FAILURE, payload });
+export const loginUserAction = (): ActionTypes.LoginUser => ({ type: AuthActions.LOGIN_USER });
+export const loginUserSuccessAction = (payload: ILoginResponse): ActionTypes.LoginUserSuccess => ({ type: AuthActions.LOGIN_USER_SUCCESS, payload });
+export const loginUserFailureAction = (payload: string): ActionTypes.LoginUserFailure => ({ type: AuthActions.LOGIN_USER_FAILURE, payload });
 
-export const registerUserAction = () => ({ type: AuthActions.REGISTER_USER });
-export const registerUserFailureAction = (payload: string) => ({ type: AuthActions.REGISTER_USER_FAILURE, payload });
-export const registerUserSuccessAction = () => ({ type: AuthActions.REGISTER_USER_SUCCESS });
+export const registerUserAction = (): ActionTypes.RegisterUser => ({ type: AuthActions.REGISTER_USER });
+export const registerUserSuccessAction = (): ActionTypes.RegisterUserSuccess => ({ type: AuthActions.REGISTER_USER_SUCCESS });
+export const registerUserFailureAction = (payload: string): ActionTypes.RegisterUserFailure => ({ type: AuthActions.REGISTER_USER_FAILURE, payload });
 
-export const logOutAction = () => ({ type: AuthActions.LOGOUT });
-export const logOutDoneAction = () => ({ type: AuthActions.LOGOUT_DONE });
+export const logOutAction = (): ActionTypes.UserLogout => ({ type: AuthActions.LOGOUT });
+export const logOutDoneAction = (): ActionTypes.UserLogoutDone => ({ type: AuthActions.LOGOUT_DONE });
 
-export const clearUserStateAction = () => ({ type: UserActions.CLEAR_STATE });
-export const clearUserErrorAction = () => ({ type: UserActions.CLEAR_ERROR });
+export const clearUserStateAction = (): ActionTypes.ClearUserState => ({ type: UserActions.CLEAR_STATE });
+export const clearUserErrorAction = (): ActionTypes.ClearUserError => ({ type: UserActions.CLEAR_ERROR });
