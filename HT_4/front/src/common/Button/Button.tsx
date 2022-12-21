@@ -23,9 +23,10 @@ function Button({ buttonText, onClick, small = false, type='button', children, d
 
 const AppButton = styled.button`
   font-size: ${(props: AppButtonProps) => ((props.small ?? false) ? '16px' : '20px')};
-  border: 1px solid #676fbb;
+  border: 2px solid #676fbb;
+  border-radius: 1em;
   background: transparent;
-  padding: 0.4em 1em;
+  padding: 0.4em 1.45em;
 
   &:focus {
     box-shadow: 0 0 5px rgba(0, 0, 0, .54);

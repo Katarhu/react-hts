@@ -20,18 +20,22 @@ import Login from './components/Login/Login';
 import getAlertItems from './components/Alert/utils/getAlerts';
 import getLoader from './common/Loader/utils/getLoader';
 
+import ROUTES from './contants/routes';
+
 import './App.css';
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import PublicRoute from "./components/PublicRoute/PublicRoute";
+import AdminRoute from "./components/AdminRoute/AdminRoute";
 
 
 function App() {
 
-    const {getAlerts, removeAlert} = useAlert();
     const {getUserThunkAction, getCoursesThunkAction, getAuthorsThunkAction} = useActions();
+    const {getAlerts, removeAlert} = useAlert();
     const alerts = getAlerts();
 
     const isAuth = useAppSelector(selectIsAuth);
     const authLoading = useAppSelector(selectAuthLoading);
-    const userRole = useAppSelector(selectUserRole);
 
     useEffect(() => {
         getUserThunkAction();
@@ -45,26 +49,8 @@ function App() {
         }
     }, [isAuth]);
 
-    const getRoutes = (isAuth: boolean) => {
-        if( isAuth ) {
-            return <>
-                <Route path='/courses' element={<Courses />}/>
-                <Route path='/courses/:id' element={<CourseInfo />}/>
-                <Route path='/courses/add' element={<CreateCourse />}/>
-                <Route path={'*'} element={<Navigate to={'/courses'}/>}/>
-            </>
-        }
-
-        return <>
-            <Route path={'/login'} element={<Login />}/>
-            <Route path={'/registration'} element={<Registration />}/>
-            <Route path={'*'} element={<Navigate to={'/login'}/>}/>
-        </>
-    }
-
 
     const loader = getLoader(authLoading, UserLoadingType.LOADING_USER );
-    const routes = getRoutes(isAuth);
     const alertItems = getAlertItems(alerts, removeAlert);
 
     return (
@@ -75,7 +61,27 @@ function App() {
                 <main className='main'>
                     {loader}
                     <Routes>
-                        {routes}
+                        <Route path={ROUTES.COURSES} element={<PrivateRoute redirectTo={ROUTES.LOGIN}/>}>
+                            <Route path={ROUTES.COURSES} element={<Courses />}/>
+                        </Route>
+
+                        <Route path={ROUTES.LOGIN} element={<PublicRoute redirectTo={ROUTES.COURSES}/>}>
+                            <Route path={ROUTES.LOGIN} element={<Login />}/>
+                        </Route>
+
+                        <Route path={ROUTES.REGISTRATION} element={<PublicRoute redirectTo={ROUTES.COURSES}/>}>
+                            <Route path={ROUTES.REGISTRATION} element={<Registration />}/>
+                        </Route>
+
+                        <Route path={ROUTES.ADD_COURSE} element={<AdminRoute />}>
+                            <Route path={ROUTES.ADD_COURSE} element={<CreateCourse />}/>
+                        </Route>
+
+                        <Route path={ROUTES.COURSE} element={<PrivateRoute redirectTo={ROUTES.COURSES}/>}>
+                            <Route path={ROUTES.COURSE} element={<CourseInfo />}/>
+                        </Route>
+
+                        <Route path={'*'} element={<Navigate to={'/login'}/>}/>
                     </Routes>
                 </main>
             </FlexContainer>

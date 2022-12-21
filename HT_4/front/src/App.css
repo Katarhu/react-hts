@@ -7,8 +7,11 @@
     position: relative;
     flex-grow: 1;
 
-    border: 2px solid lightblue;
-    padding: 1.5em 1.75em;
+    border: 2px solid #8ad6f5;
+    box-shadow: 0 0 5px #8ad6f5;
+    border-radius: 2em;
+
+    padding: 2.5em 1.75em;
 }
 
 .alerts {

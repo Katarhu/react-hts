@@ -31,7 +31,7 @@
     font-size: 14px;
     position: absolute;
     top: 50%;
-    transform: translateY(50%);
+    transform: translateY(-50%);
     right: 1.25em;
 
     cursor: pointer;
@@ -40,7 +40,7 @@
 .form-fieldset-errored {
     display: flex;
     gap: 10px;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .form-fieldset-errored-input {

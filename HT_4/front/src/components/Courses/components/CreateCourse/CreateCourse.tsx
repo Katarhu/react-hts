@@ -117,7 +117,7 @@ function CreateCourse() {
     return authors.map((author) => {
       const isAuthorSelected = selectedAuthors.find((selectedAuthor) => selectedAuthor.id === author.id)
       if( isAuthorSelected ) return;
-      return <Author key={author.id} author={author} onClick={addSelectedAuthor} buttonText='Add author'/>
+      return <Author key={author.id} author={author} onClick={addSelectedAuthor} buttonText='Add'/>
     })
   }, [selectedAuthors, authors])
 
@@ -125,7 +125,7 @@ function CreateCourse() {
     if( !authors.length ) return <div>There is no authors to select</div>
 
     return authors.map((author) => (
-        <Author key={author.id} author={author} onClick={removeSelectedAuthor} buttonText='Remove author'/>
+        <Author key={author.id} author={author} onClick={removeSelectedAuthor} buttonText='Remove'/>
     ))
   }, [selectedAuthors])
 

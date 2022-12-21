@@ -5,7 +5,9 @@
     align-items: center;
     gap: 35px;
 
-    border: 2px solid red;
+    border: 2px solid #ff9696;
+    border-radius: 1.5em;
+    box-shadow: 0 0 5px #ff9696;
     padding: 1em 2em;
 
     position: relative;

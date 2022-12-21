@@ -1,6 +1,7 @@
 import axios from '../utils/axios';
 
 import {IGetUserResponse, IGetUserSuccess} from '../models/auth/getUser';
+import sleep from "../utils/sleep";
 
 export const getUser = async () => {
     try {
@@ -8,6 +9,8 @@ export const getUser = async () => {
         const { data } = await axios.get<IGetUserSuccess>('/users/me');
 
         const token: string = window.localStorage.getItem('token') ?? '';
+
+        await sleep(250);
 
         const response: IGetUserResponse = {
             user: data.result,

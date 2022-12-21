@@ -25,6 +25,7 @@
 }
 
 .course-side {
+    width: 100%;
     overflow: hidden;
 }
 
@@ -42,6 +43,7 @@
 .course-buttons {
     /*text-align: center;*/
     display: flex;
+    justify-content: center;
     gap: .25em;
 }
 

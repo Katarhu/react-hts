@@ -8,13 +8,15 @@ import {useActions} from '../../../../hooks/useAction';
 
 import {useAppSelector} from '../../../../hooks/redux';
 import {selectCoursesFilter} from '../../../../store/courses/courses.selectors';
+import {selectUserIsAdmin} from "../../../../store/user/user.selectors";
 
 import './SearchBar.css';
-
+import {UserRole} from "../../../../models/user";
 
 
 function SearchBar() {
   const filter = useAppSelector(selectCoursesFilter);
+  const isUserAdmin = useAppSelector(selectUserIsAdmin);
 
   const [input, setInput] = useState(filter);
 
@@ -38,6 +40,18 @@ function SearchBar() {
     navigate('/courses/add');
   };
 
+  const getSearchBarButtons = (isAdmin: boolean) => {
+      if( !isAdmin ) return;
+
+      return (
+          <div className="search-bar-button">
+              <Button buttonText={'Add new course'} onClick={addNewCourse}/>
+          </div>
+      )
+  }
+
+  const searchBarButtons = getSearchBarButtons(isUserAdmin);
+
   return (
         <form
             className="search-bar"
@@ -45,15 +59,13 @@ function SearchBar() {
         >
             <div className="search-bar-search">
                 <div className='search-bar-search-input'>
-                    <Input placeholderText={'Enter course name or id...'} onChange={inputChange} value={input}/>
+                    <Input labelText='Search course' onChange={inputChange} value={input}/>
                 </div>
                 <div className='search-bar-search-button'>
                     <Button buttonText={'Search'} type='submit'/>
                 </div>
             </div>
-            <div className="search-bar-button">
-                <Button buttonText={'Add new course'} onClick={addNewCourse}/>
-            </div>
+            {searchBarButtons}
         </form>
   );
 }

@@ -88,6 +88,7 @@ function Login() {
                       errors={email.errors}
                       placeholderText={'Enter email'}
                       value={email.value}
+                      autoComplete='react-courses-email'
                   />
                 </div>
                 {emailErrors}
@@ -106,6 +107,7 @@ function Login() {
                       isTouched={password.touched}
                       errors={password.errors}
                       type={isShowPassword ? 'text' : 'password'}
+                      autoComplete='react-courses-password'
                   />
                   <div
                       className='form-password-toggle'

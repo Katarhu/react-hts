@@ -2,13 +2,13 @@ import axios from '../utils/axios';
 
 import {ICourse, IGetCoursesSuccess} from '../models/course';
 
-const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
+import sleep from "../utils/sleep";
 
 export const getCourses = async () => {
     try {
         const {data} = await axios.get<IGetCoursesSuccess>('/courses/all');
 
-        await sleep(1000);
+        await sleep(250);
 
         return data.result;
 

@@ -98,6 +98,7 @@ function Registration() {
                                 onBlur={name.onBlur}
                                 errors={name.errors}
                                 isTouched={name.touched}
+                                autoComplete='react-courses-name'
                             />
                         </div>
                         {nameErrors}
@@ -115,6 +116,7 @@ function Registration() {
                                 onBlur={email.onBlur}
                                 errors={email.errors}
                                 isTouched={email.touched}
+                                autoComplete='react-courses-email'
                             />
                         </div>
                         {emailErrors}
@@ -133,6 +135,7 @@ function Registration() {
                                 errors={password.errors}
                                 isTouched={password.touched}
                                 type={isShowPassword ? 'text' : 'password'}
+                                autoComplete='react-courses-password'
                             />
                             <div
                                 className='form-password-toggle'

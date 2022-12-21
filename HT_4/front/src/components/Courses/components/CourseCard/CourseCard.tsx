@@ -6,12 +6,13 @@ import {useActions} from "../../../../hooks/useAction";
 
 import {useAppSelector} from '../../../../hooks/redux';
 import {selectAuthors} from '../../../../store/authors/authors.selectors';
+import {selectUserIsAdmin, selectUserRole} from "../../../../store/user/user.selectors";
 
-import { ICourse } from '../../../../models/course';
+import {ICourse} from '../../../../models/course';
 import {IAuthor} from '../../../../models/author';
 
-import { formatDate } from '../../../../utils/format/formatDate';
-import { formatDuration } from '../../../../utils/format/formatDuration';
+import {formatDate} from '../../../../utils/format/formatDate';
+import {formatDuration} from '../../../../utils/format/formatDuration';
 
 import './CourseCard.css';
 
@@ -19,6 +20,7 @@ import './CourseCard.css';
 function CourseCard({ id, title, description, creationDate, duration, authors }: ICourse) {
 
   const availableAuthors = useAppSelector(selectAuthors);
+  const isUserAdmin = useAppSelector(selectUserIsAdmin);
   const navigate = useNavigate();
   const { deleteCourseThunkAction } = useActions();
 
@@ -48,9 +50,21 @@ function CourseCard({ id, title, description, creationDate, duration, authors }:
     })
   }
 
+  const getCourseAdminButtons = (isAdmin: boolean) => {
+    if ( !isAdmin ) return;
+
+    return (
+        <>
+          <Button onClick={handleUpdateCourse}>&#9998;</Button>
+          <Button onClick={handleRemoveCourse}>&#128465;</Button>
+        </>
+    )
+  }
+
   const courseAuthors = getCourseAuthors(availableAuthors, authors);
   const courseDate = formatDate(creationDate);
   const courseDuration = formatDuration(duration);
+  const courseAdminButtons = getCourseAdminButtons(isUserAdmin);
 
   return (
       <div className='course'>
@@ -70,8 +84,7 @@ function CourseCard({ id, title, description, creationDate, duration, authors }:
           </div>
           <div className='course-buttons'>
             <Button onClick={showCourse} buttonText={'Show Course'}/>
-            <Button onClick={handleUpdateCourse}>&#9998;</Button>
-            <Button onClick={handleRemoveCourse}>&#128465;</Button>
+            {courseAdminButtons}
           </div>
         </div>
       </div>
