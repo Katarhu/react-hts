@@ -1,7 +1,7 @@
 import {Navigate, Outlet} from "react-router-dom";
 import React from "react";
 import {useAppSelector} from "../../hooks/redux";
-import {selectIsAuth} from "../../store/user/user.selectors";
+import {selectAuthLoading, selectIsAuth} from "../../store/user/user.selectors";
 import ROUTES from "../../contants/routes";
 
 type PrivateRouteProps =  {
@@ -15,7 +15,6 @@ function PrivateRoute ({ redirectTo = ROUTES.LOGIN }: PrivateRouteProps) {
     if( !isAuth ) {
         return <Navigate to={redirectTo} />
     }
-
 
     return <Outlet />
 }

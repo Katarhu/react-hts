@@ -28,7 +28,6 @@ export const getUserThunkAction = (): AppThunk<void> => {
     return async (dispatch: Dispatch) => {
         dispatch(getUserAction());
 
-
         try {
             const response: IGetUserResponse = await getUser();
 
