@@ -1,6 +1,6 @@
 import axios from '../utils/axios';
 
-import {IAuthor, IGetAuthorsSuccess} from '../models/author';
+import {IAuthorAction, IAuthorActionSuccess, IGetAuthorsSuccess} from '../models/author';
 
 export const getAuthors = async () => {
     try {
@@ -13,10 +13,13 @@ export const getAuthors = async () => {
     }
 }
 
-export const addAuthor = async (author: IAuthor) => {
+export const addAuthor = async (author: IAuthorAction) => {
     try {
-        return author;
-    } catch (error) {
-        throw error;
+        const { data } = await axios.post<IAuthorActionSuccess>(`/authors/add`, author);
+
+        return data.result;
+
+    } catch (error: any) {
+        return error.response.data.result ?? 'Could not create author';
     }
 }

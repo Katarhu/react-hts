@@ -1,7 +1,8 @@
 import {Navigate, Outlet} from "react-router-dom";
-import React from "react";
+
 import {useAppSelector} from "../../hooks/redux";
-import {selectAuthLoading, selectIsAuth} from "../../store/user/user.selectors";
+import {selectIsAuth} from "../../store/user/user.selectors";
+
 import ROUTES from "../../contants/routes";
 
 type PrivateRouteProps =  {

@@ -4,6 +4,7 @@ const ROUTES = {
     REGISTRATION: "/registration",
     COURSES: "/courses",
     ADD_COURSE: "/courses/add",
+    UPDATE_COURSE: "/courses/update/:id",
     COURSE: "/courses/:id"
 };
 

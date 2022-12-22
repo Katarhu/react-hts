@@ -1,6 +1,5 @@
 import {IUser} from "../../models/user";
-import {ILoginCredentials, ILoginResponse, ILoginSuccess} from '../../models/auth/login';
-import {IRegisterCredentials, IRegisterSuccess} from "../../models/auth/register";
+import {ILoginResponse} from '../../models/auth/login';
 import {IGetUserResponse} from '../../models/auth/getUser';
 
 export interface IUserInitialState {

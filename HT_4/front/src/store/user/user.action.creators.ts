@@ -1,5 +1,6 @@
 import { UserActions, AuthActions} from './user.types';
 import * as ActionTypes from './user.types';
+
 import {ILoginResponse} from '../../models/auth/login';
 import {IGetUserResponse} from '../../models/auth/getUser';
 

@@ -1,7 +1,8 @@
 import axios from '../utils/axios';
+import sleep from "../utils/sleep";
 
 import {IGetUserResponse, IGetUserSuccess} from '../models/auth/getUser';
-import sleep from "../utils/sleep";
+
 
 export const getUser = async () => {
     try {

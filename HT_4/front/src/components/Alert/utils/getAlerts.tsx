@@ -1,4 +1,4 @@
-import {IAlert} from '../../../models/alert';
+import {IAlert} from '../model/alert.model';
 import {Alert} from '../Alert';
 
 const getAlertItems = (alerts: IAlert[], removeAlert: (id: number) => void) => {

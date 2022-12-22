@@ -1,14 +1,10 @@
-import styled from 'styled-components'
-import React, {memo} from 'react'
+import {memo} from 'react'
 
 import logoImage from '../../../../assets/logo.png'
 
-const Logo = (): JSX.Element => <LogoImage src={logoImage} alt='Courses Logo' />
+import './Logo.css'
 
-const LogoImage = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
-`
+const Logo = () => <img className='app-logo' src={logoImage} alt='Courses Logo' />
+
 
 export default memo(Logo)

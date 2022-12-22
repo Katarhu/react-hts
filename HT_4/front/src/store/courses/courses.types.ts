@@ -28,6 +28,10 @@ export enum CourseActions {
     DELETE_COURSE_SUCCESS="DELETE_COURSE_SUCCESS",
     DELETE_COURSE_FAILURE="DELETE_COURSE_FAILURE",
 
+    UPDATE_COURSE="UPDATE_COURSE",
+    UPDATE_COURSE_SUCCESS="UPDATE_COURSE_SUCCESS",
+    UPDATE_COURSE_FAILURE="UPDATE_COURSE_FAILURE",
+
     FILTER_CHANGE="FILTER_CHANGE",
 
     CLEAR_ERROR="CLEAR_ERROR",
@@ -88,6 +92,24 @@ export interface CreateCourseFailure {
 // **********************
 // **********************
 
+
+export interface UpdateCourse {
+    type: CourseActions.UPDATE_COURSE,
+}
+
+export interface UpdateCourseSuccess {
+    type: CourseActions.UPDATE_COURSE_SUCCESS,
+    payload: ICourse;
+}
+
+export interface UpdateCourseFailure {
+    type: CourseActions.UPDATE_COURSE_FAILURE
+    payload: string;
+}
+
+// **********************
+// **********************
+
 export interface CoursesFilterChange {
     type: CourseActions.FILTER_CHANGE,
     payload: string;
@@ -117,6 +139,9 @@ export type CourseAction = GetCourses
                         | DeleteCourse
                         | DeleteCourseSuccess
                         | DeleteCourseFailure
+                        | UpdateCourse
+                        | UpdateCourseSuccess
+                        | UpdateCourseFailure
                         | ClearCoursesError
                         | ClearCoursesState
                         | CoursesFilterChange

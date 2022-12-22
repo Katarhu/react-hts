@@ -1,4 +1,4 @@
-import {Action, AnyAction, applyMiddleware, combineReducers, createStore} from 'redux';
+import {AnyAction, applyMiddleware, combineReducers, createStore} from 'redux';
 
 import {composeWithDevTools} from "redux-devtools-extension";
 

@@ -1,4 +1,4 @@
-import {ChangeEvent, HTMLInputTypeAttribute, useId} from 'react';
+import React, {ChangeEvent, HTMLInputTypeAttribute, useId} from 'react';
 
 import './Input.css';
 
@@ -7,8 +7,6 @@ interface InputProps {
   placeholderText?: string;
   onChange?: (event: ChangeEvent) => any;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => any;
-  isTouched?: boolean;
-  errors?: string[];
   type?: HTMLInputTypeAttribute;
   value: string | number;
   autoComplete?: string
@@ -16,13 +14,10 @@ interface InputProps {
 
 function Input({
     labelText = '',
-    placeholderText = '',
     onChange,
     type = 'text',
     value,
     onBlur,
-    errors=[],
-    isTouched=false,
     autoComplete
 }: InputProps) {
     const id = useId();

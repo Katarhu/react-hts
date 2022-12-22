@@ -11,7 +11,6 @@ import {selectCoursesFilter} from '../../../../store/courses/courses.selectors';
 import {selectUserIsAdmin} from "../../../../store/user/user.selectors";
 
 import './SearchBar.css';
-import {UserRole} from "../../../../models/user";
 
 
 function SearchBar() {

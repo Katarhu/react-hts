@@ -1,5 +1,5 @@
 import {ChangeEvent, Dispatch, FormEvent, useCallback, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 import {useAlert} from "../../../../context/AlertContext";
 
@@ -7,61 +7,125 @@ import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
 
 import { formatDuration } from '../../../../utils/format/formatDuration';
-import createId from '../../../../utils/createId';
 
 import {useActions} from "../../../../hooks/useAction";
 
 import {useAppSelector} from '../../../../hooks/redux';
 import {selectAuthors} from '../../../../store/authors/authors.selectors';
+import {selectCourseById} from "../../../../store/courses/courses.selectors";
 
-import { IAuthor } from '../../../../models/author';
-import { ICourse } from '../../../../models/course';
+import {IAuthor, IAuthorAction} from '../../../../models/author';
+import {ICourseAction} from '../../../../models/course';
 
 import Author from "./components/Author/Author";
+import ROUTES from "../../../../contants/routes";
 
-import './CreateCourse.css';
+import './CourseForm.css';
 
+export const CourseFormTypes = {
+  CREATE: "CREATE",
+  UPDATE: "UPDATE"
+} as const
 
-function CreateCourse() {
+type CourseFormType = keyof typeof CourseFormTypes;
+
+interface CourseFormProps {
+  formType: CourseFormType
+}
+
+function CourseForm({ formType }: CourseFormProps) {
+  const {addCourseThunkAction, addAuthorThunkAction, updateCourseThunkAction} = useActions();
   const { addAlert } = useAlert();
-  const [selectedAuthors, setSelectedAuthors] = useState<IAuthor[]>([]);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [duration, setDuration] = useState(0);
-  const [newAuthorName, setNewAuthorName] = useState('');
-  const {addCourseThunkAction, addAuthorThunkAction} = useActions();
   const navigate = useNavigate();
 
+  const { id } = useParams<any>();
+  const course =  useAppSelector(selectCourseById(id)) ;
   const authors = useAppSelector(selectAuthors);
 
+  const [selectedAuthors, setSelectedAuthors] = useState<IAuthor[]>(() => {
+    if( formType === 'UPDATE' && course ) {
+      const courseAuthors =  course.authors.map((id) =>
+          authors.find((author) => author.id === id))
+
+      return courseAuthors.filter(Boolean) as IAuthor[];
+    }
+    return [];
+  });
+  const [title, setTitle] = useState(() =>
+      formType === 'UPDATE' && course ? course.title : ''
+  );
+  const [description, setDescription] = useState(() =>
+      formType === 'UPDATE' && course ? course.description : ''
+  );
+  const [duration, setDuration] = useState(() =>
+      formType === 'UPDATE' && course ? course.duration : 0
+  );
+  const [newAuthorName, setNewAuthorName] = useState('');
+
   const goBack = () => {
-    navigate('/courses');
+    navigate(ROUTES.COURSES);
   }
 
-  const createCourse = (event: FormEvent) => {
+  const handleCourseSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if( !title ) return addAlert('Title is required');
-    if( !description ) return addAlert('Description is required');
-    if( duration === 0 ) return addAlert('Duration should be more than 0');
+    formType === 'CREATE' ?
+        createCourse() :
+        updateCourse();
+  }
 
-    const courseDate = new Date().toLocaleDateString();
+  const checkIsFormValid = () => {
+    if( !title ) {
+      addAlert('Title is required')
+      return false;
+    }
+    if( !description ) {
+      addAlert('Description is required');
+      return false;
+    }
+    if( duration === 0 ) {
+      addAlert('Duration should be more than 0')
+      return false;
+    }
+    return true;
+  }
 
+  const generateCourse = (courseDate: string): ICourseAction => {
     const courseAuthors = (selectedAuthors.length > 0) ?
         selectedAuthors.map((author) => author.id)
-      : []
+        : []
 
-    const newCourse: ICourse = {
-      id: createId(),
+    return {
       title,
       duration,
       description,
       creationDate: courseDate,
       authors: courseAuthors
     }
+  }
+
+  const createCourse = () => {
+
+    const isFormValid = checkIsFormValid();
+
+    if( !isFormValid ) return;
+
+    const courseDate = new Date().toLocaleDateString();
+
+    const newCourse = generateCourse(courseDate)
 
     addCourseThunkAction(newCourse);
-    addAlert('Course was created successfully');
+    goBack();
+  }
+
+  const updateCourse = () => {
+    const isFormValid = checkIsFormValid();
+
+    if( !isFormValid ) return;
+
+    const updatedCourse = generateCourse(course!.creationDate);
+
+    updateCourseThunkAction(course!.id, updatedCourse);
     goBack();
   }
 
@@ -69,10 +133,7 @@ function CreateCourse() {
   const commitAddingAuthor = () => {
     if (newAuthorName === '') return addAlert('Author name should not be empty');
 
-    const authorId = createId();
-
-    const newAuthor: IAuthor = {
-      id: authorId,
+    const newAuthor: IAuthorAction = {
       name: newAuthorName
     }
 
@@ -116,7 +177,7 @@ function CreateCourse() {
 
     return authors.map((author) => {
       const isAuthorSelected = selectedAuthors.find((selectedAuthor) => selectedAuthor.id === author.id)
-      if( isAuthorSelected ) return;
+      if( isAuthorSelected ) return undefined;
       return <Author key={author.id} author={author} onClick={addSelectedAuthor} buttonText='Add'/>
     })
   }, [selectedAuthors, authors])
@@ -133,12 +194,13 @@ function CreateCourse() {
   const courseDuration = formatDuration(duration);
   const toSelectItems = getAuthorsToSelect(authors);
   const selectedItems = getSelectedAuthors(selectedAuthors);
+  const courseActionButtonText = formType === 'CREATE' ? "Create course" : "Update course";
 
   return (
         <div className='create-course'>
             <form
                 className='course-form'
-                onSubmit={createCourse}
+                onSubmit={handleCourseSubmit}
             >
               <fieldset className="course-form-head">
                 <div className="course-form-head-input">
@@ -155,7 +217,7 @@ function CreateCourse() {
                       onClick={goBack}
                   />
                   <Button
-                      buttonText='Create course'
+                      buttonText={courseActionButtonText}
                       type='submit'
                   />
                 </div>
@@ -235,4 +297,4 @@ function CreateCourse() {
   );
 }
 
-export default CreateCourse;
+export default CourseForm;

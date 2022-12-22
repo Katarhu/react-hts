@@ -1,5 +1,6 @@
 import {createContext, ReactNode, useContext, useState} from "react";
-import {IAlert} from "../models/alert";
+
+import {IAlert} from "../components/Alert/model/alert.model";
 
 interface IAlertContext {
     getAlerts: () => IAlert[];

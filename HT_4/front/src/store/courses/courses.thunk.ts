@@ -9,12 +9,12 @@ import {
     deleteCourseSuccessAction,
     getCoursesAction,
     getCoursesFailureAction,
-    getCoursesSuccessAction
+    getCoursesSuccessAction, updateCourseAction, updateCourseFailureAction, updateCourseSuccessAction
 } from './courses.action.creators';
 
-import {addCourse, deleteCourse, getCourses} from '../../services/courses.service';
+import {addCourse, deleteCourse, getCourses, updateCourse} from '../../services/courses.service';
 
-import {ICourse} from '../../models/course';
+import {ICourse, ICourseAction} from '../../models/course';
 
 import {AppThunk} from "../index";
 
@@ -33,17 +33,33 @@ export const getCoursesThunkAction = (): AppThunk<void> => {
     }
 }
 
-export const addCourseThunkAction = (course: ICourse): AppThunk<void> => {
+export const addCourseThunkAction = (course: ICourseAction): AppThunk<void> => {
     return async (dispatch: Dispatch) => {
         dispatch(addCourseAction());
 
         try {
-            await addCourse(course);
+            const newCourse: ICourse = await addCourse(course);
 
-            dispatch(addCourseSuccessAction(course));
+            dispatch(addCourseSuccessAction(newCourse));
         } catch (error) {
             dispatch(addCourseFailureAction(error as string));
 
+        }
+    }
+}
+
+export const updateCourseThunkAction = (id: string, course: ICourseAction): AppThunk<void> => {
+    return async (dispatch: Dispatch) => {
+        dispatch(updateCourseAction());
+
+        try {
+            const updatedCourse = await updateCourse(id, course);
+
+            dispatch(updateCourseSuccessAction(updatedCourse))
+
+        } catch (error) {
+            console.log(error);
+            dispatch(updateCourseFailureAction(error as string))
         }
     }
 }

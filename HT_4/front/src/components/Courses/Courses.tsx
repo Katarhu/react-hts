@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 
 import {useAlert} from '../../context/AlertContext';
 
@@ -11,8 +11,7 @@ import {useActions} from '../../hooks/useAction';
 
 import {useAppSelector} from '../../hooks/redux';
 import {
-  selectCourses,
-  selectCoursesError,
+    selectCoursesError,
   selectCoursesLoading,
   selectFilteredCourses
 } from '../../store/courses/courses.selectors';

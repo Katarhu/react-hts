@@ -39,5 +39,13 @@ export const registerUser = async (credentials: IRegisterCredentials) => {
 }
 
 export const logOut = async () => {
-    localStorage.removeItem('token');
+    try {
+        const { data } = await axios.delete('/logout');
+
+        localStorage.removeItem('token');
+
+    } catch (error: any) {
+        localStorage.removeItem('token');
+
+    }
 }

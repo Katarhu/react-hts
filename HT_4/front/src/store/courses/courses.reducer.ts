@@ -97,6 +97,33 @@ export const coursesReducer = (state = initialState, action: CourseAction) => {
                 )
             }
 
+        case CourseActions.UPDATE_COURSE:
+            return {
+                ...state,
+                loading: CoursesLoadingType.COURSE_ACTION
+            }
+
+        case CourseActions.UPDATE_COURSE_SUCCESS: {
+            const updatedCourses = state.courses.map((course) => course.id === action.payload.id ? action.payload : course);
+
+            return {
+                ...state,
+                loading: CoursesLoadingType.NONE,
+                courses: updatedCourses,
+                filteredCourses: updatedCourses.filter((course) =>
+                    course.title.trim().toLowerCase().startsWith(state.filter.trim().toLowerCase())
+                )
+            }
+        }
+
+
+        case CourseActions.UPDATE_COURSE_FAILURE:
+            return {
+                ...state,
+                loading: CoursesLoadingType.NONE,
+                error: action.payload
+            }
+
         case CourseActions.CLEAR_ERROR:
             return {
                 ...state,

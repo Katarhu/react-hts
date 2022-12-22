@@ -6,7 +6,7 @@ import {useActions} from "../../../../hooks/useAction";
 
 import {useAppSelector} from '../../../../hooks/redux';
 import {selectAuthors} from '../../../../store/authors/authors.selectors';
-import {selectUserIsAdmin, selectUserRole} from "../../../../store/user/user.selectors";
+import {selectUserIsAdmin} from "../../../../store/user/user.selectors";
 
 import {ICourse} from '../../../../models/course';
 import {IAuthor} from '../../../../models/author';
@@ -33,6 +33,7 @@ function CourseCard({ id, title, description, creationDate, duration, authors }:
   }
 
   const handleUpdateCourse = () => {
+    navigate(`/courses/update/${id}`);
   }
 
   const getCourseAuthors = (authors: IAuthor[], courseAuthors: string[]) => {

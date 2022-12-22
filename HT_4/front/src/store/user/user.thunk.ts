@@ -1,4 +1,4 @@
-import {AnyAction, Dispatch} from "redux";
+import {Dispatch} from "redux";
 
 import {
     getUserAction,
@@ -21,7 +21,7 @@ import {IRegisterCredentials} from '../../models/auth/register';
 import {loginUser, logOut, registerUser} from '../../services/auth.service';
 import {getUser} from '../../services/user.service';
 
-import {AppDispatch, AppThunk} from "../index";
+import {AppThunk} from "../index";
 
 
 export const getUserThunkAction = (): AppThunk<void> => {
@@ -75,7 +75,7 @@ export const logoutThunkAction = (): AppThunk<void> => {
 
             dispatch(logOutDoneAction());
         } catch (error) {
-            // dispatch(log)
+            dispatch(logOutDoneAction());
         }
     }
 }

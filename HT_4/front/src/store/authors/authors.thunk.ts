@@ -11,7 +11,7 @@ import {
 
 import {addAuthor, getAuthors} from '../../services/authors.service';
 
-import {IAuthor} from '../../models/author';
+import {IAuthorAction} from '../../models/author';
 
 import {AppThunk} from "../index";
 
@@ -31,14 +31,14 @@ export const getAuthorsThunkAction = (): AppThunk<void> => {
     }
 }
 
-export const addAuthorThunkAction = (author: IAuthor): AppThunk<void> => {
+export const addAuthorThunkAction = (author: IAuthorAction): AppThunk<void> => {
     return async (dispatch: Dispatch) => {
         dispatch(addAuthorAction());
 
         try {
-            await addAuthor(author);
+            const newAuthor = await addAuthor(author);
 
-            dispatch(addAuthorSuccessAction(author));
+            dispatch(addAuthorSuccessAction(newAuthor));
         } catch (error) {
             dispatch(addAuthorFailureAction(error as string));
 

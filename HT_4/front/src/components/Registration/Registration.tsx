@@ -96,8 +96,6 @@ function Registration() {
                                 onChange={name.onChange}
                                 value={name.value}
                                 onBlur={name.onBlur}
-                                errors={name.errors}
-                                isTouched={name.touched}
                                 autoComplete='react-courses-name'
                             />
                         </div>
@@ -114,8 +112,6 @@ function Registration() {
                                 onChange={email.onChange}
                                 value={email.value}
                                 onBlur={email.onBlur}
-                                errors={email.errors}
-                                isTouched={email.touched}
                                 autoComplete='react-courses-email'
                             />
                         </div>
@@ -132,8 +128,6 @@ function Registration() {
                                 onChange={password.onChange}
                                 value={password.value}
                                 onBlur={password.onBlur}
-                                errors={password.errors}
-                                isTouched={password.touched}
                                 type={isShowPassword ? 'text' : 'password'}
                                 autoComplete='react-courses-password'
                             />

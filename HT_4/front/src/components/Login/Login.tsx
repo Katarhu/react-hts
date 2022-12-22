@@ -84,8 +84,6 @@ function Login() {
                       labelText={'Email'}
                       onChange={email.onChange}
                       onBlur={email.onBlur}
-                      isTouched={email.touched}
-                      errors={email.errors}
                       placeholderText={'Enter email'}
                       value={email.value}
                       autoComplete='react-courses-email'
@@ -104,8 +102,6 @@ function Login() {
                       placeholderText={'Enter password'}
                       value={password.value}
                       onBlur={password.onBlur}
-                      isTouched={password.touched}
-                      errors={password.errors}
                       type={isShowPassword ? 'text' : 'password'}
                       autoComplete='react-courses-password'
                   />

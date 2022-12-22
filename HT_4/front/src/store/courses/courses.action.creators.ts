@@ -1,5 +1,6 @@
-import {CourseActions} from './courses.types';
 import * as ActionTypes from './courses.types';
+import {CourseActions} from './courses.types';
+
 import {ICourse} from '../../models/course';
 
 
@@ -14,6 +15,10 @@ export const addCourseFailureAction = (payload: string): ActionTypes.CreateCours
 export const deleteCourseAction = (): ActionTypes.DeleteCourse => ({ type: CourseActions.DELETE_COURSE });
 export const deleteCourseSuccessAction = (payload: string): ActionTypes.DeleteCourseSuccess => ({ type: CourseActions.DELETE_COURSE_SUCCESS, payload});
 export const deleteCourseFailureAction = (payload: string): ActionTypes.DeleteCourseFailure => ({ type: CourseActions.DELETE_COURSE_FAILURE, payload });
+
+export const updateCourseAction = (): ActionTypes.UpdateCourse => ({ type: CourseActions.UPDATE_COURSE });
+export const updateCourseSuccessAction = (payload: ICourse): ActionTypes.UpdateCourseSuccess => ({ type: CourseActions.UPDATE_COURSE_SUCCESS, payload });
+export const updateCourseFailureAction = (payload: string): ActionTypes.UpdateCourseFailure => ({ type: CourseActions.UPDATE_COURSE_FAILURE, payload });
 
 export const changeCourseFilterAction = (payload: string): ActionTypes.CoursesFilterChange => ({ type: CourseActions.FILTER_CHANGE, payload });
 

@@ -4,11 +4,6 @@ export interface IRegisterCredentials {
     password: string;
 }
 
-export interface IRegisterFailure {
-    errors: string[];
-    successful: false;
-}
-
 export interface IRegisterSuccess {
     result: string;
     successful: true;

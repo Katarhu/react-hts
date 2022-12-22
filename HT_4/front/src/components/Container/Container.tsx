@@ -1,16 +1,11 @@
-import styled from 'styled-components'
+import {ReactNode} from "react";
 
-export const Container = styled.div`
-  max-width: 1420px;
-  height: 100%;
-  padding: 0 20px;
-  margin: 0 auto;
-`;
+import './Container.css';
 
-export const FlexContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  
-  padding: 1em 0;
-`
+interface ContainerProps {
+    children: ReactNode;
+}
+
+export const Container = ({ children }: ContainerProps) => <div className='app-container'>{children}</div>
+
+export const FlexContainer = ({ children }: ContainerProps) => <div className='app-container app-flex-container'>{children}</div>

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import './Button.css';
 
 interface ButtonProps {
   buttonText?: string
@@ -9,37 +9,18 @@ interface ButtonProps {
   children?: any;
 }
 
-interface AppButtonProps {
-  small?: boolean
-}
 
 function Button({ buttonText, onClick, small = false, type='button', children, disabled }: ButtonProps) {
   return (
-    <AppButton small={small} onClick={onClick} type={type} disabled={disabled}>
+    <button
+        className={`button ${small ? 'small' : ''}`}
+        onClick={onClick}
+        type={type}
+        disabled={disabled}
+    >
       {children ?? buttonText}
-    </AppButton>
+    </button>
   )
 }
-
-const AppButton = styled.button`
-  font-size: ${(props: AppButtonProps) => ((props.small ?? false) ? '16px' : '20px')};
-  border: 2px solid #676fbb;
-  border-radius: 1em;
-  background: transparent;
-  padding: 0.4em 1.45em;
-
-  &:focus {
-    box-shadow: 0 0 5px rgba(0, 0, 0, .54);
-  }
-
-  &[disabled] {
-    opacity: .8;
-  }
-
-  &:hover {
-    background: #f3f3f3;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .25);
-  }
-`
 
 export default Button

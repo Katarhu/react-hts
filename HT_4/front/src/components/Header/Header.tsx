@@ -12,7 +12,10 @@ import {selectAuthLoading, selectIsAuth, selectUser} from '../../store/user/user
 import getLoader from '../../common/Loader/utils/getLoader';
 import {UserLoadingType} from '../../store/user/user.types';
 
+import ROUTES from "../../contants/routes";
+
 import './Header.css';
+
 
 function Header() {
 
@@ -21,6 +24,7 @@ function Header() {
     const authLoading = useAppSelector(selectAuthLoading);
     const isAuth = useAppSelector(selectIsAuth);
     const user = useAppSelector(selectUser);
+    const greetings = user?.name ? `Hello, ${user.name}` : user?.role ? `Hello, ${user.role}` : 'Hello'
 
     const handleLogOut = () => {
         logoutThunkAction();
@@ -31,7 +35,7 @@ function Header() {
 
         return (
             <>
-                <div className='header-name'>{user?.name ?? 'Hello'}</div>
+                <div className='header-name'>{greetings}</div>
                 <div className='header-button'>
                     <Button onClick={handleLogOut} buttonText={'Logout'} small={true} />
                 </div>
@@ -40,13 +44,14 @@ function Header() {
     }
 
     const loader = getLoader(authLoading, UserLoadingType.LOADING_USER);
+    const headerLinkTo = isAuth ? ROUTES.COURSES : ROUTES.LOGIN;
     const content = getContent(isAuth);
 
     return (
         <header className='header'>
             {loader}
             <div className='header-logo'>
-                <Link to='/'>
+                <Link to={headerLinkTo}>
                     <Logo />
                 </Link>
             </div>

@@ -4,12 +4,12 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import {useAlert} from "./context/AlertContext";
 
 import {useAppSelector} from './hooks/redux';
-import {selectAuthLoading, selectIsAuth, selectUserRole} from './store/user/user.selectors';
+import {selectAuthLoading, selectIsAuth} from './store/user/user.selectors';
 import {UserLoadingType} from './store/user/user.types';
 
 import {useActions} from "./hooks/useAction";
 
-import CreateCourse from './components/Courses/components/CreateCourse/CreateCourse';
+import CourseForm from './components/Courses/components/CourseForm/CourseForm';
 import Registration from './components/Registration/Registration';
 import {FlexContainer} from './components/Container/Container';
 import CourseInfo from './components/CourseInfo/CourseInfo';
@@ -17,15 +17,16 @@ import Courses from './components/Courses/Courses';
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
 
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import PublicRoute from "./components/PublicRoute/PublicRoute";
+import AdminRoute from "./components/AdminRoute/AdminRoute";
+
 import getAlertItems from './components/Alert/utils/getAlerts';
 import getLoader from './common/Loader/utils/getLoader';
 
 import ROUTES from './contants/routes';
 
 import './App.css';
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import PublicRoute from "./components/PublicRoute/PublicRoute";
-import AdminRoute from "./components/AdminRoute/AdminRoute";
 
 
 function App() {
@@ -74,7 +75,11 @@ function App() {
                         </Route>
 
                         <Route path={ROUTES.ADD_COURSE} element={<AdminRoute />}>
-                            <Route path={ROUTES.ADD_COURSE} element={<CreateCourse />}/>
+                            <Route path={ROUTES.ADD_COURSE} element={<CourseForm formType="CREATE"/>}/>
+                        </Route>
+
+                        <Route path={ROUTES.UPDATE_COURSE} element={<AdminRoute />}>
+                            <Route path={ROUTES.UPDATE_COURSE} element={<CourseForm formType="UPDATE"/>}/>
                         </Route>
 
                         <Route path={ROUTES.COURSE} element={<PrivateRoute redirectTo={ROUTES.COURSES}/>}>

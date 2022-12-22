@@ -1,20 +1,20 @@
-import {useAppSelector} from "../../hooks/redux";
-import {selectIsAuth, selectUserRole} from "../../store/user/user.selectors";
 import {Navigate, Outlet} from "react-router-dom";
-import React from "react";
+
+import {useAppSelector} from "../../hooks/redux";
+import {selectIsAuth, selectUserIsAdmin} from "../../store/user/user.selectors";
+
 import ROUTES from "../../contants/routes";
-import {UserRole} from "../../models/user";
 
 
 function AdminRoute() {
     const isAuth = useAppSelector(selectIsAuth);
-    const userRole = useAppSelector(selectUserRole);
+    const isAdmin = useAppSelector(selectUserIsAdmin);
 
     if( !isAuth ) {
         return <Navigate to={ROUTES.LOGIN} />
     }
 
-    if( userRole !== UserRole.ADMIN ) {
+    if( !isAdmin ) {
         return <Navigate to={ROUTES.COURSES} />
     }
 
