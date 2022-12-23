@@ -1,4 +1,4 @@
-import {ChangeEvent, FormEvent, useState} from 'react';
+import {ChangeEvent, FormEvent, useCallback, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import Input from '../../../../common/Input/Input';
@@ -35,9 +35,9 @@ function SearchBar() {
       changeCourseFilterAction(input);
   };
 
-  const addNewCourse = () => {
-    navigate('/courses/add');
-  };
+  const addNewCourse = useCallback(() => {
+      navigate('/courses/add');
+  }, []);
 
   const getSearchBarButtons = (isAdmin: boolean) => {
       if( !isAdmin ) return;

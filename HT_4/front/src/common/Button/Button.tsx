@@ -1,4 +1,5 @@
 import './Button.css';
+import {memo} from 'react';
 
 interface ButtonProps {
   buttonText?: string
@@ -23,4 +24,4 @@ function Button({ buttonText, onClick, small = false, type='button', children, d
   )
 }
 
-export default Button
+export default memo(Button)

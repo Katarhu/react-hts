@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import Button from '../../../../common/Button/Button';
@@ -92,4 +93,4 @@ function CourseCard({ id, title, description, creationDate, duration, authors }:
   );
 }
 
-export default CourseCard;
+export default memo(CourseCard);

@@ -1,9 +1,9 @@
 import Loader from '../Loader';
 
-const getLoader = (loadingType: string, preferredLoadingType: string, size = 1) => {
+const getLoader = (show: boolean, size = 1) => {
 
 
-    if (!(loadingType === preferredLoadingType)) return;
+    if (!show) return;
 
     return (
         <Loader size={size} />

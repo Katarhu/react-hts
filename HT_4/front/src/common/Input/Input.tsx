@@ -1,4 +1,4 @@
-import React, {ChangeEvent, HTMLInputTypeAttribute, useId} from 'react';
+import React, {ChangeEvent, HTMLInputTypeAttribute, memo, useId} from 'react';
 
 import './Input.css';
 
@@ -48,4 +48,4 @@ function Input({
     )
 }
 
-export default Input
+export default memo(Input);

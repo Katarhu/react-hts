@@ -1,7 +1,7 @@
 import {Navigate, Outlet} from "react-router-dom";
 
 import {useAppSelector} from "../../hooks/redux";
-import {selectIsAuth} from "../../store/user/user.selectors";
+import {selectIsAuth} from '../../store/user/user.selectors';
 
 import ROUTES from "../../contants/routes";
 

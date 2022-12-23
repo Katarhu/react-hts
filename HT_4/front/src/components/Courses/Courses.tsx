@@ -11,15 +11,14 @@ import {useActions} from '../../hooks/useAction';
 
 import {useAppSelector} from '../../hooks/redux';
 import {
-    selectCoursesError,
-  selectCoursesLoading,
+  selectCoursesError,
+  selectCoursesIsLoading,
   selectFilteredCourses
 } from '../../store/courses/courses.selectors';
 
 import { ICourse } from '../../models/course';
 
 import getLoader from '../../common/Loader/utils/getLoader';
-import {CoursesLoadingType} from '../../store/courses/courses.types';
 
 import './Courses.css';
 
@@ -29,8 +28,9 @@ function Courses() {
   const {addAlert} = useAlert();
 
   const courses = useAppSelector(selectFilteredCourses);
-  const loading = useAppSelector(selectCoursesLoading);
+  const isCoursesLoading = useAppSelector(selectCoursesIsLoading);
   const error = useAppSelector(selectCoursesError);
+
 
   useEffect(() => {
     if( error ) {
@@ -47,7 +47,7 @@ function Courses() {
     );
   }
 
-  const loader = getLoader(loading, CoursesLoadingType.LOADING_COURSES);
+  const loader = getLoader(isCoursesLoading);
   const courseItems = getFilteredCourseItems(courses);
 
   return (

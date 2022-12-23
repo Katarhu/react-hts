@@ -88,15 +88,6 @@ export const coursesReducer = (state = initialState, action: CourseAction) => {
                 error: action.payload
             }
 
-        case CourseActions.FILTER_CHANGE:
-            return {
-                ...state,
-                filter: action.payload,
-                filteredCourses: state.courses.filter(
-                    (course) => course.title.trim().toLowerCase().startsWith(action.payload.trim().toLowerCase())
-                )
-            }
-
         case CourseActions.UPDATE_COURSE:
             return {
                 ...state,
@@ -122,6 +113,15 @@ export const coursesReducer = (state = initialState, action: CourseAction) => {
                 ...state,
                 loading: CoursesLoadingType.NONE,
                 error: action.payload
+            }
+
+        case CourseActions.FILTER_CHANGE:
+            return {
+                ...state,
+                filter: action.payload,
+                filteredCourses: state.courses.filter(
+                    (course) => course.title.trim().toLowerCase().startsWith(action.payload.trim().toLowerCase())
+                )
             }
 
         case CourseActions.CLEAR_ERROR:

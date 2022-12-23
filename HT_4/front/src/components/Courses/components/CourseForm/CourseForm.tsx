@@ -22,6 +22,7 @@ import ROUTES from "../../../../contants/routes";
 
 import './CourseForm.css';
 
+
 export const CourseFormTypes = {
   CREATE: "CREATE",
   UPDATE: "UPDATE"
@@ -62,9 +63,9 @@ function CourseForm({ formType }: CourseFormProps) {
   );
   const [newAuthorName, setNewAuthorName] = useState('');
 
-  const goBack = () => {
+  const goBack = useCallback(() => {
     navigate(ROUTES.COURSES);
-  }
+  }, [])
 
   const handleCourseSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -130,7 +131,7 @@ function CourseForm({ formType }: CourseFormProps) {
   }
 
 
-  const commitAddingAuthor = () => {
+  const commitAddingAuthor = useCallback(() => {
     if (newAuthorName === '') return addAlert('Author name should not be empty');
 
     const newAuthor: IAuthorAction = {
@@ -139,19 +140,19 @@ function CourseForm({ formType }: CourseFormProps) {
 
     addAuthorThunkAction(newAuthor);
     setNewAuthorName('');
-  }
+  }, [])
 
   const handleInputChange = (event: ChangeEvent, setState: Dispatch<string>) => {
     const inputValue = (event.target as HTMLInputElement).value;
     setState(inputValue);
   }
 
-  const changeCourseDuration = (event: ChangeEvent) => {
+  const changeCourseDuration = useCallback((event: ChangeEvent) => {
     const newDuration = +(event.target as HTMLInputElement).value;
 
     if (!isNaN(newDuration)) setDuration(newDuration);
     else { setDuration(0) }
-  }
+  }, [])
 
   const removeSelectedAuthor = (id: string) => {
     setSelectedAuthors((prev) =>
@@ -208,7 +209,7 @@ function CourseForm({ formType }: CourseFormProps) {
                       labelText='Title'
                       placeholderText='Enter title'
                       value={title}
-                      onChange={(event) => handleInputChange(event, setTitle)}
+                      onChange={(event: ChangeEvent) => handleInputChange(event, setTitle)}
                   />
                 </div>
                 <div className='course-form-head-buttons'>
@@ -251,7 +252,7 @@ function CourseForm({ formType }: CourseFormProps) {
                         labelText='Author name'
                         placeholderText='Enter author name...'
                         value={newAuthorName}
-                        onChange={(event) => handleInputChange(event, setNewAuthorName)}
+                        onChange={(event: ChangeEvent) => handleInputChange(event, setNewAuthorName)}
                     />
                   </div>
                   <div className='course-form-create-button'>

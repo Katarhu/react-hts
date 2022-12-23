@@ -4,8 +4,7 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import {useAlert} from "./context/AlertContext";
 
 import {useAppSelector} from './hooks/redux';
-import {selectAuthLoading, selectIsAuth} from './store/user/user.selectors';
-import {UserLoadingType} from './store/user/user.types';
+import {selectAuthIsUserLoading, selectIsAuth} from './store/user/user.selectors';
 
 import {useActions} from "./hooks/useAction";
 
@@ -36,7 +35,7 @@ function App() {
     const alerts = getAlerts();
 
     const isAuth = useAppSelector(selectIsAuth);
-    const authLoading = useAppSelector(selectAuthLoading);
+    const isUserLoading = useAppSelector(selectAuthIsUserLoading);
 
     useEffect(() => {
         getUserThunkAction();
@@ -51,7 +50,7 @@ function App() {
     }, [isAuth]);
 
 
-    const loader = getLoader(authLoading, UserLoadingType.LOADING_USER );
+    const loader = getLoader(isUserLoading);
     const alertItems = getAlertItems(alerts, removeAlert);
 
     return (

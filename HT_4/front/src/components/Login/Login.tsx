@@ -6,7 +6,7 @@ import {useInput} from '../../hooks/useInput';
 
 
 import {useAppSelector} from "../../hooks/redux";
-import {selectAuthError} from "../../store/user/user.selectors";
+import {selectAuthError} from '../../store/user/user.selectors';
 
 import {useActions} from '../../hooks/useAction';
 
@@ -60,8 +60,6 @@ function Login() {
   const togglePasswordType = () => {
     setIsShowPassword((prev) => !prev);
   }
-
-
 
   const isFormValid = getIsFormValid(email.isValid, password.isValid);
   const formError = getFormError(error);
