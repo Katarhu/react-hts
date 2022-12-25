@@ -9,6 +9,7 @@ interface AlertProps {
 
 export const Alert = ({ children, onAnimationEnd }: AlertProps) =>
     <div
+        data-testid="alert-element"
         className='alert'
         onAnimationEnd={onAnimationEnd}
     >

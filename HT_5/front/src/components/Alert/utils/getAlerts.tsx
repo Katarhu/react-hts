@@ -2,7 +2,7 @@ import {IAlert} from '../model/alert.model';
 import {Alert} from '../Alert';
 
 const getAlertItems = (alerts: IAlert[], removeAlert: (id: number) => void) => {
-    if( !alerts.length ) return null;
+    if( !alerts.length ) return;
 
     return (
         <div className='alerts'>

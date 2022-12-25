@@ -2,7 +2,6 @@ import Loader from '../Loader';
 
 const getLoader = (show: boolean, size = 1) => {
 
-
     if (!show) return;
 
     return (

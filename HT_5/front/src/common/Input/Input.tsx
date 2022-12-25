@@ -4,7 +4,6 @@ import './Input.css';
 
 interface InputProps {
   labelText?: string;
-  placeholderText?: string;
   onChange?: (event: ChangeEvent) => any;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => any;
   type?: HTMLInputTypeAttribute;
@@ -14,25 +13,19 @@ interface InputProps {
 
 function Input({
     labelText = '',
-    onChange,
     type = 'text',
     value,
     onBlur,
+    onChange,
     autoComplete
 }: InputProps) {
+
     const id = useId();
-
-    const getLabel = (labelText?: string) => {
-        if (labelText == null || labelText === '') return <></>;
-
-        return <label className="input-label" htmlFor={id}>{labelText}</label>
-    }
-
-    const label = getLabel(labelText);
 
     return (
         <div className='input-container'>
             <input
+                data-testid="common-input"
                 className="input"
                 id={id}
                 type={type}
@@ -43,7 +36,7 @@ function Input({
                 min={0}
                 autoComplete={autoComplete}
             />
-            {label}
+            <label className="input-label" data-testid="common-input-label" htmlFor={id}>{labelText}</label>
         </div>
     )
 }
