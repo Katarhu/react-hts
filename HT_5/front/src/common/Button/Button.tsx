@@ -14,6 +14,7 @@ interface ButtonProps {
 function Button({ buttonText, onClick, small = false, type='button', children, disabled }: ButtonProps) {
   return (
     <button
+        data-testid="common-button"
         className={`button ${small ? 'small' : ''}`}
         onClick={onClick}
         type={type}

@@ -1,5 +1,5 @@
 const getIsFormValid = (...isValidInput: boolean[]) => {
-    return isValidInput.every((isValid) => isValid);
+    return isValidInput.every(Boolean);
 }
 
 export default getIsFormValid;

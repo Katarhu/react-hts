@@ -11,7 +11,6 @@ const value = "value";
 const type = "text";
 const labelText = "label text";
 
-
 describe('Common input element', () => {
 
     let inputElement: HTMLInputElement;
