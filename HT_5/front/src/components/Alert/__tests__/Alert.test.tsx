@@ -18,8 +18,6 @@ describe('Alert component' , () => {
 
     it('Should create alert component', () => {
         expect(alertElement).toBeInTheDocument();
-
-        screen.debug();
     });
 
     it('should display Alert Text inside', () => {

@@ -8,7 +8,8 @@ interface InputProps {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => any;
   type?: HTMLInputTypeAttribute;
   value: string | number;
-  autoComplete?: string
+  autoComplete?: string;
+  testId?: string;
 }
 
 function Input({
@@ -17,7 +18,8 @@ function Input({
     value,
     onBlur,
     onChange,
-    autoComplete
+    autoComplete,
+    testId = "common-input"
 }: InputProps) {
 
     const id = useId();
@@ -25,7 +27,7 @@ function Input({
     return (
         <div className='input-container'>
             <input
-                data-testid="common-input"
+                data-testid={testId}
                 className="input"
                 id={id}
                 type={type}

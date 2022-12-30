@@ -1,4 +1,3 @@
-import getIsFormCorrect from '../getIsFormCorrect';
 import getIsFormValid from '../getIsFormCorrect';
 
 
@@ -18,6 +17,6 @@ describe('Is form correct util', () => {
     it('should return false', () => {
         const values: boolean[] = [];
 
-        expect(getIsFormValid(...values)).toBe(false);
+        expect(getIsFormValid(...values)).toBe(true);
     })
 })

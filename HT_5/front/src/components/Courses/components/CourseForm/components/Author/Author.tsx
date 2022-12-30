@@ -14,7 +14,7 @@ interface AuthorProps {
 
 function Author({ author, onClick, buttonText }: AuthorProps) {
     return (
-        <div className='course-form-author' key={author.id}>
+        <div className='course-form-author' key={author.id} data-testid="author">
             <p className='course-form-author-name'>{author.name}</p>
             <div className='course-form-author-button'>
                 <Button

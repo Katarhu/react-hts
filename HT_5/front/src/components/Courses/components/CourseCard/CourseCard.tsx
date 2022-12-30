@@ -47,8 +47,8 @@ function CourseCard({ id, title, description, creationDate, duration, authors }:
 
       if (author == null) return '';
 
-      if (index === courseAuthors.length - 1) return author.name;
-      return author.name + ', ';
+      if (index === courseAuthors.length - 1) return <span key={courseAuthorId} data-testid="course-card-author">{author.name}</span>;
+      return <span key={courseAuthorId} data-testid="course-card-author">{author.name + ', '}</span>;
     })
   }
 
@@ -69,10 +69,10 @@ function CourseCard({ id, title, description, creationDate, duration, authors }:
   const courseAdminButtons = getCourseAdminButtons(isUserAdmin);
 
   return (
-      <div className='course'>
+      <div className='course' data-testid="course-card">
         <div className='course-text'>
-          <h3 className='course-title'>{title}</h3>
-          <p className='course-content'>{description}</p>
+          <h3 className='course-title' data-testid="course-card-title">{title}</h3>
+          <p className='course-content' data-testid="course-card-description">{description}</p>
         </div>
         <div className='course-side'>
           <div className='course-details'>
@@ -80,12 +80,12 @@ function CourseCard({ id, title, description, creationDate, duration, authors }:
               <li className='course-list-item course-list-authors'><strong>Authors: </strong>
                 {courseAuthors}
               </li>
-              <li className='course-list-item'><strong>Duration: </strong>{courseDuration} hours</li>
-              <li className='course-list-item'><strong>Created: </strong>{courseDate}</li>
+              <li className='course-list-item' data-testid="course-card-duration"><strong>Duration: </strong>{courseDuration} hours</li>
+              <li className='course-list-item' data-testid="course-card-date"><strong>Created: </strong>{courseDate}</li>
             </ul>
           </div>
-          <div className='course-buttons'>
-            <Button onClick={showCourse} buttonText={'Show Course'}/>
+          <div className='course-buttons' data-testid="course-card-buttons">
+            <Button onClick={showCourse} buttonText={'Show Course'} testId="course-card-show" />
             {courseAdminButtons}
           </div>
         </div>

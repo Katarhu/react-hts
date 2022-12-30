@@ -26,7 +26,7 @@ import './CourseForm.css';
 export const CourseFormTypes = {
   CREATE: "CREATE",
   UPDATE: "UPDATE"
-} as const
+} as const;
 
 type CourseFormType = keyof typeof CourseFormTypes;
 
@@ -198,7 +198,7 @@ function CourseForm({ formType }: CourseFormProps) {
   const courseActionButtonText = formType === 'CREATE' ? "Create course" : "Update course";
 
   return (
-        <div className='create-course'>
+        <div className='create-course' data-testid="course-form">
             <form
                 className='course-form'
                 onSubmit={handleCourseSubmit}
@@ -207,7 +207,6 @@ function CourseForm({ formType }: CourseFormProps) {
                 <div className="course-form-head-input">
                   <Input
                       labelText='Title'
-                      placeholderText='Enter title'
                       value={title}
                       onChange={(event: ChangeEvent) => handleInputChange(event, setTitle)}
                   />
@@ -236,7 +235,6 @@ function CourseForm({ formType }: CourseFormProps) {
                       className='course-form-description-input'
                       cols={30}
                       rows={10}
-                      placeholder='Enter description'
                       value={description}
                       onChange={(event) => handleInputChange(event, setDescription)}
                   >
@@ -249,16 +247,17 @@ function CourseForm({ formType }: CourseFormProps) {
                   <h2 className='course-form-title'>Add author</h2>
                   <div className='course-form-create-input'>
                     <Input
+                        testId="course-form-author-input"
                         labelText='Author name'
-                        placeholderText='Enter author name...'
                         value={newAuthorName}
                         onChange={(event: ChangeEvent) => handleInputChange(event, setNewAuthorName)}
                     />
                   </div>
-                  <div className='course-form-create-button'>
+                  <div className='course-form-author-button'>
                     <Button
                       buttonText='Create author'
                       onClick={commitAddingAuthor}
+                      testId="course-form-author-add"
                     />
                   </div>
                 </fieldset>

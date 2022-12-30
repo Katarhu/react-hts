@@ -8,13 +8,14 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   children?: any;
+  testId?: string;
 }
 
 
-function Button({ buttonText, onClick, small = false, type='button', children, disabled }: ButtonProps) {
+function Button({ buttonText, onClick, small = false, type='button', children, disabled, testId="common-button" }: ButtonProps) {
   return (
     <button
-        data-testid="common-button"
+        data-testid={testId}
         className={`button ${small ? 'small' : ''}`}
         onClick={onClick}
         type={type}

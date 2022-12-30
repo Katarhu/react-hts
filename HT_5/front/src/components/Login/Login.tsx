@@ -12,7 +12,6 @@ import {useActions} from '../../hooks/useAction';
 
 import getErrorsPopup from '../../utils/errors/generateErrorPopup';
 import getIsFormValid from '../../utils/errors/getIsFormCorrect';
-import getFormError from '../../utils/errors/getFormError';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
@@ -62,7 +61,7 @@ function Login() {
   }
 
   const isFormValid = getIsFormValid(email.isValid, password.isValid);
-  const formError = getFormError(error);
+  const formError =  error === '' ? undefined : <p className="form-error">{error}</p>
 
   const emailErrors = getErrorsPopup(email.errors, email.touched);
   const passwordErrors = getErrorsPopup(password.errors, password.touched);
@@ -82,7 +81,6 @@ function Login() {
                       labelText={'Email'}
                       onChange={email.onChange}
                       onBlur={email.onBlur}
-                      placeholderText={'Enter email'}
                       value={email.value}
                       autoComplete='react-courses-email'
                   />
@@ -97,7 +95,6 @@ function Login() {
                   <Input
                       labelText={'Password'}
                       onChange={password.onChange}
-                      placeholderText={'Enter password'}
                       value={password.value}
                       onBlur={password.onBlur}
                       type={isShowPassword ? 'text' : 'password'}

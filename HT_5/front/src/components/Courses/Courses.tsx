@@ -40,7 +40,7 @@ function Courses() {
   }, [error]);
 
   const getFilteredCourseItems = (courses: ICourse[]) => {
-    if (courses.length === 0) return <div>There is no courses</div>
+    if (courses.length === 0) return <div data-testid="courses-empty">There is no courses</div>
 
     return courses.map((course) =>
         <CourseCard key={course.id} {...course}/>
@@ -51,7 +51,7 @@ function Courses() {
   const courseItems = getFilteredCourseItems(courses);
 
   return (
-        <div className='courses'>
+        <div className='courses' data-testid="courses">
           <SearchBar />
           <div className='courses-items'>
             {loader}

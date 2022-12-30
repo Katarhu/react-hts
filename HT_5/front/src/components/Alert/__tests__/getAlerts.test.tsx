@@ -37,8 +37,6 @@ describe('getAlerts', () => {
         const alertItemsQuery = screen.getAllByTestId(alertTestId);
 
         expect(alertItemsQuery.length).toBe(mockedAlerts.length);
-
-        screen.debug();
     });
 
     it('should return undefined if array is empty', function () {

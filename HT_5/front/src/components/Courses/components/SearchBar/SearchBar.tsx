@@ -44,7 +44,7 @@ function SearchBar() {
 
       return (
           <div className="search-bar-button">
-              <Button buttonText={'Add new course'} onClick={addNewCourse}/>
+              <Button buttonText={'Add new course'} testId="search-bar-add" onClick={addNewCourse}/>
           </div>
       )
   }
@@ -55,13 +55,14 @@ function SearchBar() {
         <form
             className="search-bar"
             onSubmit={onSubmit}
+            data-testid="search-bar"
         >
             <div className="search-bar-search">
                 <div className='search-bar-search-input'>
                     <Input labelText='Search course' onChange={inputChange} value={input}/>
                 </div>
                 <div className='search-bar-search-button'>
-                    <Button buttonText={'Search'} type='submit'/>
+                    <Button buttonText={'Search'} type='submit' />
                 </div>
             </div>
             {searchBarButtons}

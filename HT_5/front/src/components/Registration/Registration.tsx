@@ -6,7 +6,6 @@ import {useInput} from '../../hooks/useInput';
 
 import getErrorsPopup from '../../utils/errors/generateErrorPopup';
 import getIsFormValid from '../../utils/errors/getIsFormCorrect';
-import getFormError from '../../utils/errors/getFormError';
 
 import {useActions} from '../../hooks/useAction';
 
@@ -72,7 +71,7 @@ function Registration() {
         setIsShowPassword((prev) => !prev);
     }
 
-    const formError = getFormError(error);
+    const formError =  error === '' ? undefined : <p className="form-error">{error}</p>
     const isFormValid = getIsFormValid(name.isValid, email.isValid, password.isValid);
 
     const nameErrors = getErrorsPopup(name.errors, name.touched);
@@ -92,7 +91,6 @@ function Registration() {
                         <div className='form-fieldset-errored-input'>
                             <Input
                                 labelText={'Name'}
-                                placeholderText={'Enter name'}
                                 onChange={name.onChange}
                                 value={name.value}
                                 onBlur={name.onBlur}
@@ -108,7 +106,6 @@ function Registration() {
                         <div className='form-fieldset-errored-input'>
                             <Input
                                 labelText={'Email'}
-                                placeholderText={'Enter email'}
                                 onChange={email.onChange}
                                 value={email.value}
                                 onBlur={email.onBlur}
@@ -124,7 +121,6 @@ function Registration() {
                         <div className='form-fieldset-errored-input'>
                             <Input
                                 labelText={'Password'}
-                                placeholderText={'Enter password'}
                                 onChange={password.onChange}
                                 value={password.value}
                                 onBlur={password.onBlur}
