@@ -80,14 +80,17 @@ function CourseForm({ formType }: CourseFormProps) {
       addAlert('Title is required')
       return false;
     }
+
     if( !description ) {
       addAlert('Description is required');
       return false;
     }
+
     if( duration === 0 ) {
       addAlert('Duration should be more than 0')
       return false;
     }
+
     return true;
   }
 
@@ -179,15 +182,27 @@ function CourseForm({ formType }: CourseFormProps) {
     return authors.map((author) => {
       const isAuthorSelected = selectedAuthors.find((selectedAuthor) => selectedAuthor.id === author.id)
       if( isAuthorSelected ) return undefined;
-      return <Author key={author.id} author={author} onClick={addSelectedAuthor} buttonText='Add'/>
+      return <Author
+          testId="author_to_select"
+          key={author.id}
+          author={author}
+          onClick={addSelectedAuthor}
+          buttonText='Add'
+      />
     })
   }, [selectedAuthors, authors])
 
   const getSelectedAuthors = useCallback((authors: IAuthor[]) => {
-    if( !authors.length ) return <div>There is no authors to select</div>
+    if( !authors.length ) return <div>There is no selected authors</div>
 
     return authors.map((author) => (
-        <Author key={author.id} author={author} onClick={removeSelectedAuthor} buttonText='Remove'/>
+        <Author
+            testId="author_selected"
+            key={author.id}
+            author={author}
+            onClick={removeSelectedAuthor}
+            buttonText='Remove'
+        />
     ))
   }, [selectedAuthors])
 
@@ -206,6 +221,7 @@ function CourseForm({ formType }: CourseFormProps) {
               <fieldset className="course-form-head">
                 <div className="course-form-head-input">
                   <Input
+                      testId='course-form-title'
                       labelText='Title'
                       value={title}
                       onChange={(event: ChangeEvent) => handleInputChange(event, setTitle)}
@@ -217,6 +233,7 @@ function CourseForm({ formType }: CourseFormProps) {
                       onClick={goBack}
                   />
                   <Button
+                      testId="course-form-action-button"
                       buttonText={courseActionButtonText}
                       type='submit'
                   />
@@ -231,6 +248,7 @@ function CourseForm({ formType }: CourseFormProps) {
                     Description
                   </label>
                   <textarea
+                      data-testid='course-form-description'
                       id="course-form-description-input"
                       className='course-form-description-input'
                       cols={30}
@@ -272,6 +290,7 @@ function CourseForm({ formType }: CourseFormProps) {
                 <fieldset className='course-form-duration'>
                   <div className='course-form-duration-input'>
                     <Input
+                        testId='course-form-duration'
                         labelText='Duration'
                         type='number'
                         value={duration}
