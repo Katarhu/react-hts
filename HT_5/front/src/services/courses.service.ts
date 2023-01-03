@@ -13,6 +13,7 @@ export const getCourses = async () => {
         return data.result;
 
     } catch (error: any) {
+        // throw error;
         throw error?.response?.data?.result ?? "Could not get courses";
     }
 }
